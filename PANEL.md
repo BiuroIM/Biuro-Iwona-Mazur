@@ -72,11 +72,22 @@ zostają w repo.
 
 Rzeczy, których nie da się zrobić z kodu. Kolejność ma znaczenie.
 
-### 1. Repozytorium git
+### 1. Repozytorium git ✅ zrobione
 
-Dotyczy wariantu A. Bez repozytorium GitHub nie ma kto zbudować strony po zapisaniu wpisu.
-To też punkt 1 z `do_zrobienia.md`. Przy wariancie B ten krok możesz pominąć, ale wtedy
-zostajesz bez kopii i historii kodu.
+Kod leży w prywatnym repozytorium **`BiuroIM/Biuro-Iwona-Mazur`**, gałąź `main`.
+Właścicielem jest konto `BiuroIM`, czyli konto firmowe, a nie prywatne konto osoby
+technicznej. Z rzeczy, które łatwo przeoczyć przy kolejnych zmianach:
+
+- gałąź musi nazywać się `main`, bo na nią nasłuchuje `deploy.yml`,
+- `.claude/settings.local.json` i `scripts/publish-state.json` są w `.gitignore`,
+  bo to pliki jednej maszyny, nie projektu,
+- `.env` **nigdy** nie trafia do repo. Sekrety produkcyjne żyją w ustawieniach GitHuba.
+
+`BiuroIM` jest kontem osobowym, nie Organizacją. Dla jednej firmy jest to dopuszczalne
+(regulamin dopuszcza jedno darmowe konto na osobę **lub podmiot prawny**), pod warunkiem
+że **nie dajesz tego samego loginu kilku osobom**. Gdy do projektu wejdzie druga osoba
+techniczna, dodaj ją jako collaboratora na jej własnym koncie, a nie przez podanie hasła.
+GitHub pozwala też później przekształcić konto w Organizację bez przenoszenia repozytorium.
 
 ```
 git init
@@ -121,13 +132,12 @@ wisi na prywatnym koncie.
 
 Trigger w bazie musi umieć poprosić GitHuba o build.
 
-1. GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens.
-2. Jako **Resource owner wybierz organizację**, nie siebie. Token wystawiony na konto
-   osobiste nie widzi repo organizacji. Dostęp tylko do tego jednego repozytorium,
+1. **Zaloguj się na konto, które jest właścicielem repozytorium** (`BiuroIM`), nie na swoje
+   prywatne. Token fine-grained widzi wyłącznie repozytoria należące do konta, które go
+   wystawiło, więc token współpracownika po prostu nie zobaczy tego repo.
+2. GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens.
+3. Resource owner: `BiuroIM`. Dostęp tylko do repozytorium `Biuro-Iwona-Mazur`,
    uprawnienie **Contents: Read and write**.
-3. W organizacji: Settings → Personal access tokens → Settings → **Allow access via
-   fine-grained personal access tokens**. Domyślnie organizacje to blokują, a wtedy trigger
-   dostaje `403` i nikt nie wie dlaczego.
 4. W Supabase, w SQL Editor:
 
 ```sql
@@ -140,11 +150,10 @@ on conflict (key) do update set value = excluded.value;
 Tabela `app_settings` ma włączony RLS i **zero polityk**, więc nikt z przeglądarki jej
 nie przeczyta. Trigger czyta ją jako `security definer`, czyli z uprawnieniami właściciela.
 
-Jeżeli mimo punktu 3 trigger dostaje `Resource not accessible by personal access token`,
-to znana bolączka tokenów fine-grained przy `repository_dispatch` w organizacjach.
-Wystaw wtedy **token klasyczny** (Tokens (classic)) z zakresem `repo` i podmień wartość
-`github_token`. Diagnostyka odpowiedzi jest opisana niżej, w sekcji o wpisie, który się
-nie pojawia.
+Jeżeli trigger dostaje `Resource not accessible by personal access token`, to znana
+bolączka tokenów fine-grained przy `repository_dispatch`. Wystaw wtedy **token klasyczny**
+(Tokens (classic)) z zakresem `repo` i podmień wartość `github_token`. Diagnostyka
+odpowiedzi jest opisana niżej, w sekcji o wpisie, który się nie pojawia.
 
 ### 4. Sekrety w GitHubie (tylko wariant A)
 
