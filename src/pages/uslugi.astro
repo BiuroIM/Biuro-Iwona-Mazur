@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import womanDesk from '../assets/stock/business-woman-desk-wide.jpg';
+
+const MARQUEE_REPEATS = 3;
+const DASH_LENGTH = 'clamp(3.5rem,9vw,11rem)';
+const DASH_THICKNESS = 'clamp(0.3rem,0.8vw,1rem)';
+
+const services = [
+  'Księga przychodów i rozchodów',
+  'Pełna księgowość',
+  'Ewidencja VAT i pliki JPK',
+  'Deklaracje i rozliczenia roczne',
+  'Kadry i płace',
+  'Rozliczenia ZUS',
+  'Doradztwo podatkowe',
+  'Zakładanie działalności i spółek',
+  'Reprezentacja przed urzędami',
+  'Sprawozdania finansowe',
+];
+---
+<BaseLayout
+  title="Usługi"
+  description="Księgowość, kadry i płace, doradztwo podatkowe, rozliczenia z ZUS i US oraz zakładanie firm. Pełny zakres usług biura rachunkowego."
+>
+  <section class="flex min-h-screen flex-col px-[2vw] pt-40 max-lg:px-[4vw] max-lg:pt-28">
+    <div class="-mx-[2vw] overflow-hidden pt-[0.5vw] pb-[3.6vw] -mt-[0.5vw] -mb-[1.6vw] max-lg:-mx-[4vw] max-lg:pt-[0.6vw] max-lg:pb-[4.2vw] max-lg:-mt-[0.6vw] max-lg:mb-[4.8vw]" aria-hidden="true">
+      <div
+        class="marquee-track marquee-track--hero flex w-max items-center gap-[clamp(1rem,3vw,4rem)]"
+      >
+        {
+          Array.from({ length: MARQUEE_REPEATS * 2 }).map(() => (
+            <>
+              <span class="text-trim shrink-0 font-display text-[18vw] font-medium uppercase leading-[0.85] text-ink max-lg:text-[21vw]">
+                Usługi
+              </span>
+              <span
+                class="shrink-0 rounded-full bg-ink"
+                style={`width:${DASH_LENGTH};height:${DASH_THICKNESS}`}
+              ></span>
+            </>
+          ))
+        }
+      </div>
+    </div>
+
+    <h1 class="sr-only">Usługi</h1>
+
+    <div
+      class="relative mt-auto h-[80vh] shrink-0 overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] bg-placeholder max-lg:h-auto max-lg:flex-1"
+      data-image-reveal
+    >
+      <Image
+        src={womanDesk}
+        alt="Księgowa przy biurku w trakcie pracy nad dokumentami"
+        class="parallax-img"
+        data-parallax
+        widths={[768, 1280, 2000]}
+        sizes="(width < 64rem) 92vw, 96vw"
+        loading="eager"
+      />
+      <div class="reveal-panel absolute inset-0 z-10 bg-[var(--page-background)]"></div>
+    </div>
+  </section>
+
+  <section class="mt-[4vw] px-[2vw] max-lg:mt-[8vw] max-lg:px-[4vw]">
+    <p
+      class="ml-auto w-[75vw] indent-[14%] font-sans text-[clamp(1.5rem,2.6vw,4.5rem)] font-medium leading-[1.12] tracking-[-0.02em] text-graphite max-lg:w-full max-lg:indent-0 max-lg:text-[clamp(1.15rem,5.4vw,2.1rem)] max-lg:leading-[1.3] max-lg:tracking-normal"
+      data-words-scrub
+      data-from="0.3"
+      data-to="1"
+      data-start="top 92%"
+      data-end="bottom 68%"
+    >
+      In an endlress steam of stimulations, selected. is a cultural landmark
+      for carefully curated music taste. We are aiming to define and set
+      the trend, not to follow it
+    </p>
+  </section>
+
+  <section class="mt-[6vw] px-[2vw] max-lg:mt-[12vw] max-lg:px-[4vw]">
+    <p
+      class="mb-[clamp(0.2rem,0.35vw,0.5rem)] font-display text-[clamp(0.6rem,0.75vw,0.9rem)] font-medium uppercase tracking-[0.25em] text-graphite/75 max-lg:mb-[1vw] max-lg:text-[clamp(0.65rem,3vw,0.95rem)]"
+      data-animate="fade-up"
+    >
+      Czym się zajmujemy?
+    </p>
+
+    <ul class="-mx-[2vw] border-t border-graphite/20 max-lg:-mx-[4vw]" data-animate="fade-up" data-delay="0.1">
+      {
+        services.map((service) => (
+          <li class="border-b border-graphite/20">
+            <button
+              type="button"
+              class="group relative flex w-full cursor-pointer items-center gap-[2vw] overflow-hidden px-[2vw] py-[clamp(0.85rem,1.5vw,2rem)] text-left max-lg:px-[4vw]"
+              aria-haspopup="dialog"
+              aria-label={`${service}: napisz do nas w tej sprawie`}
+              data-open-form
+            >
+              <span
+                class="absolute inset-0 origin-center scale-y-0 bg-ink transition-transform duration-200 ease-quad-out group-hover:scale-y-100"
+                aria-hidden="true"></span>
+
+              <span class="relative z-10 font-sans text-[clamp(1.25rem,2.8vw,3.5rem)] font-medium uppercase leading-[1.1] text-graphite transition-all duration-500 ease-quad-out group-hover:translate-x-[4vw] group-hover:text-canvas max-lg:text-[clamp(1.05rem,5.6vw,1.9rem)]">
+                {service}
+              </span>
+
+              <span
+                class="relative z-10 ml-auto flex h-[clamp(1.25rem,2vw,2.5rem)] w-[clamp(1.25rem,2vw,2.5rem)] shrink-0 text-graphite transition-all duration-500 ease-quad-out group-hover:-translate-x-[4vw] group-hover:text-canvas max-lg:h-[5.5vw] max-lg:w-[5.5vw]"
+                aria-hidden="true"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="h-full w-full"
+                >
+                  <path d="M19 12H5" />
+                  <path d="m11 6-6 6 6 6" />
+                </svg>
+              </span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+</BaseLayout>

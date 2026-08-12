@@ -1,0 +1,23 @@
+---
+import { Font } from 'astro:assets';
+import PanelApp from '../components/panel/PanelApp.jsx';
+import '../styles/global.css';
+---
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <title>Panel wpisów — Biuro Rachunkowe Iwona Mazur</title>
+
+    <Font cssVariable="--font-satoshi" preload />
+    <Font cssVariable="--font-clash" preload />
+  </head>
+
+  <body class="min-h-screen font-sans text-graphite antialiased">
+    <PanelApp client:only="react" />
+  </body>
+</html>

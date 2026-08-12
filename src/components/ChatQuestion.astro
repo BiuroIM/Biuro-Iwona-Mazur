@@ -1,0 +1,44 @@
+---
+interface Props {
+  question: string;
+  answer: string;
+}
+
+const { question, answer } = Astro.props;
+
+const arrow =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="h-[1em] w-[1em]" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>';
+---
+<li data-chat-item data-asked="false">
+  <button
+    type="button"
+    class="group relative flex w-full cursor-pointer items-start justify-between gap-[10px] overflow-hidden rounded-[12px] border border-canvas/15 bg-canvas/5 px-[14px] py-[10px] text-left font-sans text-[14.5px] font-medium leading-[1.3] transition-colors duration-300 hover:border-canvas/35 max-lg:px-[12px] max-lg:py-[9px] max-lg:text-[12.5px]"
+    data-chat-question
+  >
+    <span
+      class="pointer-events-none absolute inset-0 origin-bottom scale-y-0 bg-canvas/12 transition-transform duration-300 ease-out group-hover:scale-y-100"
+      aria-hidden="true"></span>
+
+    <span
+      class="relative z-10 text-canvas/85 transition-[transform,translate,color] duration-300 ease-out group-hover:translate-x-[3px] group-hover:text-canvas"
+      data-chat-label
+    >
+      {question}
+    </span>
+
+    <span class="relative z-10 mt-[1px] block h-[1.15em] w-[1em] shrink-0 overflow-hidden text-canvas/45" aria-hidden="true">
+      <span
+        class="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-out group-hover:translate-x-[150%]"
+        set:html={arrow}
+      />
+      <span
+        class="absolute inset-0 flex -translate-x-[150%] items-center justify-center text-canvas transition-transform duration-500 ease-out group-hover:translate-x-0"
+        set:html={arrow}
+      />
+    </span>
+  </button>
+
+  <div class="h-0 overflow-hidden" aria-hidden="true" data-chat-answer>
+    <p>{answer}</p>
+  </div>
+</li>

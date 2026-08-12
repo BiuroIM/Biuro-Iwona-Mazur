@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /panel
+
+Sitemap: https://biuro-mazur.pl/sitemap-index.xml

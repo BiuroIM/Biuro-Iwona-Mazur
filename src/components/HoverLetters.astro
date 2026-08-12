@@ -1,0 +1,28 @@
+---
+interface Props {
+  text: string;
+  step?: number;
+}
+
+const { text, step = 30 } = Astro.props;
+const chars = [...text];
+---
+<span class="inline-block align-bottom">
+  {
+    chars.map((ch, i) =>
+      ch === ' ' ? (
+        <span class="inline-block w-[0.3em]"></span>
+      ) : (
+        <span class="inline-block h-[1.15em] overflow-hidden align-bottom leading-[1.15]">
+          <span
+            class="block -translate-y-1/2 transition-transform duration-500 ease-out group-hover:translate-y-0"
+            style={`transition-delay:${i * step}ms`}
+          >
+            <span class="block">{ch}</span>
+            <span class="block">{ch}</span>
+          </span>
+        </span>
+      )
+    )
+  }
+</span>

@@ -1,0 +1,205 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SpecialistsSlider from '../components/SpecialistsSlider.astro';
+import { Image } from 'astro:assets';
+import officeTeam from '../assets/stock/elegant-business-lady-office.jpg';
+
+const MARQUEE_REPEATS = 3;
+const DASH_LENGTH = 'clamp(3.5rem,9vw,11rem)';
+const DASH_THICKNESS = 'clamp(0.3rem,0.8vw,1rem)';
+
+const specialists = [
+  { firstName: 'Imię i nazwisko', role: 'Główny księgowy' },
+  { firstName: 'Imię i nazwisko', role: 'Doradca podatkowy' },
+  { firstName: 'Imię i nazwisko', role: 'Specjalista ds. kadr i płac' },
+  { firstName: 'Imię i nazwisko', role: 'Księgowy' },
+  { firstName: 'Imię i nazwisko', role: 'Specjalista ds. rozliczeń ZUS' },
+  { firstName: 'Imię i nazwisko', role: 'Księgowy' },
+  { firstName: 'Imię i nazwisko', role: 'Specjalista ds. podatku VAT' },
+  { firstName: 'Imię i nazwisko', role: 'Analityk finansowy' },
+  { firstName: 'Imię i nazwisko', role: 'Obsługa klienta' },
+];
+
+---
+<BaseLayout
+  title="O nas"
+  description="Poznaj Biuro Rachunkowe Iwona Mazur — księgowość, kadry i płace oraz doradztwo podatkowe dla firm każdej wielkości."
+>
+  <section class="flex min-h-screen flex-col px-[2vw] pt-40 max-lg:px-[4vw] max-lg:pt-28">
+    <div class="-mx-[2vw] overflow-hidden pt-[0.5vw] pb-[3.6vw] -mt-[0.5vw] -mb-[1.6vw] max-lg:-mx-[4vw] max-lg:pt-[0.6vw] max-lg:pb-[4.2vw] max-lg:-mt-[0.6vw] max-lg:mb-[4.8vw]" aria-hidden="true">
+      <div
+        class="marquee-track marquee-track--hero flex w-max items-center gap-[clamp(1rem,3vw,4rem)]"
+      >
+        {
+          Array.from({ length: MARQUEE_REPEATS * 2 }).map(() => (
+            <>
+              <span class="text-trim shrink-0 font-display text-[18vw] font-medium uppercase leading-[0.85] text-ink max-lg:text-[21vw]">
+                O nas
+              </span>
+              <span
+                class="shrink-0 rounded-full bg-ink"
+                style={`width:${DASH_LENGTH};height:${DASH_THICKNESS}`}
+              ></span>
+            </>
+          ))
+        }
+      </div>
+    </div>
+
+    <h1 class="sr-only">O nas</h1>
+
+    <div
+      class="relative mt-auto h-[80vh] shrink-0 overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] bg-placeholder max-lg:h-auto max-lg:flex-1"
+      data-image-reveal
+    >
+      <Image
+        src={officeTeam}
+        alt="Zespół biura rachunkowego w jasnym, otwartym wnętrzu"
+        class="parallax-img"
+        data-parallax
+        widths={[768, 1280, 2000]}
+        sizes="(width < 64rem) 92vw, 96vw"
+        loading="eager"
+      />
+      <div class="reveal-panel absolute inset-0 z-10 bg-[var(--page-background)]"></div>
+    </div>
+  </section>
+
+  <section class="mt-[4vw] px-[2vw] max-lg:mt-[8vw] max-lg:px-[4vw]">
+    <p
+      class="ml-auto w-[75vw] indent-[14%] font-sans text-[clamp(1.5rem,2.6vw,4.5rem)] font-medium leading-[1.12] tracking-[-0.02em] text-graphite max-lg:w-full max-lg:indent-0 max-lg:text-[clamp(1.15rem,5.4vw,2.1rem)] max-lg:leading-[1.3] max-lg:tracking-normal"
+      data-words-scrub
+      data-from="0.3"
+      data-to="1"
+      data-start="top 92%"
+      data-end="bottom 68%"
+    >
+      In an endlress steam of stimulations, selected. is a cultural landmark
+      for carefully curated music taste. We are aiming to define and set
+      the trend, not to follow it
+    </p>
+
+    <div class="ml-[20vw] mt-[6vw] flex gap-[5vw] max-lg:ml-0 max-lg:mt-[16vw] max-lg:flex-col max-lg:gap-[10vw]">
+      <p
+        class="flex-1 font-sans text-[clamp(0.9rem,1.05vw,1.3rem)] font-medium leading-[1.4] text-graphite max-lg:text-[clamp(0.95rem,4vw,1.5rem)] max-lg:leading-[1.35]"
+        data-words-scrub
+        data-from="0.2"
+        data-to="1"
+        data-start="top 90%"
+        data-end="bottom 68%"
+      >
+        Founded by Nick and Nico in 2013 as a YouTube channel, the distinctive
+        music selection and visual appearance of selected. instantly grabbed
+        the attention of a growing number of loyal followers and music lovers
+        around the globe. selected. was born. Still, under the first big
+        landmark of 100,000 YouTube followers, Klaus and Michael joined
+        the team in 2015 and became partners with the clear goal of expanding
+        the selected. brand into a full-scale music company. Since then,
+        it's been a steady uphill journey.
+      </p>
+
+      <p
+        class="flex-1 font-sans text-[clamp(0.9rem,1.05vw,1.3rem)] font-medium leading-[1.4] text-graphite max-lg:text-[clamp(0.95rem,4vw,1.5rem)] max-lg:leading-[1.35]"
+        data-words-scrub
+        data-from="0.2"
+        data-to="1"
+        data-start="top 90%"
+        data-end="bottom 68%"
+      >
+        Nowadays, selected. is a major player on all platforms. The electronic
+        super-brand hosts one of the most influential YT channels for electronic
+        music and runs two of the biggest playlist brands on all streaming
+        services. With these powerful tools and millions of fans and followers,
+        selected. has turned into a boutique label partner for electronic
+        artists all over the world. A platform for emerging talents, but also
+        for big names like Joel Corry, Sonny Fodera, Avaion and Just Kiddin
+        (to name a few), the selected. label crossed the 6 Billion stream
+        milestone 2025 and is now heading for new frontiers.
+      </p>
+    </div>
+  </section>
+
+  <section class="relative mt-[12vw] h-[260vh] max-lg:hidden" data-horizontal>
+    <div class="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+      <h2
+        class="px-[2vw] font-display text-[clamp(2rem,4.5vw,5.5rem)] font-medium uppercase leading-[1.05] text-graphite"
+        data-reveal-lines="once"
+      >
+        <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Nasi specjaliści</span></span>
+      </h2>
+
+      <div
+        class="mt-[3vw] flex w-max gap-[1.5vw] px-[2vw] will-change-transform"
+        data-horizontal-track
+      >
+        {
+          specialists.map(({ firstName, role }, i) => (
+            <div class="w-[clamp(13rem,19vw,21rem)] shrink-0">
+              <div class="relative aspect-[3/4] w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] bg-placeholder">
+                <span class="absolute bottom-[clamp(0.5rem,0.8vw,1rem)] left-[clamp(0.75rem,1vw,1.25rem)] font-display text-[clamp(0.8rem,1vw,1.15rem)] font-medium uppercase tracking-[0.25em] text-graphite/45">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+              </div>
+
+              <p class="mt-[clamp(0.75rem,1vw,1.25rem)] font-sans text-[clamp(0.95rem,1.2vw,1.4rem)] font-medium uppercase leading-[1.15] text-graphite">
+                {firstName}
+              </p>
+              <p class="mt-[clamp(0.15rem,0.3vw,0.4rem)] font-sans text-[clamp(0.85rem,1vw,1.15rem)] font-normal leading-[1.2] text-graphite/55">
+                {role}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <SpecialistsSlider specialists={specialists} />
+
+  <section class="relative mt-[12vw] h-[320vh] max-lg:mt-[20vw] max-lg:h-[240vh]" data-headline-pin data-stagger="0.15" data-hold="1">
+    <div class="sticky top-0 h-screen overflow-hidden">
+      <div
+        class="pointer-events-none absolute inset-0 flex items-center justify-center px-[2vw] max-lg:px-[4vw]"
+        data-headline-group
+      >
+        <h2 class="text-center font-display text-[clamp(3rem,8vw,10rem)] font-medium uppercase leading-[1] text-graphite">
+          <span class="block overflow-hidden -mb-[0.15em]"><span class="headline-line block pb-[0.15em]">Przekonany?</span></span>
+        </h2>
+      </div>
+
+      <div
+        class="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-[2vw] max-lg:px-[4vw]"
+        data-headline-group
+        data-stays
+      >
+        <h2 class="text-center font-display text-[clamp(2rem,4.5vw,5.5rem)] font-medium uppercase leading-[1.05] text-graphite max-lg:text-[clamp(1.4rem,7vw,2.75rem)]">
+          <span class="block overflow-hidden -mb-[0.15em]"><span class="headline-line block pb-[0.15em]">Umów się na darmową</span></span>
+          <span class="block overflow-hidden -mb-[0.15em]"><span class="headline-line block pb-[0.15em]">konsultację online</span></span>
+        </h2>
+
+        <div class="pointer-events-auto flex flex-col items-center" data-headline-extra>
+          <p
+            class="mt-[2vw] max-w-[42vw] text-center font-sans text-[clamp(0.95rem,1.1vw,1.25rem)] font-medium leading-[1.35] text-graphite max-lg:mt-[3vh] max-lg:max-w-none"
+            data-extra-words
+          >
+            Trzydzieści minut rozmowy bez zobowiązań — sprawdzimy, jak wygląda
+            dziś Twoja księgowość i powiemy wprost, co da się w niej uprościć.
+          </p>
+
+          <span class="mt-[clamp(1rem,1.4vw,2rem)] flex overflow-hidden max-lg:mt-[3vh]">
+            <a
+              href="#"
+              class="extra-line group relative z-10 inline-flex w-fit cursor-pointer items-center gap-[clamp(1rem,1.4vw,2rem)] overflow-hidden whitespace-nowrap rounded-full border-2 border-transparent bg-ink py-[clamp(0.75rem,0.9vw,1.15rem)] pl-[clamp(1.5rem,2.2vw,3rem)] pr-[clamp(0.75rem,1.1vw,1.5rem)] text-canvas transition-colors duration-700 hover:border-ink max-lg:gap-[4vw] max-lg:whitespace-normal max-lg:py-[3vw] max-lg:pl-[5vw] max-lg:pr-[3vw]"
+              aria-haspopup="dialog"
+              data-open-form
+            >
+              <span class="relative z-10 font-display text-[clamp(1rem,1.15vw,1.375rem)] font-normal uppercase transition-all duration-[400ms] group-hover:translate-x-[1.2vw] group-hover:text-ink max-lg:text-[0.85rem]">Umów się na konsultację</span>
+              <span class="relative z-0 flex h-[clamp(1.75rem,2vw,2.75rem)] w-[clamp(1.75rem,2vw,2.75rem)] shrink-0 rounded-full bg-canvas transition-transform duration-700 ease-out group-hover:duration-[1600ms] group-hover:scale-[55]"></span>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

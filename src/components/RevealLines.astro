@@ -1,0 +1,17 @@
+---
+interface Props {
+  lines: string[];
+  class?: string;
+}
+
+const { lines, class: className } = Astro.props;
+---
+<span class={className}>
+  {
+    lines.map((line) => (
+      <span class="block overflow-hidden -mb-[0.15em]">
+        <span class="reveal-line block pb-[0.15em]">{line}</span>
+      </span>
+    ))
+  }
+</span>

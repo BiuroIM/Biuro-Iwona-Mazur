@@ -1,0 +1,46 @@
+---
+interface Logo {
+  file: string;
+  alt: string;
+  invert: boolean;
+}
+
+interface Props {
+  logos: Logo[];
+  repeat?: number;
+  delay?: number;
+}
+
+const { logos, repeat = 2, delay = 0.5 } = Astro.props;
+
+const group = Array.from({ length: logos.length * repeat }, (_, i) => logos[i % logos.length]);
+const set = [...group, ...group];
+---
+<section
+  class="mt-[4.5vw] overflow-hidden max-lg:mt-[9vw]"
+  data-reveal-lines="once"
+  data-stagger="0.05"
+  data-delay={delay.toString()}
+  data-trigger="[data-hero]"
+  data-start="top bottom"
+>
+  <div class="marquee-track flex w-max items-center bg-canvas">
+    {
+      set.map((logo, i) => (
+        <div
+          class="reveal-line mr-[clamp(2rem,4.2vw,5rem)] flex h-[clamp(3rem,4.8vw,6rem)] shrink-0 items-center max-lg:mr-[8vw] max-lg:h-[clamp(3rem,14vw,6rem)]"
+          aria-hidden={i >= logos.length ? 'true' : undefined}
+        >
+          <img
+            src={logo.file}
+            alt={i < logos.length ? logo.alt : ''}
+            decoding="async"
+            class={`h-full w-auto object-contain ${
+              logo.invert ? 'logo-graphite' : 'logo-graphite--inverted'
+            }`}
+          />
+        </div>
+      ))
+    }
+  </div>
+</section>

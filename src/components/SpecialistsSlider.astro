@@ -1,0 +1,46 @@
+---
+interface Specialist {
+  firstName: string;
+  role: string;
+}
+
+interface Props {
+  specialists: Specialist[];
+  heading?: string;
+}
+
+const { specialists, heading = 'Nasi specjaliści' } = Astro.props;
+---
+<section class="mt-[20vw] hidden max-lg:block">
+  <h2
+    class="px-[4vw] font-display text-[clamp(1.6rem,8vw,3.25rem)] font-medium uppercase leading-[1.05] text-graphite"
+    data-reveal-lines
+  >
+    <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">{heading}</span></span>
+  </h2>
+
+  <div
+    class="slider-track mt-[7vw] flex gap-[4vw] overflow-x-auto px-[4vw] pb-[2vw]"
+    data-animate="fade-up"
+    data-specialists-slider
+  >
+    {
+      specialists.map(({ firstName, role }, i) => (
+        <article class="w-[62vw] shrink-0">
+          <div class="relative aspect-[3/4] w-full overflow-hidden rounded-[3vw] bg-placeholder">
+            <span class="absolute bottom-[2vw] left-[3vw] font-display text-[3.2vw] font-medium uppercase tracking-[0.25em] text-graphite/45">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+          </div>
+
+          <p class="mt-[3vw] font-sans text-[clamp(1rem,4.2vw,1.4rem)] font-medium uppercase leading-[1.15] text-graphite">
+            {firstName}
+          </p>
+          <p class="mt-[1vw] font-sans text-[clamp(0.85rem,3.6vw,1.15rem)] font-normal leading-[1.2] text-graphite/55">
+            {role}
+          </p>
+        </article>
+      ))
+    }
+  </div>
+</section>

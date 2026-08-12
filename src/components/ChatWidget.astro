@@ -1,0 +1,162 @@
+---
+import ChatQuestion from './ChatQuestion.astro';
+import { questions, CHAT_PREVIEW_COUNT } from '../data/questions.js';
+
+const CHAT_ACTIVE = false;
+
+const T_HEAD = 'text-[16px] max-lg:text-[14px]';
+const T_LEAD = 'text-[14.5px] max-lg:text-[12.5px]';
+const T_BODY = 'text-[14px] max-lg:text-[12.5px]';
+const T_SMALL = 'text-[13.5px] max-lg:text-[12px]';
+const T_TINY = 'text-[13px] max-lg:text-[11.5px]';
+
+const botBubble = `max-w-[90%] rounded-[14px] rounded-bl-[4px] bg-canvas/8 px-[14px] py-[9px] font-sans ${T_BODY} font-normal leading-[1.5] text-canvas/80`;
+
+const bubble =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-[31px] w-[31px] max-lg:h-[26px] max-lg:w-[26px]" aria-hidden="true"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg>';
+const lock =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="h-[14px] w-[14px]" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+const send =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="h-[15px] w-[15px]" aria-hidden="true"><path d="M5 12h13"/><path d="m12 6 6 6-6 6"/></svg>';
+const arrow =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="h-[1em] w-[1em]" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>';
+---
+<div
+  class="pointer-events-none fixed bottom-[24px] right-[24px] z-[56] flex flex-col items-end gap-[12px] max-lg:bottom-[16px] max-lg:right-[16px]"
+  data-chat
+>
+  <div
+    class="w-[400px] origin-bottom-right overflow-hidden rounded-[20px] border border-canvas/15 bg-ink text-canvas opacity-0 shadow-panel focus:outline-none max-lg:w-[360px] max-sm:w-[calc(100vw-32px)]"
+    id="chat-card"
+    role="dialog"
+    aria-label="Asystent Biura Mazur"
+    tabindex="-1"
+    data-chat-card
+    inert
+  >
+    <div class="flex items-center justify-between gap-[12px] border-b border-canvas/12 px-[20px] py-[14px] max-lg:px-[18px] max-lg:py-[12px]">
+      <p class={`font-display ${T_HEAD} font-medium leading-none`}>Asystent Biura Mazur</p>
+      <button
+        type="button"
+        class="group -mr-[6px] flex h-[30px] w-[30px] shrink-0 cursor-pointer items-center justify-center rounded-full"
+        aria-label="Zamknij czat"
+        data-chat-close
+      >
+        <span
+          class="relative block h-[13px] w-[13px] opacity-70 transition-[transform,rotate,opacity] duration-500 ease-out group-hover:rotate-90 group-hover:opacity-100"
+          aria-hidden="true"
+        >
+          <span class="absolute left-0 top-1/2 h-[1.5px] w-full -translate-y-1/2 rotate-45 rounded-full bg-canvas"></span>
+          <span class="absolute left-0 top-1/2 h-[1.5px] w-full -translate-y-1/2 -rotate-45 rounded-full bg-canvas"></span>
+        </span>
+      </button>
+    </div>
+
+    <div
+      class="h-[min(520px,calc(100vh_-_260px))] overflow-y-auto px-[20px] py-[18px] max-lg:h-[min(440px,calc(100vh_-_300px))] max-lg:px-[18px] max-lg:py-[16px]"
+      data-chat-scroll
+      data-lenis-prevent
+    >
+      <div class="flex flex-col gap-[6px]" data-chat-log>
+        <div class="flex justify-start" data-chat-line>
+          <p class={`max-w-[90%] rounded-[14px] rounded-bl-[4px] bg-canvas/8 px-[14px] py-[9px] font-sans ${T_LEAD} font-medium leading-[1.4]`}>
+            Cześć! <span aria-hidden="true">👋</span> Jestem automatycznym asystentem Biura Mazur.
+          </p>
+        </div>
+        <div class="flex justify-start" data-chat-line>
+          <p class={botBubble}>
+            Podpowiadam w sprawach księgowości, kadr i cen. Wybierz pytanie, a pokażę odpowiedź.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-[6px] hidden" data-chat-typing>
+        <div class={`${botBubble} inline-flex items-center gap-[4px] py-[11px]`}>
+          <span class="typing-dot block h-[6px] w-[6px] rounded-full bg-canvas/60 max-lg:h-[5px] max-lg:w-[5px]"></span>
+          <span class="typing-dot block h-[6px] w-[6px] rounded-full bg-canvas/60 max-lg:h-[5px] max-lg:w-[5px]"></span>
+          <span class="typing-dot block h-[6px] w-[6px] rounded-full bg-canvas/60 max-lg:h-[5px] max-lg:w-[5px]"></span>
+        </div>
+      </div>
+
+      <div class="mt-[12px]" data-chat-line>
+        <div class="overflow-hidden" data-chat-choices>
+          <p class={`mb-[8px] hidden font-sans ${T_TINY} font-normal leading-none text-canvas/45`} data-chat-again>
+            Zapytaj o coś jeszcze:
+          </p>
+
+          <ul id="chat-lista" class="flex flex-col gap-[6px]" data-chat-list data-preview={CHAT_PREVIEW_COUNT}>
+            {questions.map((item) => <ChatQuestion question={item.question} answer={item.answer} />)}
+          </ul>
+
+          <button
+            type="button"
+            class={`mt-[10px] hidden cursor-pointer border-b border-canvas/40 pb-[1px] font-display uppercase ${T_BODY} font-medium text-canvas/80 transition-colors duration-300 hover:border-canvas hover:text-canvas`}
+            aria-expanded="false"
+            aria-controls="chat-lista"
+            data-chat-more
+          >
+            Pokaż wszystkie pytania
+          </button>
+
+          <p class={`hidden font-sans ${T_SMALL} font-normal leading-[1.45] text-canvas/55`} data-chat-note>
+            To już wszystkie pytania!
+          </p>
+
+          <div class="mt-[12px] border-t border-canvas/12 pt-[10px]">
+            <p class={`font-sans ${T_SMALL} font-normal leading-[1.45] text-canvas/55`}>
+              Nie ma tu Twojego pytania?
+            </p>
+            <button
+              type="button"
+              class={`mt-[6px] inline-flex cursor-pointer items-center gap-[8px] rounded-full bg-canvas px-[18px] py-[8px] font-display ${T_BODY} font-medium leading-none text-ink max-lg:px-[16px] max-lg:py-[7px]`}
+              aria-haspopup="dialog"
+              data-open-form
+            >
+              Napisz do nas
+              <span class="flex items-center justify-center" aria-hidden="true" set:html={arrow} />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-[8px] border-t border-canvas/12 px-[20px] py-[14px] max-lg:px-[18px] max-lg:py-[12px]">
+      <div class="flex min-w-0 flex-1 items-center gap-[8px] rounded-full border border-canvas/15 bg-canvas/5 px-[16px] py-[10px] max-lg:px-[14px] max-lg:py-[8px]">
+        <input
+          type="text"
+          class={`min-w-0 flex-1 cursor-not-allowed bg-transparent font-sans ${T_BODY} font-normal text-canvas placeholder:text-canvas/40 focus:outline-none`}
+          placeholder={CHAT_ACTIVE ? 'Napisz wiadomość' : 'Opcja obecnie niedostępna'}
+          aria-label="Wiadomość do asystenta"
+          disabled={!CHAT_ACTIVE}
+          data-chat-input
+        />
+        {!CHAT_ACTIVE && <span class="shrink-0 text-canvas/35" set:html={lock} />}
+      </div>
+      <span
+        class="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-full bg-canvas/10 text-canvas/35 max-lg:h-[34px] max-lg:w-[34px]"
+        aria-hidden="true"
+        set:html={send}
+      />
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="group pointer-events-auto relative flex h-[68px] w-[68px] cursor-pointer items-center justify-center rounded-full bg-ink shadow-lift transition-transform duration-300 ease-out hover:scale-[1.06] max-lg:h-[52px] max-lg:w-[52px]"
+    aria-label="Otwórz czat"
+    aria-expanded="false"
+    aria-controls="chat-card"
+    data-chat-toggle
+  >
+    <span
+      class="absolute left-[3px] top-[3px] h-[15px] w-[15px] rounded-full border-2 border-ink bg-alert max-lg:left-[2px] max-lg:top-[2px] max-lg:h-[13px] max-lg:w-[13px]"
+      aria-hidden="true"
+      data-chat-badge
+    ></span>
+    <span class="text-canvas" data-chat-icon set:html={bubble} />
+    <span class="absolute h-[17px] w-[17px] opacity-0 max-lg:h-[14px] max-lg:w-[14px]" aria-hidden="true" data-chat-close-icon>
+      <span class="absolute left-0 top-1/2 h-[1.5px] w-full -translate-y-1/2 rotate-45 rounded-full bg-canvas"></span>
+      <span class="absolute left-0 top-1/2 h-[1.5px] w-full -translate-y-1/2 -rotate-45 rounded-full bg-canvas"></span>
+    </span>
+  </button>
+</div>
