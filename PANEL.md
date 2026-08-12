@@ -132,9 +132,11 @@ Punkty 1 i 2 są **zrobione** (schemat wgrany jako migracje `blog_panel_schema`,
    e-mail plus hasło, z zaznaczonym automatycznym potwierdzeniem.
 6. **Project Settings → API**: skopiuj `Project URL` i klucz `anon public`.
 
-### 3. Token GitHuba dla Supabase (tylko wariant A)
+### 3. Token GitHuba dla Supabase ✅ zrobione (tylko wariant A)
 
-Trigger w bazie musi umieć poprosić GitHuba o build.
+Trigger w bazie musi umieć poprosić GitHuba o build. Token jest już w `private.app_settings`,
+a cała ścieżka sprawdzona: zapis wpisu w bazie kończy się odpowiedzią `204` od GitHuba.
+Poniższy opis zostaje na wypadek wymiany tokena po wygaśnięciu.
 
 1. **Zaloguj się na konto, które jest właścicielem repozytorium** (`BiuroIM`), nie na swoje
    prywatne. Token fine-grained widzi wyłącznie repozytoria należące do konta, które go
