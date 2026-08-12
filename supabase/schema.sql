@@ -1,5 +1,9 @@
 create extension if not exists pg_net;
 
+create schema if not exists private;
+
+revoke all on schema private from anon, authenticated;
+
 create table if not exists public.posts (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique,
@@ -48,9 +52,20 @@ create policy posts_staff_delete
   to authenticated
   using (true);
 
-create or replace function public.touch_updated_at()
+create table if not exists private.app_settings (
+  key text primary key,
+  value text not null
+);
+
+alter table private.app_settings enable row level security;
+
+revoke all on table private.app_settings from anon, authenticated;
+
+create or replace function private.touch_updated_at()
 returns trigger
 language plpgsql
+security invoker
+set search_path = ''
 as $$
 begin
   new.updated_at := now();
@@ -58,30 +73,18 @@ begin
 end;
 $$;
 
-drop trigger if exists posts_touch_updated_at on public.posts;
-create trigger posts_touch_updated_at
-  before update on public.posts
-  for each row execute function public.touch_updated_at();
-
-create table if not exists public.app_settings (
-  key text primary key,
-  value text not null
-);
-
-alter table public.app_settings enable row level security;
-
-create or replace function public.request_site_rebuild()
+create or replace function private.request_site_rebuild()
 returns trigger
 language plpgsql
 security definer
-set search_path = public, net
+set search_path = ''
 as $$
 declare
   repo text;
   token text;
 begin
-  select value into repo from public.app_settings where key = 'github_repo';
-  select value into token from public.app_settings where key = 'github_token';
+  select value into repo from private.app_settings where key = 'github_repo';
+  select value into token from private.app_settings where key = 'github_token';
 
   if repo is null or token is null then
     return null;
@@ -102,10 +105,18 @@ begin
 end;
 $$;
 
+revoke all on function private.touch_updated_at() from public, anon, authenticated;
+revoke all on function private.request_site_rebuild() from public, anon, authenticated;
+
+drop trigger if exists posts_touch_updated_at on public.posts;
+create trigger posts_touch_updated_at
+  before update on public.posts
+  for each row execute function private.touch_updated_at();
+
 drop trigger if exists posts_request_rebuild on public.posts;
 create trigger posts_request_rebuild
   after insert or update or delete on public.posts
-  for each statement execute function public.request_site_rebuild();
+  for each statement execute function private.request_site_rebuild();
 
 insert into storage.buckets (id, name, public)
 values ('covers', 'covers', true)
@@ -134,3 +145,7 @@ create policy covers_staff_delete
   on storage.objects for delete
   to authenticated
   using (bucket_id = 'covers');
+
+revoke all on all functions in schema net from anon, authenticated, public;
+
+revoke usage on schema net from anon, authenticated;

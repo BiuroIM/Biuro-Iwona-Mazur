@@ -113,11 +113,15 @@ nie odcina firmy od własnej strony.
 **Pracownicy piszący wpisy nie potrzebują żadnego konta GitHub.** Logują się do `/panel`
 przez Supabase.
 
-### 2. Projekt w Supabase
+### 2. Projekt w Supabase ✅ schemat wgrany
 
-Ta sama zasada co przy GitHubie: projekt zakładaj na **adresie firmowym**, nie prywatnym,
+Projekt: **`lunzovafldmhbgxtrwom`**, adres API `https://lunzovafldmhbgxtrwom.supabase.co`.
+Ta sama zasada co przy GitHubie: projekt trzymaj na **adresie firmowym**, nie prywatnym,
 i dodaj do organizacji Supabase drugą osobę z biura. Inaczej baza z treściami klienta
 wisi na prywatnym koncie.
+
+Punkty 1 i 2 są **zrobione** (schemat wgrany jako migracje `blog_panel_schema`,
+`harden_private_schema` i `restrict_pg_net_access`). Zostają punkty 3 do 6.
 
 1. `supabase.com` → nowy projekt (region Frankfurt, najbliżej).
 2. SQL Editor → wklej całą zawartość `supabase/schema.sql` → Run.
@@ -141,14 +145,16 @@ Trigger w bazie musi umieć poprosić GitHuba o build.
 4. W Supabase, w SQL Editor:
 
 ```sql
-insert into public.app_settings (key, value) values
-  ('github_repo', 'twoj-login/twoje-repo'),
+insert into private.app_settings (key, value) values
+  ('github_repo', 'BiuroIM/Biuro-Iwona-Mazur'),
   ('github_token', 'github_pat_...')
 on conflict (key) do update set value = excluded.value;
 ```
 
-Tabela `app_settings` ma włączony RLS i **zero polityk**, więc nikt z przeglądarki jej
-nie przeczyta. Trigger czyta ją jako `security definer`, czyli z uprawnieniami właściciela.
+Tabela z tokenem leży w schemacie `private`, którego **PostgREST w ogóle nie wystawia**,
+i dodatkowo ma włączony RLS bez żadnej polityki. Odpytanie jej z zewnątrz kończy się
+błędem 404, bo dla świata ta tabela nie istnieje. Trigger czyta ją jako `security definer`,
+czyli z uprawnieniami właściciela.
 
 Jeżeli trigger dostaje `Resource not accessible by personal access token`, to znana
 bolączka tokenów fine-grained przy `repository_dispatch`. Wystaw wtedy **token klasyczny**
@@ -256,6 +262,23 @@ niczego poza prawem do próby zalogowania i do czytania opublikowanych wpisów, 
 pilnują polityki RLS z `schema.sql`: pisać i edytować może wyłącznie zalogowany
 użytkownik, a kont nie da się zakładać samodzielnie (o ile wyłączysz rejestrację
 w punkcie 2.4, **to nie jest opcjonalne**).
+
+**Dlaczego jest schemat `private`.** Pierwsza wersja schematu trzymała `app_settings`
+i funkcje triggerów w `public`. Audyt Supabase (`get_advisors`) pokazał dwie realne dziury:
+PostgREST wystawiał funkcję `request_site_rebuild` jako endpoint `/rest/v1/rpc/...`, więc
+**każdy z publicznym kluczem mógł w pętli wyzwalać buildy** i wypalić limit minut GitHuba,
+a rola `anon` miała uprawnienie SELECT na tabeli z tokenem (RLS to blokował, ale to jedna
+nieuważna polityka od wycieku). Oba obiekty przeniesione do schematu `private`, którego
+PostgREST nie wystawia. Sprawdzone od zewnątrz: oba adresy zwracają 404, zapis bez
+logowania 401, a w schemacie `public` nie ma **ani jednej** funkcji.
+
+**Nie przenoś tych rzeczy z powrotem do `public`** przy kolejnych zmianach schematu.
+
+Zostaje jedno ostrzeżenie audytu: `pg_net` jest zarejestrowane w schemacie `public`.
+Zostawione świadomie, bo wszystkie 12 funkcji rozszerzenia leży w schemacie `net`,
+w `public` nie ma żadnej, a `anon` i `authenticated` mają odebrany dostęp do `net`.
+Próba przeniesienia samego rozszerzenia mogłaby przestawić `net.http_post`, od którego
+zależy publikacja, i nie dałaby nic w zamian.
 
 Czego świadomie nie ma:
 
