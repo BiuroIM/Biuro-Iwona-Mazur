@@ -3,15 +3,18 @@ import { marked } from 'marked';
 import { supabase } from '../../lib/supabaseClient.js';
 import { toSlug } from '../../lib/slug.js';
 import {
-  buttonGhost,
-  buttonPrimary,
-  errorBox,
+  coverFrame,
+  coverImage,
   field,
   hint,
   label,
-  noticeBox,
-  subheading,
-  textarea,
+  notice,
+  noticeError,
+  pill,
+  pillGhost,
+  sectionTitle,
+  textLink,
+  textareaField,
 } from './styles.js';
 
 const CATEGORIES = ['Aktualności', 'Podatki', 'Księgowość', 'Kadry i płace', 'Poradnik'];
@@ -173,47 +176,49 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
 
   return (
     <form onSubmit={submit}>
-      <div className="flex items-end justify-between gap-[2vw] max-sm:flex-col max-sm:items-start max-sm:gap-[1rem]">
-        <h2 className={subheading}>{isNew ? 'Nowy wpis' : 'Edycja wpisu'}</h2>
-        <button className={buttonGhost} type="button" onClick={onCancel} disabled={busy}>
+      <div className="flex items-end justify-between gap-[2vw] max-sm:flex-col max-sm:items-start max-sm:gap-[4vw]">
+        <h2 className={sectionTitle}>{isNew ? 'Nowy wpis' : 'Edycja wpisu'}</h2>
+
+        <button className={textLink} type="button" onClick={onCancel} disabled={busy}>
           Wróć do listy
         </button>
       </div>
 
-      <p className={`${noticeBox} mt-[clamp(1rem,1.5vw,1.8rem)]`}>
-        Po zapisaniu strona przebudowuje się sama. Wpis pojawia się pod adresem <strong>/blog/{slug || '…'}</strong>
-        {' '}zwykle w ciągu kilku minut.
-      </p>
-
-      <div className="mt-[clamp(1.5rem,2.2vw,2.5rem)]">
-        <label className={label} htmlFor="post-title">
-          Tytuł wpisu
-        </label>
-        <input id="post-title" className={field} type="text" value={draft.title} onChange={update('title')} />
-        {!isNew && (
-          <p className={`${hint} mt-[clamp(0.25rem,0.4vw,0.5rem)]`}>
-            Adres wpisu zostaje bez zmian: /blog/{post.slug}. Zmiana adresu zepsułaby linki, które ktoś już zapisał.
-          </p>
-        )}
-      </div>
-
-      <div className="mt-[clamp(1rem,1.6vw,1.8rem)]">
-        <label className={label} htmlFor="post-lead">
-          Wprowadzenie
-        </label>
-        <textarea
-          id="post-lead"
-          className={`${field} min-h-[clamp(5rem,8vw,9rem)] resize-y leading-[1.5]`}
-          value={draft.lead}
-          onChange={update('lead')}
-        />
-        <p className={`${hint} mt-[clamp(0.25rem,0.4vw,0.5rem)]`}>
-          Jedno albo dwa zdania. Widać je na liście wpisów i w wynikach wyszukiwania.
+      <div className="mt-[clamp(2rem,3vw,4rem)] w-[52vw] max-lg:w-full">
+        <p className={notice}>
+          Po zapisaniu strona przebudowuje się sama. Wpis pojawi się pod adresem /blog/{slug || '…'} zwykle
+          w ciągu kilku minut.
         </p>
-      </div>
 
-      <div className="mt-[clamp(1rem,1.6vw,1.8rem)] grid grid-cols-2 gap-[clamp(1rem,1.6vw,2rem)] max-md:grid-cols-1">
-        <div>
+        <div className="mt-[clamp(2.5rem,4vw,5.5rem)]">
+          <label className={label} htmlFor="post-title">
+            Tytuł wpisu
+          </label>
+          <input id="post-title" className={field} type="text" value={draft.title} onChange={update('title')} />
+          {!isNew && (
+            <p className={`${hint} mt-[clamp(0.5rem,0.7vw,0.9rem)]`}>
+              Adres wpisu zostaje bez zmian: /blog/{post.slug}. Zmiana adresu zepsułaby linki, które ktoś już
+              zapisał.
+            </p>
+          )}
+        </div>
+
+        <div className="mt-[clamp(2rem,3vw,4rem)]">
+          <label className={label} htmlFor="post-lead">
+            Wprowadzenie
+          </label>
+          <textarea
+            id="post-lead"
+            className={`${textareaField} min-h-[clamp(4rem,6vw,7rem)]`}
+            value={draft.lead}
+            onChange={update('lead')}
+          />
+          <p className={`${hint} mt-[clamp(0.5rem,0.7vw,0.9rem)]`}>
+            Jedno albo dwa zdania. Widać je na liście wpisów i w wynikach wyszukiwania.
+          </p>
+        </div>
+
+        <div className="mt-[clamp(2rem,3vw,4rem)]">
           <label className={label} htmlFor="post-category">
             Kategoria
           </label>
@@ -226,93 +231,97 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
           </select>
         </div>
 
-        <div>
+        <div className="mt-[clamp(2rem,3vw,4rem)]">
           <label className={label} htmlFor="post-cover">
             Zdjęcie okładki
           </label>
           <input
             id="post-cover"
-            className={field}
+            className={`${field} file:mr-[1vw] file:cursor-pointer file:rounded-full file:border-0 file:bg-ink file:px-[clamp(0.9rem,1.2vw,1.6rem)] file:py-[0.4rem] file:font-display file:text-[clamp(0.7rem,0.8vw,0.9rem)] file:font-medium file:uppercase file:text-canvas`}
             type="file"
             accept="image/jpeg,image/png,image/webp,image/avif"
             onChange={pickCover}
           />
         </div>
-      </div>
 
-      {coverPreview && (
-        <img
-          src={coverPreview}
-          alt=""
-          className="mt-[clamp(0.75rem,1.2vw,1.4rem)] aspect-[3/2] w-[min(22rem,60vw)] rounded-[clamp(0.6rem,0.9vw,1.1rem)] object-cover"
-        />
-      )}
-
-      <div className="mt-[clamp(1rem,1.6vw,1.8rem)]">
-        <label className={label} htmlFor="post-cover-alt">
-          Opis zdjęcia
-        </label>
-        <input
-          id="post-cover-alt"
-          className={field}
-          type="text"
-          value={draft.cover_alt}
-          onChange={update('cover_alt')}
-        />
-        <p className={`${hint} mt-[clamp(0.25rem,0.4vw,0.5rem)]`}>
-          Napisz, co widać na zdjęciu, na przykład: kobieta przy laptopie z segregatorem dokumentów.
-        </p>
-      </div>
-
-      <div className="mt-[clamp(1.5rem,2.2vw,2.5rem)]">
-        <div className="flex items-center justify-between gap-[1vw] max-sm:flex-col max-sm:items-start max-sm:gap-[0.75rem]">
-          <label className={label} htmlFor="post-body">
-            Treść wpisu
-          </label>
-
-          <div className="flex flex-wrap gap-[clamp(0.3rem,0.5vw,0.6rem)]">
-            <button className={buttonGhost} type="button" onClick={() => surroundSelection('**', '**')}>
-              Pogrubienie
-            </button>
-            <button className={buttonGhost} type="button" onClick={() => startLine('## ')}>
-              Nagłówek
-            </button>
-            <button className={buttonGhost} type="button" onClick={() => startLine('- ')}>
-              Lista
-            </button>
-            <button className={buttonGhost} type="button" onClick={() => surroundSelection('[', '](https://)')}>
-              Link
-            </button>
-            <button className={buttonGhost} type="button" onClick={() => setShowPreview((current) => !current)}>
-              {showPreview ? 'Wróć do pisania' : 'Podejrzyj'}
-            </button>
+        {coverPreview && (
+          <div className={`${coverFrame} mt-[clamp(1.5rem,2.2vw,3rem)]`}>
+            <img className={coverImage} src={coverPreview} alt="" />
           </div>
-        </div>
-
-        {showPreview ? (
-          <div
-            className="post-body mt-[clamp(0.75rem,1.2vw,1.4rem)] rounded-[clamp(0.5rem,0.7vw,0.9rem)] border border-graphite/25 bg-white p-[clamp(1rem,1.6vw,2rem)]"
-            dangerouslySetInnerHTML={{ __html: marked.parse(draft.body) }}
-          />
-        ) : (
-          <textarea id="post-body" ref={bodyRef} className={textarea} value={draft.body} onChange={update('body')} />
         )}
 
-        <p className={`${hint} mt-[clamp(0.25rem,0.4vw,0.5rem)]`}>
-          Zaznacz fragment tekstu i kliknij Pogrubienie albo Link. Nagłówki dzielą wpis na sekcje i tworzą spis
-          treści z boku artykułu.
-        </p>
-      </div>
+        <div className="mt-[clamp(2rem,3vw,4rem)]">
+          <label className={label} htmlFor="post-cover-alt">
+            Opis zdjęcia
+          </label>
+          <input
+            id="post-cover-alt"
+            className={field}
+            type="text"
+            value={draft.cover_alt}
+            onChange={update('cover_alt')}
+          />
+          <p className={`${hint} mt-[clamp(0.5rem,0.7vw,0.9rem)]`}>
+            Napisz, co widać na zdjęciu, na przykład: kobieta przy laptopie z segregatorem dokumentów.
+          </p>
+        </div>
 
-      {error && <p className={`${errorBox} mt-[clamp(1rem,1.5vw,1.8rem)]`}>{error}</p>}
+        <div className="mt-[clamp(2.5rem,4vw,5.5rem)]">
+          <div className="flex items-center justify-between gap-[1vw] max-sm:flex-col max-sm:items-start max-sm:gap-[3vw]">
+            <label className={label} htmlFor="post-body">
+              Treść wpisu
+            </label>
 
-      <div className="mt-[clamp(1.5rem,2.2vw,2.5rem)] flex gap-[clamp(0.5rem,0.8vw,1rem)]">
-        <button className={buttonPrimary} type="submit" disabled={busy}>
-          {busy ? 'Zapisuję' : isNew ? 'Opublikuj wpis' : 'Zapisz zmiany'}
-        </button>
-        <button className={buttonGhost} type="button" onClick={onCancel} disabled={busy}>
-          Anuluj
-        </button>
+            <div className="flex flex-wrap items-center gap-[clamp(0.9rem,1.6vw,2.2rem)]">
+              <button className={textLink} type="button" onClick={() => surroundSelection('**', '**')}>
+                Pogrubienie
+              </button>
+              <button className={textLink} type="button" onClick={() => startLine('## ')}>
+                Nagłówek
+              </button>
+              <button className={textLink} type="button" onClick={() => startLine('- ')}>
+                Lista
+              </button>
+              <button className={textLink} type="button" onClick={() => surroundSelection('[', '](https://)')}>
+                Link
+              </button>
+              <button className={textLink} type="button" onClick={() => setShowPreview((current) => !current)}>
+                {showPreview ? 'Wróć do pisania' : 'Podejrzyj'}
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-[clamp(1rem,1.4vw,1.8rem)] border-t border-ink/25 pt-[clamp(1rem,1.4vw,1.8rem)]">
+            {showPreview ? (
+              <div className="post-body" dangerouslySetInnerHTML={{ __html: marked.parse(draft.body) }} />
+            ) : (
+              <textarea
+                id="post-body"
+                ref={bodyRef}
+                className={`${textareaField} mt-0 min-h-[clamp(18rem,28vw,36rem)]`}
+                placeholder="Zacznij pisać wpis. Nagłówki i pogrubienia dodasz przyciskami wyżej."
+                value={draft.body}
+                onChange={update('body')}
+              />
+            )}
+          </div>
+
+          <p className={`${hint} mt-[clamp(0.5rem,0.7vw,0.9rem)]`}>
+            Zaznacz fragment tekstu i kliknij Pogrubienie albo Link. Nagłówki dzielą wpis na sekcje i tworzą
+            spis treści z boku artykułu.
+          </p>
+        </div>
+
+        {error && <p className={`${noticeError} mt-[clamp(2rem,3vw,4rem)]`}>{error}</p>}
+
+        <div className="mt-[clamp(2.5rem,4vw,5.5rem)] flex flex-wrap items-center gap-[clamp(1rem,1.6vw,2.2rem)]">
+          <button className={pill} type="submit" disabled={busy}>
+            {busy ? 'Zapisuję' : isNew ? 'Opublikuj wpis' : 'Zapisz zmiany'}
+          </button>
+          <button className={pillGhost} type="button" onClick={onCancel} disabled={busy}>
+            Anuluj
+          </button>
+        </div>
       </div>
     </form>
   );

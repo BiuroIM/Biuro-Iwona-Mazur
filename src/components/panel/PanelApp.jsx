@@ -3,12 +3,12 @@ import { isConfigured, supabase } from '../../lib/supabaseClient.js';
 import PanelLogin from './PanelLogin.jsx';
 import PanelList from './PanelList.jsx';
 import PanelForm from './PanelForm.jsx';
-import { buttonGhost, errorBox, hint, noticeBox, shell } from './styles.js';
+import { hint, notice, noticeError, shell, textLink } from './styles.js';
 
 export default function PanelApp() {
   const [session, setSession] = useState(undefined);
   const [view, setView] = useState({ name: 'list' });
-  const [savedAt, setSavedAt] = useState(null);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     if (!isConfigured) return;
@@ -23,9 +23,9 @@ export default function PanelApp() {
   if (!isConfigured) {
     return (
       <div className={shell}>
-        <p className={errorBox}>
-          Panel nie jest podłączony do Supabase. Brakuje zmiennych PUBLIC_SUPABASE_URL i PUBLIC_SUPABASE_ANON_KEY.
-          Opis konfiguracji jest w pliku PANEL.md.
+        <p className={noticeError}>
+          Panel nie jest podłączony do Supabase. Brakuje zmiennych PUBLIC_SUPABASE_URL i
+          PUBLIC_SUPABASE_ANON_KEY. Opis konfiguracji jest w pliku PANEL.md.
         </p>
       </div>
     );
@@ -45,22 +45,17 @@ export default function PanelApp() {
 
   return (
     <div className={shell}>
-      <header className="flex items-center justify-between gap-[2vw] border-b border-graphite/20 pb-[clamp(1rem,1.5vw,1.8rem)] max-sm:flex-col max-sm:items-start max-sm:gap-[1rem]">
-        <div>
-          <p className="font-display text-[clamp(0.7rem,0.85vw,0.95rem)] font-medium uppercase tracking-[0.2em] text-graphite/60">
-            Biuro Rachunkowe Iwona Mazur
-          </p>
-          <p className={`${hint} mt-[clamp(0.2rem,0.3vw,0.4rem)]`}>Zalogowana jako {session.user.email}</p>
-        </div>
+      <div className="flex items-center justify-end gap-[clamp(1rem,1.6vw,2.2rem)] border-b border-ink/15 pb-[clamp(1rem,1.4vw,1.8rem)]">
+        <p className={hint}>Zalogowana jako {session.user.email}</p>
 
-        <button className={buttonGhost} type="button" onClick={() => supabase.auth.signOut()}>
+        <button className={textLink} type="button" onClick={() => supabase.auth.signOut()}>
           Wyloguj
         </button>
-      </header>
+      </div>
 
-      <main className="mt-[clamp(1.5rem,2.5vw,3rem)]">
-        {savedAt && view.name === 'list' && (
-          <p className={`${noticeBox} mb-[clamp(1rem,1.5vw,1.8rem)]`}>
+      <div className="mt-[clamp(2.5rem,4vw,5.5rem)]">
+        {saved && view.name === 'list' && (
+          <p className={`${notice} mb-[clamp(2rem,3vw,4rem)]`}>
             Zapisane. Strona przebudowuje się teraz sama, wpis pojawi się na blogu w ciągu kilku minut.
           </p>
         )}
@@ -68,11 +63,11 @@ export default function PanelApp() {
         {view.name === 'list' ? (
           <PanelList
             onCreate={() => {
-              setSavedAt(null);
+              setSaved(false);
               setView({ name: 'form', post: null });
             }}
             onEdit={(post) => {
-              setSavedAt(null);
+              setSaved(false);
               setView({ name: 'form', post });
             }}
           />
@@ -81,13 +76,13 @@ export default function PanelApp() {
             post={view.post}
             session={session}
             onSaved={() => {
-              setSavedAt(new Date());
+              setSaved(true);
               setView({ name: 'list' });
             }}
             onCancel={() => setView({ name: 'list' })}
           />
         )}
-      </main>
+      </div>
     </div>
   );
 }

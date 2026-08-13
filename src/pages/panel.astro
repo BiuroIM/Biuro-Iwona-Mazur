@@ -2,6 +2,10 @@
 import { Font } from 'astro:assets';
 import PanelApp from '../components/panel/PanelApp.jsx';
 import '../styles/global.css';
+
+const MARQUEE_REPEATS = 3;
+const DASH_LENGTH = 'clamp(2.5rem,6vw,7rem)';
+const DASH_THICKNESS = 'clamp(0.25rem,0.55vw,0.7rem)';
 ---
 <!doctype html>
 <html lang="pl">
@@ -18,6 +22,45 @@ import '../styles/global.css';
   </head>
 
   <body class="min-h-screen font-sans text-graphite antialiased">
-    <PanelApp client:only="react" />
+    <div class="page-canvas" aria-hidden="true"></div>
+
+    <header class="flex items-center justify-between px-[2vw] py-8 max-lg:px-[4vw] max-lg:py-5">
+      <a
+        href="/"
+        class="shrink-0 text-center font-sans text-2xl font-medium leading-[0.95] text-graphite max-lg:text-xl"
+        aria-label="Strona główna"
+      >
+        Iwona<br />Mazur
+      </a>
+
+      <span class="font-display text-[clamp(0.6rem,0.75vw,0.9rem)] font-medium uppercase tracking-[0.25em] text-graphite/60">
+        Panel wpisów
+      </span>
+    </header>
+
+    <div
+      class="overflow-hidden pt-[0.5vw] pb-[2.4vw] -mt-[0.5vw] max-lg:pt-[0.6vw] max-lg:pb-[3.5vw]"
+      aria-hidden="true"
+    >
+      <div class="marquee-track marquee-track--hero flex w-max items-center gap-[clamp(0.75rem,2vw,2.5rem)]">
+        {
+          Array.from({ length: MARQUEE_REPEATS * 2 }).map(() => (
+            <>
+              <span class="text-trim shrink-0 font-display text-[11vw] font-medium uppercase leading-[0.85] text-ink max-lg:text-[16vw]">
+                Panel
+              </span>
+              <span
+                class="shrink-0 rounded-full bg-ink"
+                style={`width:${DASH_LENGTH};height:${DASH_THICKNESS}`}
+              ></span>
+            </>
+          ))
+        }
+      </div>
+    </div>
+
+    <main>
+      <PanelApp client:only="react" />
+    </main>
   </body>
 </html>

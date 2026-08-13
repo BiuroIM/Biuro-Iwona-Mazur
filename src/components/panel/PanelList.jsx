@@ -1,14 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient.js';
-import { formatDate } from '../../data/blog.js';
+import { formatDateMonthFirst } from '../../data/blog.js';
 import {
-  buttonDanger,
-  buttonGhost,
-  buttonPrimary,
-  card,
-  errorBox,
+  coverFrame,
+  coverImage,
   hint,
-  subheading,
+  noticeError,
+  pill,
+  sectionTitle,
+  textLink,
+  textLinkDanger,
+  tileMeta,
+  tileTitle,
 } from './styles.js';
 
 export default function PanelList({ onEdit, onCreate }) {
@@ -63,51 +66,67 @@ export default function PanelList({ onEdit, onCreate }) {
 
   return (
     <div>
-      <div className="flex items-end justify-between gap-[2vw] max-sm:flex-col max-sm:items-start max-sm:gap-[1rem]">
-        <h2 className={subheading}>Wpisy na blogu</h2>
-        <button className={buttonPrimary} type="button" onClick={onCreate}>
+      <div className="flex items-end justify-between gap-[2vw] max-sm:flex-col max-sm:items-start max-sm:gap-[4vw]">
+        <h2 className={sectionTitle}>Wpisy na blogu</h2>
+
+        <button className={pill} type="button" onClick={onCreate}>
           Napisz nowy wpis
         </button>
       </div>
 
-      {error && <p className={`${errorBox} mt-[clamp(1rem,1.5vw,1.8rem)]`}>{error}</p>}
+      {error && <p className={`${noticeError} mt-[clamp(2rem,3vw,4rem)]`}>{error}</p>}
 
-      {posts === null && <p className={`${hint} mt-[clamp(1rem,1.5vw,1.8rem)]`}>Ładuję listę wpisów</p>}
+      {posts === null && <p className={`${hint} mt-[clamp(2rem,3vw,4rem)]`}>Ładuję listę wpisów</p>}
 
       {posts?.length === 0 && (
-        <p className={`${hint} mt-[clamp(1rem,1.5vw,1.8rem)]`}>
+        <p className={`${hint} mt-[clamp(2rem,3vw,4rem)] max-w-[42vw] max-lg:max-w-none`}>
           Nie ma jeszcze żadnego wpisu dodanego przez panel. Wpisy z plików na serwerze nie pokazują się
           na tej liście i zostają nietknięte.
         </p>
       )}
 
-      <ul className="mt-[clamp(1.2rem,2vw,2.5rem)] flex flex-col gap-[clamp(0.6rem,1vw,1.2rem)]">
-        {posts?.map((post) => (
-          <li key={post.id} className={`${card} flex items-center justify-between gap-[1.5vw] max-md:flex-col max-md:items-start max-md:gap-[1rem]`}>
-            <div>
-              <p className="font-display text-[clamp(0.95rem,1.25vw,1.4rem)] font-medium uppercase leading-[1.2] text-graphite">
-                {post.title}
-              </p>
-              <p className={`${hint} mt-[clamp(0.25rem,0.4vw,0.5rem)]`}>
-                {formatDate(new Date(post.published_at))} · {post.category} · /blog/{post.slug}
-                {!post.published && ' · ukryty'}
-              </p>
-            </div>
+      {posts?.length > 0 && (
+        <div className="mt-[3vw] grid grid-cols-2 gap-x-[2vw] gap-y-[5vw] max-lg:mt-[8vw] max-lg:gap-y-[10vw] max-sm:grid-cols-1">
+          {posts.map((post) => (
+            <article key={post.id}>
+              <div className={coverFrame}>
+                <img className={coverImage} src={post.cover_url} alt={post.cover_alt} loading="lazy" />
+              </div>
 
-            <div className="flex shrink-0 flex-wrap gap-[clamp(0.4rem,0.6vw,0.8rem)]">
-              <button className={buttonGhost} type="button" onClick={() => onEdit(post)}>
-                Edytuj
-              </button>
-              <button className={buttonGhost} type="button" onClick={() => togglePublished(post)}>
-                {post.published ? 'Ukryj' : 'Pokaż'}
-              </button>
-              <button className={buttonDanger} type="button" onClick={() => remove(post)}>
-                Usuń
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+              <div className={tileMeta}>
+                <span className="h-[0.5em] w-[0.5em] shrink-0 rounded-full bg-ink" aria-hidden="true" />
+                <time dateTime={post.published_at.slice(0, 10)}>
+                  {formatDateMonthFirst(new Date(post.published_at))}
+                </time>
+                <span aria-hidden="true">·</span>
+                <span>{post.category}</span>
+                {!post.published && (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span className="text-alert">ukryty</span>
+                  </>
+                )}
+              </div>
+
+              <h3 className={tileTitle}>{post.title}</h3>
+
+              <p className={`${hint} mt-[clamp(0.4rem,0.6vw,0.8rem)]`}>/blog/{post.slug}</p>
+
+              <div className="mt-[clamp(1rem,1.4vw,2rem)] flex flex-wrap items-center gap-[clamp(1rem,1.8vw,2.5rem)]">
+                <button className={textLink} type="button" onClick={() => onEdit(post)}>
+                  Edytuj
+                </button>
+                <button className={textLink} type="button" onClick={() => togglePublished(post)}>
+                  {post.published ? 'Ukryj' : 'Pokaż'}
+                </button>
+                <button className={textLinkDanger} type="button" onClick={() => remove(post)}>
+                  Usuń
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

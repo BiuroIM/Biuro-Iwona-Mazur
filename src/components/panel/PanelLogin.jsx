@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { supabase } from '../../lib/supabaseClient.js';
-import { buttonPrimary, errorBox, field, heading, hint, label } from './styles.js';
+import { field, hint, label, noticeError, pill } from './styles.js';
 
 const AUTH_MESSAGES = {
   'Invalid login credentials': 'Nieprawidłowy e-mail lub hasło.',
@@ -28,13 +28,10 @@ export default function PanelLogin() {
   };
 
   return (
-    <form onSubmit={submit} className="mx-auto w-[min(28rem,92vw)] py-[clamp(4rem,8vw,10rem)]">
-      <h1 className={heading}>Panel wpisów</h1>
-      <p className={`${hint} mt-[clamp(0.5rem,0.8vw,1rem)]`}>
-        Zaloguj się danymi, które dostałaś lub dostałeś od administratora strony.
-      </p>
+    <form onSubmit={submit} className="w-[32vw] px-[2vw] pb-[8vw] max-lg:w-full max-lg:px-[4vw]">
+      <p className={hint}>Zaloguj się danymi, które dostałaś lub dostałeś od administratora strony.</p>
 
-      <div className="mt-[clamp(1.5rem,2.5vw,3rem)]">
+      <div className="mt-[clamp(2rem,3vw,4rem)]">
         <label className={label} htmlFor="panel-email">
           E-mail
         </label>
@@ -43,13 +40,14 @@ export default function PanelLogin() {
           className={field}
           type="email"
           autoComplete="username"
+          placeholder="imie@biuro-mazur.pl"
           required
           value={email}
           onChange={(event) => setEmail(event.target.value)}
         />
       </div>
 
-      <div className="mt-[clamp(1rem,1.5vw,1.8rem)]">
+      <div className="mt-[clamp(1.5rem,2.2vw,3rem)]">
         <label className={label} htmlFor="panel-password">
           Hasło
         </label>
@@ -64,9 +62,9 @@ export default function PanelLogin() {
         />
       </div>
 
-      {error && <p className={`${errorBox} mt-[clamp(1rem,1.5vw,1.8rem)]`}>{error}</p>}
+      {error && <p className={`${noticeError} mt-[clamp(1.5rem,2.2vw,3rem)]`}>{error}</p>}
 
-      <button className={`${buttonPrimary} mt-[clamp(1.5rem,2.2vw,2.5rem)] w-full`} type="submit" disabled={busy}>
+      <button className={`${pill} mt-[clamp(2rem,3vw,4rem)]`} type="submit" disabled={busy}>
         {busy ? 'Loguję' : 'Zaloguj się'}
       </button>
     </form>
