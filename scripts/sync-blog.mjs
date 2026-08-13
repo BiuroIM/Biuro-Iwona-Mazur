@@ -1,6 +1,7 @@
 import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readingMinutes } from '../src/lib/postStructure.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const POSTS_DIR = path.join(ROOT, 'src', 'content', 'blog');
@@ -11,14 +12,8 @@ const SUPABASE_URL = process.env.PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL
 const SUPABASE_KEY = process.env.PUBLIC_SUPABASE_ANON_KEY ?? process.env.SUPABASE_ANON_KEY;
 
 const ALLOWED_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif']);
-const WORDS_PER_MINUTE = 200;
 
 const quote = (value) => `'${String(value).replaceAll("'", "''")}'`;
-
-const readingMinutes = (body) => {
-  const words = body.trim().split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.round(words / WORDS_PER_MINUTE));
-};
 
 const coverExtension = (url) => {
   const extension = path.extname(new URL(url).pathname).toLowerCase();

@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { marked } from 'marked';
 import { supabase } from '../../lib/supabaseClient.js';
 import { toSlug } from '../../lib/slug.js';
+import { outline, readingMinutes } from '../../lib/postStructure.js';
 import {
   coverFrame,
   coverImage,
@@ -18,6 +19,16 @@ import {
 } from './styles.js';
 
 const CATEGORIES = ['Aktualności', 'Podatki', 'Księgowość', 'Kadry i płace', 'Poradnik'];
+
+const TOOLBAR = [
+  { name: 'Nagłówek sekcji', prefix: '## ', help: 'Dzieli wpis na sekcje i trafia do spisu treści' },
+  { name: 'Podsekcja', prefix: '### ', help: 'Mniejszy nagłówek wewnątrz sekcji. Nie trafia do spisu treści' },
+  { name: 'Pogrubienie', wrap: ['**', '**'], help: 'Zaznacz fragment i kliknij' },
+  { name: 'Lista punktowana', prefix: '- ', help: 'Wypunktowanie' },
+  { name: 'Lista numerowana', prefix: '1. ', help: 'Kroki po kolei. Numery ustawią się same' },
+  { name: 'Cytat', prefix: '> ', help: 'Wyróżniony akapit z kreską z boku' },
+  { name: 'Link', wrap: ['[', '](https://)'], help: 'Zaznacz tekst i kliknij, potem wpisz adres' },
+];
 
 const MAX_COVER_BYTES = 8 * 1024 * 1024;
 
@@ -43,6 +54,8 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
 
   const isNew = !post;
   const slug = isNew ? toSlug(draft.title) : post.slug;
+  const sections = outline(draft.body);
+  const minutes = readingMinutes(draft.body);
 
   const update = (key) => (event) => setDraft((current) => ({ ...current, [key]: event.target.value }));
 
@@ -87,13 +100,20 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
 
     const { selectionStart, value } = input;
     const lineStart = value.lastIndexOf('\n', selectionStart - 1) + 1;
-    const next = `${value.slice(0, lineStart)}${prefix}${value.slice(lineStart)}`;
+    const lineEnd = value.indexOf('\n', lineStart) === -1 ? value.length : value.indexOf('\n', lineStart);
+    const line = value.slice(lineStart, lineEnd);
+    const stripped = line.replace(/^(#{2,3} |- |\d+\. |> )/, '');
+    const removing = line.startsWith(prefix);
+    const replacement = removing ? stripped : `${prefix}${stripped}`;
+    const next = `${value.slice(0, lineStart)}${replacement}${value.slice(lineEnd)}`;
+    const shift = replacement.length - line.length;
 
     setDraft((current) => ({ ...current, body: next }));
 
     requestAnimationFrame(() => {
       input.focus();
-      input.setSelectionRange(selectionStart + prefix.length, selectionStart + prefix.length);
+      const caret = Math.max(lineStart, selectionStart + shift);
+      input.setSelectionRange(caret, caret);
     });
   };
 
@@ -267,28 +287,28 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
         </div>
 
         <div className="mt-[clamp(2.5rem,4vw,5.5rem)]">
-          <div className="flex items-center justify-between gap-[1vw] max-sm:flex-col max-sm:items-start max-sm:gap-[3vw]">
+          <div className="flex items-baseline justify-between gap-[1vw]">
             <label className={label} htmlFor="post-body">
               Treść wpisu
             </label>
 
-            <div className="flex flex-wrap items-center gap-[clamp(0.9rem,1.6vw,2.2rem)]">
-              <button className={textLink} type="button" onClick={() => surroundSelection('**', '**')}>
-                Pogrubienie
+            <button className={textLink} type="button" onClick={() => setShowPreview((current) => !current)}>
+              {showPreview ? 'Wróć do pisania' : 'Podejrzyj'}
+            </button>
+          </div>
+
+          <div className="mt-[clamp(1rem,1.4vw,1.8rem)] flex flex-wrap items-center gap-x-[clamp(0.9rem,1.6vw,2.2rem)] gap-y-[clamp(0.6rem,0.9vw,1.2rem)]">
+            {TOOLBAR.map((tool) => (
+              <button
+                key={tool.name}
+                className={textLink}
+                type="button"
+                title={tool.help}
+                onClick={() => (tool.wrap ? surroundSelection(...tool.wrap) : startLine(tool.prefix))}
+              >
+                {tool.name}
               </button>
-              <button className={textLink} type="button" onClick={() => startLine('## ')}>
-                Nagłówek
-              </button>
-              <button className={textLink} type="button" onClick={() => startLine('- ')}>
-                Lista
-              </button>
-              <button className={textLink} type="button" onClick={() => surroundSelection('[', '](https://)')}>
-                Link
-              </button>
-              <button className={textLink} type="button" onClick={() => setShowPreview((current) => !current)}>
-                {showPreview ? 'Wróć do pisania' : 'Podejrzyj'}
-              </button>
-            </div>
+            ))}
           </div>
 
           <div className="mt-[clamp(1rem,1.4vw,1.8rem)] border-t border-ink/25 pt-[clamp(1rem,1.4vw,1.8rem)]">
@@ -306,10 +326,36 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
             )}
           </div>
 
-          <p className={`${hint} mt-[clamp(0.5rem,0.7vw,0.9rem)]`}>
-            Zaznacz fragment tekstu i kliknij Pogrubienie albo Link. Nagłówki dzielą wpis na sekcje i tworzą
-            spis treści z boku artykułu.
-          </p>
+          <div className="mt-[clamp(1.5rem,2.2vw,3rem)] border-t border-ink/25 pt-[clamp(1.5rem,2.2vw,3rem)]">
+            <p className={label}>W tym wpisie</p>
+
+            <p className={`${hint} mt-[clamp(0.4rem,0.6vw,0.8rem)]`}>
+              Tak wygląda spis treści, który czytelnik zobaczy z boku artykułu. Budują go wyłącznie nagłówki
+              sekcji. Podsekcje się w nim nie pokazują.
+            </p>
+
+            {sections.length === 0 ? (
+              <p className={`${hint} mt-[clamp(0.8rem,1.2vw,1.6rem)]`}>
+                Wpis nie ma jeszcze żadnej sekcji, więc artykuł będzie bez spisu treści. To dozwolone, ale przy
+                dłuższym tekście czytelnik traci nawigację.
+              </p>
+            ) : (
+              <ul className="mt-[clamp(0.8rem,1.2vw,1.6rem)] flex flex-col gap-[clamp(0.4rem,0.6vw,0.8rem)]">
+                {sections.map((heading, index) => (
+                  <li
+                    key={`${heading}-${index}`}
+                    className="font-sans text-[clamp(0.85rem,1vw,1.15rem)] font-normal leading-[1.3] text-graphite/70"
+                  >
+                    {heading}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <p className={`${hint} mt-[clamp(1.2rem,1.8vw,2.4rem)]`}>
+              Pod tytułem artykułu wyświetli się: {draft.category} · {minutes} min czytania
+            </p>
+          </div>
         </div>
 
         {error && <p className={`${noticeError} mt-[clamp(2rem,3vw,4rem)]`}>{error}</p>}

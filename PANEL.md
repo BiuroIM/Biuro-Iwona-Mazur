@@ -242,10 +242,35 @@ Pracownik nie widzi tych pól, a schemat kolekcji ich wymaga:
 | Pole | Skąd się bierze |
 | --- | --- |
 | `date` | moment publikacji z bazy |
-| `readingMinutes` | liczba słów w treści dzielona przez 200, minimum 1 |
+| `readingMinutes` | liczba słów dzielona przez `WORDS_PER_MINUTE` z `src/lib/postStructure.js`, minimum 1 |
 | `cover` | zdjęcie ściągnięte do `src/assets/blog/<adres>.jpg` |
 | `softParallax` | zawsze `true` |
 | `featured` | nigdy nie ustawiane. Wyróżniony wpis to sprawa techniczna, opis w `BLOG.md` |
+
+## ⚠️ Czas czytania rozjeżdża się ze starymi wpisami
+
+Siedem wpisów napisanych ręcznie ma `readingMinutes` wpisane z palca i wynika z nich tempo
+**76 słów na minutę**. Panel liczy po **200**, czyli realistycznie. Efekt: tekst o tej samej
+długości dostanie z panelu „2 min czytania", a sąsiedni stary wpis pokazuje „7 min czytania",
+i widać to obok siebie na liście.
+
+| Wpis | Słów | Wpisane ręcznie | Wynikowe tempo |
+| --- | --- | --- | --- |
+| `bledy-w-ewidencji-vat` | 425 | 5 min | 85 słów/min |
+| `forma-opodatkowania-jak-wybrac` | 498 | 8 min | 62 słowa/min |
+| `ksef-w-praktyce` | 482 | 7 min | 69 słów/min |
+| `zmiany-w-skladce-zdrowotnej` | 519 | 6 min | 87 słów/min |
+
+Do wyboru, jedno albo drugie:
+
+- **Zostawić 200** i poprawić siedem starych wpisów, żeby mówiły prawdę. Wtedy wszystkie
+  artykuły na blogu skracają się do 2 do 3 minut.
+- **Zejść do tempa starych wpisów**, zmieniając `WORDS_PER_MINUTE` w `src/lib/postStructure.js`
+  na 80. Nowe wpisy dopasują się do tego, co już jest, kosztem zawyżonej liczby.
+
+Teraz obowiązuje pierwszy wariant, ale stare wpisy **nie są jeszcze poprawione**, więc
+niespójność istnieje. Ta stała jest w jednym miejscu i liczy tak samo w panelu i przy
+publikacji, więc zmiana to jedna linia.
 
 ## Wpisy z panelu a wpisy pisane ręcznie
 
