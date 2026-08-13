@@ -4,6 +4,7 @@ import { supabase } from '../../lib/supabaseClient.js';
 import { toSlug } from '../../lib/slug.js';
 import { outline, readingMinutes } from '../../lib/postStructure.js';
 import {
+  card,
   coverFrame,
   coverImage,
   field,
@@ -14,7 +15,8 @@ import {
   pill,
   pillGhost,
   sectionTitle,
-  textLink,
+  smallButton,
+  smallButtonActive,
   textareaField,
 } from './styles.js';
 
@@ -196,15 +198,15 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
 
   return (
     <form onSubmit={submit}>
-      <div className="flex items-end justify-between gap-[2vw] max-sm:flex-col max-sm:items-start max-sm:gap-[4vw]">
+      <div className="flex items-center justify-between gap-[2vw] max-sm:flex-col max-sm:items-start max-sm:gap-[4vw]">
         <h2 className={sectionTitle}>{isNew ? 'Nowy wpis' : 'Edycja wpisu'}</h2>
 
-        <button className={textLink} type="button" onClick={onCancel} disabled={busy}>
+        <button className={smallButton} type="button" onClick={onCancel} disabled={busy}>
           Wróć do listy
         </button>
       </div>
 
-      <div className="mt-[clamp(2rem,3vw,4rem)] w-[52vw] max-lg:w-full">
+      <div className="mt-[clamp(2rem,3vw,4rem)]">
         <p className={notice}>
           Po zapisaniu strona przebudowuje się sama. Wpis pojawi się pod adresem /blog/{slug || '…'} zwykle
           w ciągu kilku minut.
@@ -287,23 +289,28 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
         </div>
 
         <div className="mt-[clamp(2.5rem,4vw,5.5rem)]">
-          <div className="flex items-baseline justify-between gap-[1vw]">
+          <div className="flex items-center justify-between gap-[1vw]">
             <label className={label} htmlFor="post-body">
               Treść wpisu
             </label>
 
-            <button className={textLink} type="button" onClick={() => setShowPreview((current) => !current)}>
+            <button
+              className={showPreview ? smallButtonActive : smallButton}
+              type="button"
+              onClick={() => setShowPreview((current) => !current)}
+            >
               {showPreview ? 'Wróć do pisania' : 'Podejrzyj'}
             </button>
           </div>
 
-          <div className="mt-[clamp(1rem,1.4vw,1.8rem)] flex flex-wrap items-center gap-x-[clamp(0.9rem,1.6vw,2.2rem)] gap-y-[clamp(0.6rem,0.9vw,1.2rem)]">
+          <div className="mt-[clamp(0.8rem,1.1vw,1.4rem)] flex flex-wrap items-center gap-[clamp(0.4rem,0.55vw,0.7rem)]">
             {TOOLBAR.map((tool) => (
               <button
                 key={tool.name}
-                className={textLink}
+                className={smallButton}
                 type="button"
                 title={tool.help}
+                disabled={showPreview}
                 onClick={() => (tool.wrap ? surroundSelection(...tool.wrap) : startLine(tool.prefix))}
               >
                 {tool.name}
@@ -311,22 +318,23 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
             ))}
           </div>
 
-          <div className="mt-[clamp(1rem,1.4vw,1.8rem)] border-t border-ink/25 pt-[clamp(1rem,1.4vw,1.8rem)]">
-            {showPreview ? (
-              <div className="post-body" dangerouslySetInnerHTML={{ __html: marked.parse(draft.body) }} />
-            ) : (
-              <textarea
-                id="post-body"
-                ref={bodyRef}
-                className={`${textareaField} mt-0 min-h-[clamp(18rem,28vw,36rem)]`}
-                placeholder="Zacznij pisać wpis. Nagłówki i pogrubienia dodasz przyciskami wyżej."
-                value={draft.body}
-                onChange={update('body')}
-              />
-            )}
-          </div>
+          {showPreview ? (
+            <div
+              className={`${card} post-body mt-[clamp(0.8rem,1.1vw,1.4rem)]`}
+              dangerouslySetInnerHTML={{ __html: marked.parse(draft.body) }}
+            />
+          ) : (
+            <textarea
+              id="post-body"
+              ref={bodyRef}
+              className={`${textareaField} min-h-[clamp(18rem,28vw,36rem)]`}
+              placeholder="Zacznij pisać wpis. Nagłówki i pogrubienia dodasz przyciskami wyżej."
+              value={draft.body}
+              onChange={update('body')}
+            />
+          )}
 
-          <div className="mt-[clamp(1.5rem,2.2vw,3rem)] border-t border-ink/25 pt-[clamp(1.5rem,2.2vw,3rem)]">
+          <div className={`${card} mt-[clamp(1.5rem,2.2vw,3rem)]`}>
             <p className={label}>W tym wpisie</p>
 
             <p className={`${hint} mt-[clamp(0.4rem,0.6vw,0.8rem)]`}>

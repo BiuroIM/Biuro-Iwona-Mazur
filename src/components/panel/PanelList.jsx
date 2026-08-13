@@ -8,8 +8,8 @@ import {
   noticeError,
   pill,
   sectionTitle,
-  textLink,
-  textLinkDanger,
+  smallButton,
+  smallButtonDanger,
   tileMeta,
   tileTitle,
 } from './styles.js';
@@ -112,14 +112,14 @@ export default function PanelList({ onEdit, onCreate }) {
 
               <p className={`${hint} mt-[clamp(0.4rem,0.6vw,0.8rem)]`}>/blog/{post.slug}</p>
 
-              <div className="mt-[clamp(1rem,1.4vw,2rem)] flex flex-wrap items-center gap-[clamp(1rem,1.8vw,2.5rem)]">
-                <button className={textLink} type="button" onClick={() => onEdit(post)}>
+              <div className="mt-[clamp(1rem,1.4vw,2rem)] flex flex-wrap items-center gap-[clamp(0.5rem,0.7vw,0.9rem)]">
+                <button className={smallButton} type="button" onClick={() => onEdit(post)}>
                   Edytuj
                 </button>
-                <button className={textLink} type="button" onClick={() => togglePublished(post)}>
+                <button className={smallButton} type="button" onClick={() => togglePublished(post)}>
                   {post.published ? 'Ukryj' : 'Pokaż'}
                 </button>
-                <button className={textLinkDanger} type="button" onClick={() => remove(post)}>
+                <button className={smallButtonDanger} type="button" onClick={() => remove(post)}>
                   Usuń
                 </button>
               </div>

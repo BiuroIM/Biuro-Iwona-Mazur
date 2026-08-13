@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { supabase } from '../../lib/supabaseClient.js';
-import { field, hint, label, noticeError, pill } from './styles.js';
+import { card, field, hint, label, noticeError, pill } from './styles.js';
 
 const AUTH_MESSAGES = {
   'Invalid login credentials': 'Nieprawidłowy e-mail lub hasło.',
@@ -28,10 +28,12 @@ export default function PanelLogin() {
   };
 
   return (
-    <form onSubmit={submit} className="w-[32vw] px-[2vw] pb-[8vw] max-lg:w-full max-lg:px-[4vw]">
-      <p className={hint}>Zaloguj się danymi, które dostałaś lub dostałeś od administratora strony.</p>
+    <form onSubmit={submit} className={`${card} mx-auto w-[min(28rem,92vw)]`}>
+      <p className={`${hint} text-center`}>
+        Zaloguj się danymi, które dostałaś lub dostałeś od administratora strony.
+      </p>
 
-      <div className="mt-[clamp(2rem,3vw,4rem)]">
+      <div className="mt-[clamp(1.5rem,2.2vw,2.5rem)]">
         <label className={label} htmlFor="panel-email">
           E-mail
         </label>
@@ -47,7 +49,7 @@ export default function PanelLogin() {
         />
       </div>
 
-      <div className="mt-[clamp(1.5rem,2.2vw,3rem)]">
+      <div className="mt-[clamp(1rem,1.5vw,1.8rem)]">
         <label className={label} htmlFor="panel-password">
           Hasło
         </label>
@@ -62,9 +64,9 @@ export default function PanelLogin() {
         />
       </div>
 
-      {error && <p className={`${noticeError} mt-[clamp(1.5rem,2.2vw,3rem)]`}>{error}</p>}
+      {error && <p className={`${noticeError} mt-[clamp(1rem,1.5vw,1.8rem)]`}>{error}</p>}
 
-      <button className={`${pill} mt-[clamp(2rem,3vw,4rem)]`} type="submit" disabled={busy}>
+      <button className={`${pill} mt-[clamp(1.5rem,2.2vw,2.5rem)] w-full`} type="submit" disabled={busy}>
         {busy ? 'Loguję' : 'Zaloguj się'}
       </button>
     </form>

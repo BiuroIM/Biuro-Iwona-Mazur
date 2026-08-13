@@ -3,7 +3,7 @@ import { isConfigured, supabase } from '../../lib/supabaseClient.js';
 import PanelLogin from './PanelLogin.jsx';
 import PanelList from './PanelList.jsx';
 import PanelForm from './PanelForm.jsx';
-import { hint, notice, noticeError, shell, textLink } from './styles.js';
+import { hint, notice, noticeError, shell, smallButton } from './styles.js';
 
 export default function PanelApp() {
   const [session, setSession] = useState(undefined);
@@ -48,7 +48,7 @@ export default function PanelApp() {
       <div className="flex items-center justify-end gap-[clamp(1rem,1.6vw,2.2rem)] border-b border-ink/15 pb-[clamp(1rem,1.4vw,1.8rem)]">
         <p className={hint}>Zalogowana jako {session.user.email}</p>
 
-        <button className={textLink} type="button" onClick={() => supabase.auth.signOut()}>
+        <button className={smallButton} type="button" onClick={() => supabase.auth.signOut()}>
           Wyloguj
         </button>
       </div>
