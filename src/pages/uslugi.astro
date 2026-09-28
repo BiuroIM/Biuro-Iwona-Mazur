@@ -1,23 +1,74 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { callback } from '../data/contact.js';
 import { Image } from 'astro:assets';
-import womanDesk from '../assets/stock/business-woman-desk-wide.jpg';
+import womanDesk from '../assets/photos/office-interior.jpg';
 
 const MARQUEE_REPEATS = 3;
 const DASH_LENGTH = 'clamp(3.5rem,9vw,11rem)';
 const DASH_THICKNESS = 'clamp(0.3rem,0.8vw,1rem)';
 
 const services = [
-  'Księga przychodów i rozchodów',
-  'Pełna księgowość',
-  'Ewidencja VAT i pliki JPK',
-  'Deklaracje i rozliczenia roczne',
-  'Kadry i płace',
-  'Rozliczenia ZUS',
-  'Doradztwo podatkowe',
-  'Zakładanie działalności i spółek',
-  'Reprezentacja przed urzędami',
-  'Sprawozdania finansowe',
+  {
+    name: 'Księga przychodów i rozchodów',
+    lead: 'Prosto. Terminowo. Bez zaległości.',
+    description:
+      'Prowadzimy KPiR dla jednoosobowych działalności i spółek cywilnych. Księgujemy dokumenty na bieżąco, pilnujemy limitów i kwalifikacji kosztów, wyliczamy zaliczkę na podatek. Co miesiąc wiesz, na czym stoisz.',
+  },
+  {
+    name: 'Pełna księgowość',
+    lead: 'Księgi handlowe. Pełna kontrola.',
+    description:
+      'Obsługa spółek zobowiązanych do prowadzenia ksiąg rachunkowych. Plan kont dopasowany do Twojej firmy, ewidencja środków trwałych, rozrachunki z kontrahentami i raporty zarządcze wtedy, gdy są potrzebne.',
+  },
+  {
+    name: 'Ewidencja VAT i pliki JPK',
+    lead: 'Rejestry. Wysyłka. Spokój.',
+    description:
+      'Prowadzimy rejestry sprzedaży i zakupu, weryfikujemy kontrahentów na białej liście i wysyłamy JPK_V7 w Twoim imieniu. Pilnujemy oznaczeń i terminów, żeby urząd nie miał o co pytać.',
+  },
+  {
+    name: 'Deklaracje i rozliczenia roczne',
+    lead: 'Zeznanie. Ulgi. Termin.',
+    description:
+      'PIT, CIT i wszystko, co składa się na zamknięcie roku. Sprawdzamy, z których ulg i odliczeń możesz skorzystać, przygotowujemy zeznanie i wysyłamy je elektronicznie.',
+  },
+  {
+    name: 'Kadry i płace',
+    lead: 'Umowy. Listy płac. Ludzie.',
+    description:
+      'Prowadzimy akta osobowe, przygotowujemy umowy i świadectwa pracy, liczymy wynagrodzenia, urlopy i zwolnienia. Twoi pracownicy dostają wypłatę na czas, a Ty gotowe przelewy.',
+  },
+  {
+    name: 'Rozliczenia ZUS',
+    lead: 'Zgłoszenia. Składki. Zasiłki.',
+    description:
+      'Zgłaszamy i wyrejestrowujemy pracowników, wyliczamy składki i wysyłamy deklaracje. Prowadzimy dokumentację zasiłkową, a sprawy sporne wyjaśniamy bezpośrednio z ZUS.',
+  },
+  {
+    name: 'Doradztwo podatkowe',
+    lead: 'Pytanie. Analiza. Decyzja.',
+    description:
+      'Zanim podpiszesz umowę albo zmienisz formę opodatkowania, sprawdzamy skutki podatkowe. Dobieramy rozwiązanie zgodne z przepisami i korzystne dla firmy, a wnioski dostajesz na piśmie.',
+  },
+  {
+    name: 'Zakładanie działalności i spółek',
+    lead: 'Pomysł. Rejestracja. Start.',
+    description:
+      'Pomagamy wybrać formę prawną i sposób opodatkowania, wypełniamy wnioski do CEIDG lub KRS, zgłaszamy firmę do urzędu skarbowego i ZUS. Przez pierwsze miesiące prowadzimy za rękę.',
+  },
+  {
+    name: 'Reprezentacja przed urzędami',
+    lead: 'Pełnomocnictwo. Pisma. Obecność.',
+    description:
+      'Odbieramy korespondencję, odpowiadamy na wezwania i przygotowujemy wyjaśnienia. W trakcie czynności sprawdzających i kontroli stoimy po Twojej stronie, także osobiście w urzędzie.',
+  },
+  {
+    name: 'Sprawozdania finansowe',
+    lead: 'Bilans. Wynik. Podpis.',
+    description:
+      'Przygotowujemy bilans, rachunek zysków i strat oraz informację dodatkową w formacie wymaganym przez KRS. Pilnujemy terminów zatwierdzenia i podpisów elektronicznych członków zarządu.',
+  },
 ];
 ---
 <BaseLayout
@@ -48,86 +99,93 @@ const services = [
     <h1 class="sr-only">Usługi</h1>
 
     <div
-      class="relative mt-auto h-[80vh] shrink-0 overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] bg-placeholder max-lg:h-auto max-lg:flex-1"
+      class="relative mt-auto h-[80vh] shrink-0 overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] max-lg:h-auto max-lg:flex-1"
       data-image-reveal
     >
       <Image
         src={womanDesk}
-        alt="Księgowa przy biurku w trakcie pracy nad dokumentami"
+        alt="Wnętrze biura z zielenią i stanowiskami pracy"
         class="parallax-img"
         data-parallax
-        widths={[768, 1280, 2000]}
-        sizes="(width < 64rem) 92vw, 96vw"
+        widths={[768, 1280, 1600]}
+        sizes="(width < 64rem) 300vw, 95vw"
         loading="eager"
       />
-      <div class="reveal-panel absolute inset-0 z-10 bg-[var(--page-background)]"></div>
+      <div class="reveal-panel absolute inset-0 z-10"></div>
     </div>
   </section>
 
-  <section class="mt-[4vw] px-[2vw] max-lg:mt-[8vw] max-lg:px-[4vw]">
-    <p
-      class="ml-auto w-[75vw] indent-[14%] font-sans text-[clamp(1.5rem,2.6vw,4.5rem)] font-medium leading-[1.12] tracking-[-0.02em] text-graphite max-lg:w-full max-lg:indent-0 max-lg:text-[clamp(1.15rem,5.4vw,2.1rem)] max-lg:leading-[1.3] max-lg:tracking-normal"
-      data-words-scrub
-      data-from="0.3"
-      data-to="1"
-      data-start="top 92%"
-      data-end="bottom 68%"
-    >
-      In an endlress steam of stimulations, selected. is a cultural landmark
-      for carefully curated music taste. We are aiming to define and set
-      the trend, not to follow it
-    </p>
-  </section>
-
   <section class="mt-[6vw] px-[2vw] max-lg:mt-[12vw] max-lg:px-[4vw]">
-    <p
-      class="mb-[clamp(0.2rem,0.35vw,0.5rem)] font-display text-[clamp(0.6rem,0.75vw,0.9rem)] font-medium uppercase tracking-[0.25em] text-graphite/75 max-lg:mb-[1vw] max-lg:text-[clamp(0.65rem,3vw,0.95rem)]"
-      data-animate="fade-up"
+    <h2
+      class="font-display text-[clamp(2rem,4.5vw,5.5rem)] font-medium uppercase leading-[1.05] text-graphite max-lg:text-[clamp(1.4rem,7vw,2.75rem)]"
+      data-reveal-lines="once"
     >
-      Czym się zajmujemy?
-    </p>
+      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Zakres naszych</span></span>
+      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">usług</span></span>
+    </h2>
 
-    <ul class="-mx-[2vw] border-t border-graphite/20 max-lg:-mx-[4vw]" data-animate="fade-up" data-delay="0.1">
+    <ul class="-mx-[2vw] mt-[clamp(3rem,7vw,10rem)] border-t border-graphite/20 max-lg:-mx-[4vw] max-lg:mt-[10vw]">
       {
-        services.map((service) => (
+        services.map((service, index) => (
           <li class="border-b border-graphite/20">
-            <button
-              type="button"
-              class="group relative flex w-full cursor-pointer items-center gap-[2vw] overflow-hidden px-[2vw] py-[clamp(0.85rem,1.5vw,2rem)] text-left max-lg:px-[4vw]"
-              aria-haspopup="dialog"
-              aria-label={`${service}: napisz do nas w tej sprawie`}
-              data-open-form
-            >
-              <span
-                class="absolute inset-0 origin-center scale-y-0 bg-ink transition-transform duration-200 ease-quad-out group-hover:scale-y-100"
-                aria-hidden="true"></span>
-
-              <span class="relative z-10 font-sans text-[clamp(1.25rem,2.8vw,3.5rem)] font-medium uppercase leading-[1.1] text-graphite transition-all duration-500 ease-quad-out group-hover:translate-x-[4vw] group-hover:text-canvas max-lg:text-[clamp(1.05rem,5.6vw,1.9rem)]">
-                {service}
+            <div class="grid grid-cols-[7%_43%_30%] items-start gap-x-[2vw] px-[2vw] py-[clamp(1.4rem,2.6vw,3.5rem)] max-lg:flex max-lg:flex-col max-lg:gap-y-[3vw] max-lg:px-[4vw] max-lg:py-[7vw]">
+              <span class="font-counter text-[clamp(0.6rem,0.75vw,0.9rem)] font-medium tabular-nums text-graphite/55 max-lg:text-[clamp(0.65rem,3vw,0.9rem)]">
+                {String(index + 1).padStart(2, '0')}
               </span>
 
-              <span
-                class="relative z-10 ml-auto flex h-[clamp(1.25rem,2vw,2.5rem)] w-[clamp(1.25rem,2vw,2.5rem)] shrink-0 text-graphite transition-all duration-500 ease-quad-out group-hover:-translate-x-[4vw] group-hover:text-canvas max-lg:h-[5.5vw] max-lg:w-[5.5vw]"
-                aria-hidden="true"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="h-full w-full"
-                >
-                  <path d="M19 12H5" />
-                  <path d="m11 6-6 6 6 6" />
-                </svg>
+              <span class="font-sans text-[clamp(1.05rem,1.9vw,2.4rem)] font-medium leading-[1.15] tracking-[-0.02em] text-graphite max-lg:text-[clamp(1.1rem,5.4vw,1.9rem)]">
+                {service.name}
               </span>
-            </button>
+
+              <span class="block">
+                <span class="block font-sans text-[clamp(0.75rem,0.95vw,1.15rem)] font-medium leading-[1.5] text-graphite/45 max-lg:text-[clamp(0.8rem,3.6vw,1.05rem)]">
+                  {service.lead}
+                </span>
+                <span class="mt-[clamp(0.35rem,0.5vw,0.75rem)] block font-sans text-[clamp(0.75rem,0.95vw,1.15rem)] font-medium leading-[1.6] text-graphite max-lg:mt-[1.5vw] max-lg:text-[clamp(0.8rem,3.6vw,1.05rem)]">
+                  {service.description}
+                </span>
+              </span>
+            </div>
           </li>
         ))
       }
     </ul>
+  </section>
+
+  <section class="relative mt-[12vw] h-[200vh] max-lg:mt-[20vw] max-lg:h-[160vh]" data-headline-pin data-stagger="0.15" data-hold="1">
+    <div class="sticky top-0 h-screen overflow-hidden">
+      <div
+        class="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-[2vw] max-lg:px-[4vw]"
+        data-headline-group
+        data-stays
+      >
+        <h2 class="text-center font-display text-[clamp(2rem,4.5vw,5.5rem)] font-medium uppercase leading-[1.05] text-graphite max-lg:text-[clamp(1.4rem,7vw,2.75rem)]">
+          <span class="block overflow-hidden -mb-[0.15em]"><span class="headline-line block pb-[0.15em]">Znalazłeś coś</span></span>
+          <span class="block overflow-hidden -mb-[0.15em]"><span class="headline-line block pb-[0.15em]">dla siebie?</span></span>
+        </h2>
+
+        <div class="pointer-events-auto flex flex-col items-center" data-headline-extra>
+          <p
+            class="mt-[2vw] max-w-[42vw] text-center font-sans text-[clamp(0.95rem,1.1vw,1.25rem)] font-medium leading-[1.35] text-graphite max-lg:mt-[3vh] max-lg:max-w-none"
+            data-extra-words
+          >
+            Wypełnij formularz, a {callback.clause} z propozycją zakresu obsługi i wyceną.
+          </p>
+
+          <span class="mt-[clamp(1rem,1.4vw,2rem)] flex overflow-hidden max-lg:mt-[3vh]">
+            <a
+              href="#"
+              class="extra-line group relative z-10 inline-flex w-fit cursor-pointer items-center gap-[clamp(1rem,1.4vw,2rem)] overflow-hidden whitespace-nowrap rounded-full border-2 border-transparent bg-ink py-[clamp(0.75rem,0.9vw,1.15rem)] pl-[clamp(1.5rem,2.2vw,3rem)] pr-[clamp(0.75rem,1.1vw,1.5rem)] text-canvas transition-colors duration-700 hover:border-ink max-lg:gap-[4vw] max-lg:whitespace-normal max-lg:py-[3vw] max-lg:pl-[5vw] max-lg:pr-[3vw]"
+              aria-haspopup="dialog"
+              data-open-form
+            >
+              <span class="relative z-10 font-display text-[clamp(1rem,1.15vw,1.375rem)] font-normal uppercase transition-all duration-[400ms] group-hover:translate-x-[1.2vw] group-hover:text-ink max-lg:text-[0.85rem]">Napisz do nas</span>
+              <span class="relative z-0 flex h-[clamp(1.75rem,2vw,2.75rem)] w-[clamp(1.75rem,2vw,2.75rem)] shrink-0 rounded-full bg-canvas transition-transform duration-700 ease-out group-hover:duration-[1600ms] group-hover:scale-[55]"></span>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
   </section>
 
 </BaseLayout>

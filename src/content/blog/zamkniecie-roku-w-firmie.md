@@ -3,9 +3,9 @@ title: 'Jak przygotować firmę do zamknięcia roku'
 lead: 'Zamknięcie roku jest tym łatwiejsze, im mniej rzeczy zostawisz na grudzień. Oto lista, którą przechodzimy z klientami od października.'
 date: 2026-06-09
 category: 'Księgowość'
-readingMinutes: 5
-cover: '../../assets/stock/group-working-out-business-plan.jpg'
-coverAlt: 'Zespół omawiający dokumenty przy stole w sali spotkań'
+readingMinutes: 2
+cover: '../../assets/photos/client-conversation.jpg'
+coverAlt: 'Rozmowa dwóch osób przy biurku, z dokumentami w dłoniach'
 ---
 
 Zamknięcie roku rzadko bywa trudne merytorycznie. Bywa trudne organizacyjnie, bo w jednym momencie zbiegają się dokumenty, których brakowało przez dwanaście miesięcy, inwentaryzacja, rozliczenia z pracownikami i decyzje, które trzeba podjąć przed 31 grudnia.

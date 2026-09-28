@@ -19,6 +19,7 @@ import {
   smallButtonActive,
   textareaField,
 } from './styles.js';
+import { describeError, PanelError } from './errors.js';
 
 const CATEGORIES = ['Aktualności', 'Podatki', 'Księgowość', 'Kadry i płace', 'Poradnik'];
 
@@ -128,7 +129,7 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
       .upload(name, file, { contentType: file.type });
 
     if (uploadError) {
-      throw new Error(`Nie udało się wgrać zdjęcia: ${uploadError.message}`);
+      throw new PanelError(describeError(uploadError, 'Nie udało się wgrać zdjęcia.'));
     }
 
     return supabase.storage.from('covers').getPublicUrl(name).data.publicUrl;
@@ -140,10 +141,10 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
       const { error: insertError } = await supabase.from('posts').insert({ ...payload, slug: candidate });
 
       if (!insertError) return;
-      if (insertError.code !== '23505') throw new Error(insertError.message);
+      if (insertError.code !== '23505') throw new PanelError(describeError(insertError, 'Nie udało się zapisać wpisu.'));
     }
 
-    throw new Error('Wpis o takim tytule już istnieje. Zmień tytuł.');
+    throw new PanelError('Wpis o takim tytule już istnieje. Zmień tytuł.');
   };
 
   const validate = () => {
@@ -186,12 +187,12 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
         await insertWithFreeSlug(payload);
       } else {
         const { error: updateError } = await supabase.from('posts').update(payload).eq('id', post.id);
-        if (updateError) throw new Error(updateError.message);
+        if (updateError) throw new PanelError(describeError(updateError, 'Nie udało się zapisać zmian.'));
       }
 
       onSaved();
     } catch (saveError) {
-      setError(saveError.message);
+      setError(describeError(saveError, 'Nie udało się zapisać wpisu.'));
       setBusy(false);
     }
   };

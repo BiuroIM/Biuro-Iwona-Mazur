@@ -3,9 +3,9 @@ title: 'Dokumenty do księgowości online: jak to zorganizować raz na dobre'
 lead: 'Nie chodzi o program ani o skaner. Chodzi o jedną drogę przekazywania dokumentów i stały termin. To wystarcza, żeby przestać szukać faktur pod koniec miesiąca.'
 date: 2026-01-20
 category: 'Poradnik'
-readingMinutes: 4
-cover: '../../assets/stock/female-work-brainstorming.jpg'
-coverAlt: 'Dwie osoby planujące pracę przy tablicy w biurze'
+readingMinutes: 2
+cover: '../../assets/photos/accountant-at-computer.jpg'
+coverAlt: 'Księgowa pracująca przy komputerze przy oknie biura'
 ---
 
 Pytanie o formę przekazywania dokumentów pojawia się zwykle przy rozpoczęciu współpracy, a potem wraca po kilku miesiącach, gdy okazuje się, że część faktur krąży mailem, część leży w teczce, a część istnieje tylko w telefonie.

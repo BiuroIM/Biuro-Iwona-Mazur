@@ -42,7 +42,6 @@ const related = relatedPosts(posts, post);
 
       <div
         class="mt-[clamp(1.5rem,2.5vw,3.5rem)] flex items-center justify-center gap-[clamp(0.5rem,0.7vw,0.9rem)] font-display text-[clamp(0.6rem,0.75vw,0.9rem)] font-medium uppercase tracking-[0.25em] text-graphite/75 max-lg:mt-[6vw] max-lg:text-[clamp(0.65rem,3vw,0.95rem)]"
-        data-animate="fade-up"
       >
         <span>{post.data.category}</span>
         <span class="h-[0.3em] w-[0.3em] shrink-0 rounded-full bg-graphite/40"></span>
@@ -53,16 +52,14 @@ const related = relatedPosts(posts, post);
 
       <h1
         class="mx-auto mt-[clamp(0.75rem,1.4vw,2rem)] w-[80vw] text-center font-display text-[clamp(2rem,5.4vw,7rem)] font-medium uppercase leading-[1.02] text-graphite max-lg:mt-[3vw] max-lg:w-full max-lg:text-[clamp(1.75rem,8.5vw,3.5rem)]"
-        data-animate="fade-up"
-        data-delay="0.1"
       >
         {post.data.title}
       </h1>
 
       <div
-        class="relative mx-auto mt-[clamp(2rem,3.5vw,5rem)] aspect-[3/2] w-[60vw] overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] bg-placeholder max-lg:mt-[8vw] max-lg:aspect-[4/3] max-lg:w-full"
+        class="relative mx-auto mt-[clamp(2rem,3.5vw,5rem)] aspect-[3/2] w-[60vw] overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] max-lg:mt-[8vw] max-lg:aspect-[4/3] max-lg:w-full"
         data-image-reveal
-        data-delay-desktop="0.35"
+        data-delay-desktop="0.22"
       >
         <Image
           src={post.data.cover}
@@ -70,10 +67,10 @@ const related = relatedPosts(posts, post);
           class={`parallax-img ${post.data.softParallax ? 'parallax-img--soft' : ''}`}
           data-parallax
           widths={[768, 1280, 2000]}
-          sizes="(width < 64rem) 92vw, 60vw"
+          sizes="(width < 64rem) 117vw, 68vw"
           loading="eager"
         />
-        <div class="reveal-panel absolute inset-0 z-10 bg-[var(--page-background)]"></div>
+        <div class="reveal-panel absolute inset-0 z-10"></div>
       </div>
     </section>
 
@@ -81,7 +78,7 @@ const related = relatedPosts(posts, post);
       {
         sections.length > 0 && (
           <aside class="absolute inset-y-0 left-[2vw] w-[14vw] max-lg:hidden" aria-label="Spis treści">
-            <div class="sticky top-[18vh]" data-animate="fade-up">
+            <div class="sticky top-[18vh]">
               <p class="font-display text-[clamp(0.6rem,0.7vw,0.85rem)] font-medium uppercase tracking-[0.25em] text-graphite/50">
                 W tym wpisie
               </p>
@@ -107,8 +104,6 @@ const related = relatedPosts(posts, post);
 
       <div
         class="post-body mx-auto w-[52vw] max-lg:w-full"
-        data-animate="fade-up"
-        data-delay="0.1"
       >
         <Content />
       </div>
@@ -139,7 +134,7 @@ const related = relatedPosts(posts, post);
             related.map((item) => (
               <a href={`/blog/${item.id}`} class="group block" data-cursor-label="Zobacz">
                 <div
-                  class="relative aspect-[3/2] w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] bg-placeholder"
+                  class="relative aspect-[3/2] w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)]"
                   data-image-reveal
                   data-delay-desktop="0.2"
                 >
@@ -149,14 +144,14 @@ const related = relatedPosts(posts, post);
                     class={`parallax-img ${item.data.softParallax ? 'parallax-img--soft' : ''}`}
                     data-parallax
                     data-photo-tone
-                    widths={[320, 480, 800]}
-                    sizes="(width < 40rem) 92vw, (width < 64rem) 46vw, 30vw"
+                    widths={[480, 800, 1200]}
+                    sizes="(width < 40rem) 114vw, (width < 64rem) 60vw, 38vw"
                   />
-                  <div class="reveal-panel absolute inset-0 z-10 bg-[var(--page-background)]" />
+                  <div class="reveal-panel absolute inset-0 z-10" />
                 </div>
 
                 <div class="mt-[clamp(1rem,1.4vw,2rem)] flex items-center gap-[clamp(0.5rem,0.7vw,0.9rem)] font-sans text-[clamp(0.8rem,0.9vw,1.05rem)] font-normal text-graphite/90 max-lg:mt-[4vw] max-lg:text-[clamp(0.78rem,3.1vw,0.95rem)]">
-                  <span class="h-[0.5em] w-[0.5em] shrink-0 rounded-full bg-ink" aria-hidden="true"></span>
+                  <span class="h-[0.5em] w-[0.5em] shrink-0 rounded-full bg-graphite/90" aria-hidden="true"></span>
                   <time datetime={isoDate(item.data.date)}>{formatDateMonthFirst(item.data.date)}</time>
                 </div>
 

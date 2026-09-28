@@ -2,22 +2,23 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LogoSlider from '../components/LogoSlider.astro';
 import { questions } from '../data/questions.js';
+import { callback } from '../data/contact.js';
 import { Image } from 'astro:assets';
-import businessPartners from '../assets/stock/two-business-partners-office.jpg';
-import peopleMeeting from '../assets/stock/people-having-meeting-office.jpg';
-import womanWritingNotes from '../assets/stock/business-woman-writing-notes.jpg';
-import womanBrainstorming from '../assets/stock/female-work-brainstorming.jpg';
-import womanAtComputer from '../assets/stock/young-woman-at-computer.jpg';
+import teamGroup from '../assets/photos/team-group.jpg';
+import reviewingDocuments from '../assets/photos/two-accountants-documents.jpg';
+import openSpaceConversation from '../assets/photos/open-space-conversation.jpg';
+import clientConversation from '../assets/photos/client-conversation.jpg';
+import accountantAtWorkstation from '../assets/photos/accountant-at-workstation.jpg';
 import HoverLetters from '../components/HoverLetters.astro';
 import { getCollection } from 'astro:content';
 import { formatDateMonthFirst, isoDate, sortPosts } from '../data/blog.js';
 
 const clientLogos = [
-  { file: '/apisLOGO-bez-tla.png', alt: 'Apis Natural Cosmetics', invert: true },
-  { file: '/greenvitoLOGO-bez-tla.png', alt: 'Greenvito', invert: true },
-  { file: '/epxLOGO-bez-tla.png', alt: 'EPX', invert: true },
-  { file: '/consusLOGO-bez-tla.png', alt: 'Consus', invert: false },
-  { file: '/ergosolidLOGO.png', alt: 'ERGOsolid', invert: false },
+  { name: 'Apis Natural Cosmetics' },
+  { name: 'Greenvito' },
+  { name: 'EPX' },
+  { name: 'Consus' },
+  { name: 'ERGOsolid' },
 ];
 
 const logoColumns = [
@@ -97,11 +98,11 @@ const cardRotation = (i) =>
 const articles = sortPosts(await getCollection('blog')).slice(0, 3);
 
 const numbers = [
-  { label: 'Lata doświadczenia', value: '+10' },
-  { label: 'Obsłużonych firm', value: '+250' },
-  { label: 'Deklaracji rocznie', value: '+1200' },
-  { label: 'Zadowolonych klientów', value: '98%' },
-  { label: 'Specjalistów w zespole', value: '+8' },
+  { label: 'Specjalistów w zespole', value: '11' },
+  { label: 'Lata doświadczenia', value: '20+' },
+  { label: 'Dokumentów miesięcznie', value: '12 000' },
+  { label: 'Obsługiwane firmy', value: '80+' },
+  { label: 'Obsługiwanych branż', value: '15' },
 ];
 ---
 <BaseLayout loadingScreen>
@@ -109,7 +110,7 @@ const numbers = [
     <div class="font-display font-medium uppercase leading-[0.85] text-ink max-lg:flex max-lg:flex-col max-lg:gap-0">
       <div class="flex items-end justify-start gap-10 max-lg:contents">
         <div
-          class="overflow-hidden pb-[0.6vw] -mb-[0.6vw] max-lg:order-1 max-lg:pb-[0.9vw] max-lg:-mb-[0.9vw]"
+          class="overflow-hidden pt-[0.6vw] -mt-[0.6vw] pb-[0.6vw] -mb-[0.6vw] max-lg:order-1 max-lg:pt-[0.9vw] max-lg:-mt-[0.9vw] max-lg:pb-[0.9vw] max-lg:-mb-[0.9vw]"
           data-reveal-lines
           data-duration="1.6"
         >
@@ -123,7 +124,7 @@ const numbers = [
           data-delay="0.28"
         >
           <h1 class="text-[clamp(1.25rem,1.6vw,1.75rem)] leading-[1.05] text-graphite">
-            <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Biuro rachunkowe z</span></span>
+            <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Biuro rachunkowe, z</span></span>
             <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">którym rozwiniesz skrzydła.</span></span>
           </h1>
 
@@ -134,7 +135,7 @@ const numbers = [
               aria-haspopup="dialog"
               data-open-form
             >
-              <span class="relative z-10 font-display text-[clamp(1rem,1.15vw,1.375rem)] font-normal uppercase transition-all duration-[400ms] group-hover:translate-x-[1.2vw] group-hover:text-ink max-lg:text-[clamp(0.65rem,3.4vw,1.05rem)]">Zapisz się na 30 minutową konsultację</span>
+              <span class="relative z-10 font-display text-[clamp(1rem,1.15vw,1.375rem)] font-normal uppercase transition-all duration-[400ms] group-hover:translate-x-[1.2vw] group-hover:text-ink max-lg:text-[clamp(0.65rem,3.4vw,1.05rem)]">Zapisz się na 30-minutową konsultację</span>
               <span class="relative z-0 flex h-[clamp(1.75rem,2vw,2.75rem)] w-[clamp(1.75rem,2vw,2.75rem)] shrink-0 rounded-full bg-canvas transition-transform duration-700 ease-out group-hover:duration-[1600ms] group-hover:scale-[55]"></span>
             </a>
           </span>
@@ -143,26 +144,26 @@ const numbers = [
 
       <div class="mt-[5vw] flex items-stretch gap-[2vw] max-lg:contents">
         <div
-          class="relative -my-[1vw] min-w-0 flex-1 overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] bg-placeholder max-lg:order-4 max-lg:mb-0 max-lg:mt-[2.5vh] max-lg:aspect-[4/3] max-lg:w-full max-lg:flex-none"
+          class="relative -my-[1vw] min-w-0 flex-1 overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] max-lg:order-4 max-lg:mb-0 max-lg:mt-[2.5vh] max-lg:aspect-[1600/1143] max-lg:w-full max-lg:flex-none"
           data-image-reveal
           data-delay="0.35"
           data-trigger="[data-hero]"
           data-start="top bottom"
         >
           <Image
-            src={businessPartners}
-            alt="Dwoje księgowych przy wspólnym biurku w biurze"
-            class="parallax-img"
+            src={teamGroup}
+            alt="Zespół biura rachunkowego Iwony Mazur w komplecie, w biurze"
+            class="parallax-img parallax-img--whole"
             data-parallax
             widths={[640, 1024, 1600]}
-            sizes="(width < 64rem) 92vw, 50vw"
+            sizes="(width < 64rem) 92vw, 32vw"
             loading="eager"
           />
-          <div class="reveal-panel absolute inset-0 z-10 bg-[var(--page-background)]"></div>
+          <div class="reveal-panel absolute inset-0 z-10"></div>
         </div>
 
         <div
-          class="shrink-0 overflow-hidden pb-[0.6vw] -mb-[0.6vw] max-lg:order-2 max-lg:mt-[1.6vh] max-lg:pb-[0.9vw] max-lg:-mb-[0.9vw]"
+          class="shrink-0 overflow-hidden pt-[0.6vw] -mt-[0.6vw] pb-[0.6vw] -mb-[0.6vw] max-lg:order-2 max-lg:mt-[calc(1.6vh-0.9vw)] max-lg:pt-[0.9vw] max-lg:pb-[0.9vw] max-lg:-mb-[0.9vw]"
           data-reveal-lines
           data-direction="down"
           data-duration="1.6"
@@ -201,28 +202,28 @@ const numbers = [
     </div>
 
     <div class="mt-[3vw] grid grid-cols-3 items-end gap-[2vw] max-lg:contents">
-      <div class="relative w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] bg-placeholder h-[clamp(18rem,30vw,38rem)] max-lg:order-5 max-lg:h-[62vw]" data-image-reveal>
+      <div class="relative w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] h-[clamp(18rem,30vw,38rem)] max-lg:order-5 max-lg:h-[62vw]" data-image-reveal>
         <Image
-          src={peopleMeeting}
-          alt="Spotkanie zespołu przy stole z laptopem i dokumentami"
+          src={reviewingDocuments}
+          alt="Dwie księgowe omawiające dokumenty przy stanowisku pracy"
           class="parallax-img"
           data-parallax
-          widths={[480, 768, 1200]}
-          sizes="(width < 64rem) 92vw, 30vw"
+          widths={[640, 1024, 1600]}
+          sizes="(width < 64rem) 116vw, 56vw"
         />
-        <div class="reveal-panel absolute inset-0 z-10 bg-[var(--page-background)]"></div>
+        <div class="reveal-panel absolute inset-0 z-10"></div>
       </div>
 
-      <div class="relative w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] bg-placeholder h-[clamp(15rem,25vw,32rem)] max-lg:order-6 max-lg:h-[52vw]" data-image-reveal>
+      <div class="relative w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] h-[clamp(15rem,25vw,32rem)] max-lg:order-6 max-lg:h-[52vw]" data-image-reveal>
         <Image
-          src={womanWritingNotes}
-          alt="Księgowa notująca przy laptopie, przy oknie biura"
+          src={openSpaceConversation}
+          alt="Rozmowa dwóch księgowych w otwartej przestrzeni biura"
           class="parallax-img parallax-img--soft"
           data-parallax
-          widths={[480, 768, 1200]}
-          sizes="(width < 64rem) 92vw, 25vw"
+          widths={[640, 1024, 1400]}
+          sizes="(width < 64rem) 92vw, 44vw"
         />
-        <div class="reveal-panel absolute inset-0 z-10 bg-[var(--page-background)]"></div>
+        <div class="reveal-panel absolute inset-0 z-10"></div>
       </div>
 
       <div class="flex flex-col justify-end max-lg:contents">
@@ -238,16 +239,16 @@ const numbers = [
           decyzjach finansowych, żebyś mógł spokojnie skupić się na rozwijaniu
           własnego biznesu.
         </p>
-        <div class="relative w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] bg-placeholder h-[clamp(15rem,25vw,32rem)] max-lg:order-4 max-lg:h-[52vw]" data-image-reveal>
+        <div class="relative w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] h-[clamp(15rem,25vw,32rem)] max-lg:order-4 max-lg:h-[52vw]" data-image-reveal>
           <Image
-            src={womanBrainstorming}
-            alt="Pracownica biura z tabletem, w tle zespół przy dokumentach"
+            src={clientConversation}
+            alt="Rozmowa dwóch osób przy biurku, z dokumentami w dłoniach"
             class="parallax-img"
             data-parallax
-            widths={[480, 768, 1200]}
-            sizes="(width < 64rem) 92vw, 25vw"
+            widths={[640, 1024, 1400]}
+            sizes="(width < 64rem) 97vw, 47vw"
           />
-          <div class="reveal-panel absolute inset-0 z-10 bg-[var(--page-background)]"></div>
+          <div class="reveal-panel absolute inset-0 z-10"></div>
         </div>
       </div>
     </div>
@@ -277,18 +278,12 @@ const numbers = [
 
                   return (
                     <div
-                      class="flex w-full items-center justify-center rounded-[clamp(1rem,1.5vw,2rem)] bg-ink p-[clamp(1rem,2.2vw,3rem)]"
+                      class="flex w-full items-center justify-center rounded-[clamp(1rem,1.5vw,2rem)] bg-graphite p-[clamp(1rem,2.2vw,3rem)]"
                       style={`height:${h}vw`}
                     >
-                      <img
-                        src={logo.file}
-                        alt={logo.alt}
-                        loading="lazy"
-                        decoding="async"
-                        class={`max-h-full max-w-full object-contain ${
-                          logo.invert ? 'logo-silver--inverted' : 'logo-silver'
-                        }`}
-                      />
+                      <span class="text-balance text-center font-display text-[clamp(1rem,1.9vw,2.2rem)] font-medium uppercase leading-[1.1] tracking-[0.02em] text-canvas">
+                        {logo.name}
+                      </span>
                     </div>
                   );
                 })}
@@ -325,16 +320,10 @@ const numbers = [
             >
               {[...logo, ...logo].map((l) => (
                 <div class="reveal-line mr-[2.5vw] shrink-0">
-                  <div class="flex h-[25vw] w-[44vw] items-center justify-center rounded-[2vw] bg-ink p-[3.5vw]">
-                    <img
-                      src={l.file}
-                      alt={l.alt}
-                      loading="lazy"
-                      decoding="async"
-                      class={`max-h-full max-w-full object-contain ${
-                        l.invert ? 'logo-silver--inverted' : 'logo-silver'
-                      }`}
-                    />
+                  <div class="flex h-[25vw] w-[44vw] items-center justify-center rounded-[2vw] bg-graphite p-[3.5vw]">
+                    <span class="text-balance text-center font-display text-[clamp(1rem,4.6vw,1.75rem)] font-medium uppercase leading-[1.1] tracking-[0.02em] text-canvas">
+                      {l.name}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -370,11 +359,11 @@ const numbers = [
       {
         numbers.map(({ label, value }) => (
           <div class="flex min-h-[16vh] items-center justify-between gap-[2vw] border-t border-graphite/30 px-[2vw] py-[clamp(1rem,1.6vw,2.5rem)] max-lg:px-[4vw] max-sm:min-h-0 max-sm:gap-[4vw]">
-            <span class="font-sans text-[clamp(0.95rem,1.4vw,1.75rem)] font-medium uppercase leading-[1.1] text-graphite">
+            <span class="text-trim self-start pt-[0.3em] font-sans text-[clamp(0.7rem,0.85vw,1.05rem)] font-medium uppercase leading-[1.1] tracking-[0.08em] text-graphite">
               {label}
             </span>
             <span
-              class="text-trim shrink-0 font-display text-[clamp(2.5rem,7vw,9rem)] font-medium uppercase leading-[0.85] tabular-nums text-ink"
+              class="text-trim shrink-0 font-display text-[clamp(3.75rem,11vw,14rem)] font-medium uppercase leading-[0.85] tabular-nums text-ink"
               data-counter
               data-trigger="[data-numbers]"
               data-start="top bottom"
@@ -434,20 +423,20 @@ const numbers = [
         {
           services.map(({ name, description }, i) => (
             <article
-              class="absolute left-0 right-0 top-1/2 mx-auto mt-[calc(var(--bok)*-0.5)] flex h-[var(--bok)] w-[var(--bok)] flex-col justify-between rounded-[clamp(1rem,1.5vw,2rem)] border border-ink/15 bg-canvas-deep p-[clamp(1.5rem,2.2vw,3rem)] [--bok:clamp(18rem,30vw,40rem)] max-lg:top-[6vh] max-lg:mt-0 max-lg:[--bok:68vw]"
+              class="absolute left-0 right-0 top-1/2 mx-auto mt-[calc(var(--bok)*-0.5)] flex h-[var(--bok)] w-[var(--bok)] flex-col justify-between rounded-[clamp(1rem,1.5vw,2rem)] border border-canvas/15 bg-graphite p-[clamp(1.5rem,2.2vw,3rem)] [--bok:clamp(18rem,30vw,40rem)] max-lg:top-[6vh] max-lg:mt-0 max-lg:[--bok:68vw]"
               style={`z-index:${i + 1}`}
               data-card
               data-rotate={cardRotation(i).toFixed(2)}
             >
               <div>
-                <h3 class="max-w-[85%] font-display text-[clamp(1.25rem,2vw,2.5rem)] font-medium uppercase leading-[1.1] text-ink">
+                <h3 class="max-w-[85%] font-display text-[clamp(1.25rem,2vw,2.5rem)] font-medium uppercase leading-[1.1] text-canvas">
                   {name}
                 </h3>
-                <p class="mt-[clamp(0.5rem,0.8vw,1rem)] max-w-[80%] font-sans text-[clamp(0.85rem,1.05vw,1.2rem)] font-normal leading-[1.25] text-ink/70">
+                <p class="mt-[clamp(0.5rem,0.8vw,1rem)] max-w-[80%] font-sans text-[clamp(0.85rem,1.05vw,1.2rem)] font-normal leading-[1.25] text-canvas/70">
                   {description}
                 </p>
               </div>
-              <span class="self-end font-display text-[clamp(1.75rem,3vw,4rem)] font-medium leading-none text-ink/45">
+              <span class="self-end font-counter text-[clamp(1.75rem,3vw,4rem)] font-medium tabular-nums leading-none text-canvas/45">
                 {String(i + 1).padStart(2, '0')}
               </span>
             </article>
@@ -591,8 +580,8 @@ const numbers = [
             class="mt-[2vw] max-w-[42vw] text-center font-sans text-[clamp(0.95rem,1.1vw,1.25rem)] font-normal leading-[1.4] text-canvas/70 max-lg:mt-[5vw] max-lg:max-w-none"
             data-extra-words
           >
-            Wypełnij krótki formularz, a oddzwonimy do Ciebie w ciągu godziny
-            roboczej. Bez zobowiązań i bez zbędnych formalności.
+            Wypełnij krótki formularz, a {callback.clause}.
+            Bez zobowiązań i bez zbędnych formalności.
           </p>
 
           <span class="mt-[clamp(1rem,1.4vw,2rem)] flex overflow-hidden">
@@ -674,18 +663,18 @@ const numbers = [
 
   <section class="mt-[12vw] grid grid-cols-[35fr_65fr] items-start gap-[2vw] px-[2vw] max-lg:mt-[20vw] max-lg:grid-cols-1 max-lg:px-[4vw]">
     <div
-      class="relative aspect-[3/4] w-[65%] overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] bg-placeholder max-lg:hidden"
+      class="relative aspect-[3/4] w-[65%] overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] max-lg:hidden"
       data-image-reveal
     >
       <Image
-        src={womanAtComputer}
-        alt="Księgowa przy komputerze w biurze, w tle drugie stanowisko"
+        src={accountantAtWorkstation}
+        alt="Księgowa przy stanowisku pracy, w tle ścianka z logo biura"
         class="parallax-img parallax-img--soft"
         data-parallax
-        widths={[400, 640, 1000]}
-        sizes="23vw"
+        widths={[640, 1024, 1440]}
+        sizes="49vw"
       />
-      <div class="reveal-panel absolute inset-0 z-10 bg-[var(--page-background)]"></div>
+      <div class="reveal-panel absolute inset-0 z-10"></div>
     </div>
 
     <div>
@@ -693,7 +682,7 @@ const numbers = [
         class="font-display text-[clamp(1.5rem,2.8vw,3.5rem)] font-medium uppercase leading-[1.05] text-graphite"
         data-reveal-lines
       >
-        <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Odpowiedzi na pytania</span></span>
+        <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Odpowiedzi na pytania,</span></span>
         <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">które często zadajecie</span></span>
       </h2>
 
@@ -777,7 +766,7 @@ const numbers = [
         articles.map((post) => (
           <a href={`/blog/${post.id}`} class="group block" data-cursor-label="Zobacz">
             <div
-              class="relative aspect-[3/2] w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] bg-placeholder"
+              class="relative aspect-[3/2] w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)]"
               data-image-reveal
             >
               <Image
@@ -786,14 +775,14 @@ const numbers = [
                 class={`parallax-img ${post.data.softParallax ? 'parallax-img--soft' : ''}`}
                 data-parallax
                 data-photo-tone
-                widths={[320, 480, 800]}
-                sizes="(width < 40rem) 92vw, (width < 64rem) 46vw, 30vw"
+                widths={[480, 800, 1200]}
+                sizes="(width < 40rem) 114vw, (width < 64rem) 60vw, 38vw"
               />
-              <div class="reveal-panel absolute inset-0 z-10 bg-[var(--page-background)]" />
+              <div class="reveal-panel absolute inset-0 z-10" />
             </div>
 
             <div class="mt-[clamp(1rem,1.4vw,2rem)] flex items-center gap-[clamp(0.5rem,0.7vw,0.9rem)] font-sans text-[clamp(0.8rem,0.9vw,1.05rem)] font-normal text-graphite/90 max-lg:mt-[4vw] max-lg:text-[clamp(0.78rem,3.1vw,0.95rem)]">
-              <span class="h-[0.5em] w-[0.5em] shrink-0 rounded-full bg-ink" aria-hidden="true"></span>
+              <span class="h-[0.5em] w-[0.5em] shrink-0 rounded-full bg-graphite/90" aria-hidden="true"></span>
               <time datetime={isoDate(post.data.date)}>{formatDateMonthFirst(post.data.date)}</time>
             </div>
 

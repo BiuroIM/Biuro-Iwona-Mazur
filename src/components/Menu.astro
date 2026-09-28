@@ -1,6 +1,7 @@
 ---
 import HoverLetters from './HoverLetters.astro';
 import { footerPages, currentPath } from '../data/navigation.js';
+import { email, phone } from '../data/contact.js';
 
 const path = currentPath(Astro.url);
 ---
@@ -65,8 +66,8 @@ const path = currentPath(Astro.url);
         class="flex flex-col gap-[0.4vh] pb-[0.12em] font-sans text-[clamp(1rem,1.2vw,1.35rem)] leading-[1.35] text-canvas/60 max-lg:text-[clamp(0.95rem,4vw,1.15rem)]"
         data-menu-line
       >
-        <a href="tel:+48000000000">+48 000 000 000</a>
-        <a href="mailto:biuro@iwonamazur.pl">biuro@iwonamazur.pl</a>
+        <a href={phone.href}>{phone.label}</a>
+        <a href={email.href}>{email.label}</a>
       </div>
     </div>
   </nav>

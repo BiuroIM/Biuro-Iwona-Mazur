@@ -61,10 +61,11 @@ const chevron = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 
   <div
     id={`${id}-list`}
-    class={`invisible absolute left-0 top-[calc(100%+clamp(0.5rem,0.8vw,1rem))] z-30 w-full max-w-[26rem] overflow-hidden rounded-[clamp(0.5rem,0.8vw,1rem)] border py-[clamp(0.35rem,0.5vw,0.7rem)] max-lg:max-w-none max-lg:py-[2vw] opacity-0 shadow-panel ${panelClasses}`}
+    class={`invisible absolute left-0 top-[calc(100%+clamp(0.5rem,0.8vw,1rem))] z-30 w-full max-w-[26rem] overflow-y-auto overflow-x-hidden overscroll-contain rounded-[clamp(0.5rem,0.8vw,1rem)] border py-[clamp(0.35rem,0.5vw,0.7rem)] max-lg:max-w-none max-lg:py-[2vw] opacity-0 shadow-panel ${panelClasses}`}
     role="listbox"
     aria-label={placeholder}
     data-select-list
+    data-lenis-prevent
   >
     {
       options.map((option, i) => (

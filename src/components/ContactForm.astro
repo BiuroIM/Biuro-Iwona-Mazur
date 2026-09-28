@@ -1,6 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import FormFields from './FormFields.astro';
 import ArrowButton from './ArrowButton.astro';
+import { address, callback, phone } from '../data/contact.js';
+import meetingRoom from '../assets/photos/meeting-room.jpg';
 ---
 <div class="pointer-events-none fixed inset-0 z-[60]" data-form inert>
   <div
@@ -43,9 +46,17 @@ import ArrowButton from './ArrowButton.astro';
       data-form-block
     >
       <div
-        class="aspect-[3/4] w-[240px] shrink-0 rounded-[20px] bg-placeholder max-sm:aspect-[16/9] max-sm:w-full"
+        class="aspect-[3/4] w-[240px] shrink-0 overflow-hidden rounded-[20px] bg-placeholder max-sm:aspect-[16/9] max-sm:w-full"
         data-form-field
       >
+        <Image
+          src={meetingRoom}
+          alt="Sala spotkań w biurze"
+          class="h-full w-full object-cover"
+          widths={[240, 480, 720, 1024]}
+          sizes="(max-width: 640px) 100vw, 240px"
+          loading="lazy"
+        />
       </div>
 
       <div class="flex min-w-[300px] flex-1 flex-col justify-between gap-[32px] self-stretch max-sm:min-w-full max-sm:gap-[20px]">
@@ -53,17 +64,17 @@ import ArrowButton from './ArrowButton.astro';
           class="max-w-[300px] font-sans text-[16px] font-normal leading-[1.5] text-canvas/60 max-sm:max-w-none"
           data-form-field
         >
-          Zostaw kontakt, a zadzwonimy w ciągu 15 minut (w godzinach 8–16)
-          i umówimy bezpłatną rozmowę o Twojej firmie. Bez zobowiązań —
-          sprawdzimy tylko, jak wygląda dziś Twoja księgowość.
+          Zostaw kontakt, a {callback.clause} i umówimy bezpłatną rozmowę
+          o Twojej firmie. Bez zobowiązań. Sprawdzimy tylko, jak wygląda dziś
+          Twoja księgowość.
         </p>
 
         <div
           class="flex flex-wrap items-end gap-x-[40px] gap-y-[8px] font-sans text-[17px] font-normal text-canvas"
           data-form-field
         >
-          <p>(000-000-000)</p>
-          <p>ul. Przykładowa 12/3, 00-000 Miejscowość</p>
+          <p><a href={phone.href}>{phone.label}</a></p>
+          <p>{address.label}</p>
         </div>
       </div>
     </div>
@@ -74,7 +85,7 @@ import ArrowButton from './ArrowButton.astro';
     >
       <FormFields idPrefix="panel">
         <ArrowButton
-          slot="po-wyslaniu"
+          slot="after-submit"
           text="Zamknij"
           arrow={false}
           data-close-form

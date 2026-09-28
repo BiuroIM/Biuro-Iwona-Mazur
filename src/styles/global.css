@@ -3,6 +3,7 @@
 @theme {
   --font-sans: var(--font-satoshi), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-clash), ui-sans-serif, system-ui, sans-serif;
+  --font-counter: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --ease-quad-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -104,7 +105,7 @@ li {
   font-weight: 500;
   line-height: 1.15;
   text-transform: uppercase;
-  color: var(--color-ink);
+  color: var(--color-graphite);
   scroll-margin-top: 14vh;
 }
 
@@ -114,7 +115,7 @@ li {
   font-size: clamp(1.05rem, 1.35vw, 1.6rem);
   font-weight: 500;
   line-height: 1.25;
-  color: var(--color-ink);
+  color: var(--color-graphite);
   scroll-margin-top: 14vh;
 }
 
@@ -211,6 +212,18 @@ li {
   filter: grayscale(1) invert(1) brightness(0.45) contrast(1.1);
 }
 
+[data-image-reveal] img {
+  visibility: hidden;
+}
+
+.reveal-panel {
+  background-color: color-mix(
+    in srgb,
+    var(--color-ink) calc(var(--dark-veil) * 100%),
+    var(--page-background)
+  );
+}
+
 .parallax-img {
   --parallax: 12%;
   position: absolute;
@@ -223,6 +236,12 @@ li {
 
 .parallax-img--soft {
   --parallax: 8%;
+}
+
+@media (width < 64rem) {
+  .parallax-img--whole {
+    --parallax: 0%;
+  }
 }
 
 .slider-track {
@@ -250,6 +269,7 @@ li {
 
 :root {
   --page-background: var(--color-canvas);
+  --dark-veil: 0;
   --grid-color: var(--color-grid);
   --grid-size: clamp(200px, 20vw, 420px);
 }

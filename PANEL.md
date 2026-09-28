@@ -60,6 +60,7 @@ zostają w repo.
 | `src/components/panel/PanelList.jsx` | lista wpisów z akcjami Edytuj, Ukryj, Usuń |
 | `src/components/panel/PanelForm.jsx` | formularz wpisu, pasek narzędzi, podgląd |
 | `src/components/panel/styles.js` | wspólne klasy Tailwinda dla panelu |
+| `src/components/panel/errors.js` | angielskie błędy Supabase na polskie zdania (opis niżej) |
 | `src/lib/supabaseClient.js` | klient Supabase dla przeglądarki |
 | `src/lib/slug.js` | tytuł → adres wpisu, z polskimi znakami |
 | `scripts/sync-blog.mjs` | baza → pliki `.md` i zdjęcia w `src/assets/blog/` |
@@ -281,6 +282,27 @@ pliki wymienione w `scripts/generated-posts.json`.
 Gdyby wpis z panelu dostał adres taki jak istniejący plik, **build się zatrzymuje**
 z komunikatem, który plik jest w konflikcie. Skrypt woli zerwać build niż nadpisać
 cudzą treść.
+
+## Komunikaty o błędach
+
+Supabase odpowiada po angielsku (`Invalid login credentials`, `new row violates row-level
+security policy`, `Failed to fetch`), a panel obsługuje pracownik kancelarii, nie
+programista. Dlatego żaden komunikat z bazy nie idzie na ekran wprost: przechodzi przez
+`describeError()` z `src/components/panel/errors.js`, które dopasowuje go po treści, po
+kodzie błędu Postgresa (`23505`, `42501`, `PGRST301`) albo po wzorcu i zwraca polskie
+zdanie z podpowiedzią, co zrobić.
+
+Błędu nieznanego nie da się zgadnąć, więc pokazuje się zdanie ogólne (co się nie udało)
+plus oryginalna treść jako `Kod dla administratora`. Bez tego zgłoszenie „nie zapisuje
+się" byłoby nie do rozwiązania.
+
+Komunikaty własne panelu (walidacja formularza, zajęty tytuł) lecą jako `PanelError`.
+Ta klasa mówi `describeError()`, że tekst jest już po polsku i ma go przepuścić bez
+zmian, inaczej ostatni `catch` w `PanelForm.jsx` podmieniłby gotowe zdanie na ogólne.
+
+Dokładając nowe wywołanie Supabase w panelu, podaj drugi argument `describeError()`:
+mówi on, **co** się nie udało („Nie udało się usunąć wpisu."), gdy pierwszego argumentu
+nie da się rozpoznać.
 
 ## Bezpieczeństwo
 

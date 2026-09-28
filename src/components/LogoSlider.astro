@@ -1,8 +1,6 @@
 ---
 interface Logo {
-  file: string;
-  alt: string;
-  invert: boolean;
+  name: string;
 }
 
 interface Props {
@@ -28,17 +26,12 @@ const set = [...group, ...group];
     {
       set.map((logo, i) => (
         <div
-          class="reveal-line mr-[clamp(2rem,4.2vw,5rem)] flex h-[clamp(3rem,4.8vw,6rem)] shrink-0 items-center max-lg:mr-[8vw] max-lg:h-[clamp(3rem,14vw,6rem)]"
+          class="reveal-line mr-[clamp(2rem,4.2vw,5rem)] flex h-[clamp(3rem,4.8vw,6rem)] shrink-0 items-center max-lg:mr-[5.5vw] max-lg:h-[clamp(1.75rem,9vw,3rem)]"
           aria-hidden={i >= logos.length ? 'true' : undefined}
         >
-          <img
-            src={logo.file}
-            alt={i < logos.length ? logo.alt : ''}
-            decoding="async"
-            class={`h-full w-auto object-contain ${
-              logo.invert ? 'logo-graphite' : 'logo-graphite--inverted'
-            }`}
-          />
+          <span class="whitespace-nowrap font-display text-[clamp(1.1rem,2.2vw,2.5rem)] font-medium uppercase leading-none tracking-[0.02em] text-graphite max-lg:text-[clamp(0.95rem,4.2vw,1.6rem)]">
+            {logo.name}
+          </span>
         </div>
       ))
     }

@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '../../lib/supabaseClient.js';
 import { card, field, hint, label, noticeError, pill } from './styles.js';
-
-const AUTH_MESSAGES = {
-  'Invalid login credentials': 'Nieprawidłowy e-mail lub hasło.',
-  'Email not confirmed': 'Konto nie zostało jeszcze potwierdzone. Sprawdź skrzynkę.',
-  'Email logins are disabled': 'Logowanie e-mailem jest wyłączone w Supabase.',
-};
+import { describeError } from './errors.js';
 
 export default function PanelLogin() {
   const [email, setEmail] = useState('');
@@ -22,7 +17,7 @@ export default function PanelLogin() {
     const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
 
     if (authError) {
-      setError(AUTH_MESSAGES[authError.message] ?? authError.message);
+      setError(describeError(authError, 'Nie udało się zalogować.'));
       setBusy(false);
     }
   };

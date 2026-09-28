@@ -42,7 +42,7 @@ const posts = sortPosts(await getCollection('blog'));
         posts.map((post, i) => (
           <a href={`/blog/${post.id}`} class="group block" data-cursor-label="Zobacz">
             <div
-              class="relative aspect-[3/2] w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] bg-placeholder"
+              class="relative aspect-[3/2] w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)]"
               data-image-reveal
               data-trigger="section"
               data-delay-desktop={i < 2 ? '0.25' : '0.15'}
@@ -53,17 +53,17 @@ const posts = sortPosts(await getCollection('blog'));
                 class={`parallax-img ${post.data.softParallax ? 'parallax-img--soft' : ''}`}
                 data-parallax
                 data-photo-tone
-                widths={[480, 768, 1280]}
-                sizes="(width < 40rem) 92vw, 47vw"
+                widths={[640, 1024, 1600]}
+                sizes="(width < 40rem) 114vw, 58vw"
                 loading={i < 2 ? 'eager' : 'lazy'}
               />
-              <div class="reveal-panel absolute inset-0 z-10 bg-[var(--page-background)]"></div>
+              <div class="reveal-panel absolute inset-0 z-10"></div>
             </div>
 
             <div
               class="mt-[clamp(1rem,1.4vw,2rem)] flex items-center gap-[clamp(0.5rem,0.7vw,0.9rem)] font-sans text-[clamp(0.8rem,0.9vw,1.05rem)] font-normal text-graphite/90 max-lg:mt-[4vw] max-lg:text-[clamp(0.78rem,3.1vw,0.95rem)]"
             >
-              <span class="h-[0.5em] w-[0.5em] shrink-0 rounded-full bg-ink" aria-hidden="true"></span>
+              <span class="h-[0.5em] w-[0.5em] shrink-0 rounded-full bg-graphite/90" aria-hidden="true"></span>
               <time datetime={isoDate(post.data.date)}>{formatDateMonthFirst(post.data.date)}</time>
             </div>
 

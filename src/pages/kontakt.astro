@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { callback } from '../data/contact.js';
+import { Image } from 'astro:assets';
 import FormFields from '../components/FormFields.astro';
 import HoverLetters from '../components/HoverLetters.astro';
+import accountantWithLaptop from '../assets/photos/accountant-with-laptop.jpg';
 
 const MARQUEE_REPEATS = 3;
 const DASH_LENGTH = 'clamp(3.5rem,9vw,11rem)';
@@ -9,7 +12,7 @@ const DASH_THICKNESS = 'clamp(0.3rem,0.8vw,1rem)';
 ---
 <BaseLayout
   title="Kontakt"
-  description="Zostaw kontakt, a oddzwonimy w ciągu godziny roboczej i umówimy bezpłatną trzydziestominutową rozmowę o Twojej firmie."
+  description={`Zostaw kontakt, a ${callback.clause} i umówimy bezpłatną trzydziestominutową rozmowę o Twojej firmie.`}
 >
   <section class="px-[2vw] pb-[8vw] pt-40 max-lg:px-[4vw] max-lg:pb-[16vw] max-lg:pt-28">
     <div class="-mx-[2vw] overflow-hidden pt-[0.5vw] pb-[3.6vw] -mt-[0.5vw] -mb-[1.6vw] max-lg:-mx-[4vw] max-lg:pt-[0.6vw] max-lg:pb-[4.2vw] max-lg:-mt-[0.6vw] max-lg:mb-[4.8vw]" aria-hidden="true">
@@ -34,27 +37,44 @@ const DASH_THICKNESS = 'clamp(0.3rem,0.8vw,1rem)';
 
     <h1 class="sr-only">Kontakt</h1>
 
-    <div
-      class="relative mt-[5vw] w-full max-lg:mt-[10vw]"
-      data-form-page
-      data-animate="fade-up"
-    >
-      <FormFields idPrefix="kontakt" surface="light" steps={false}>
-        <a
-          slot="po-wyslaniu"
-          href="/"
-          class="group relative inline-flex pb-[0.15em] font-display text-[22px] font-medium uppercase leading-none text-ink max-sm:text-[17px]"
-        >
-          <HoverLetters text="Wróć na stronę główną" />
+    <div class="mt-[5vw] grid grid-cols-[25fr_75fr] items-start gap-[5vw] max-lg:mt-[10vw] max-lg:grid-cols-1">
+      <div
+        class="relative aspect-[3/4] w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] max-lg:hidden"
+        data-image-reveal
+      >
+        <Image
+          src={accountantWithLaptop}
+          alt="Księgowa z laptopem w strefie spotkań biura"
+          class="parallax-img parallax-img--soft"
+          data-parallax
+          widths={[640, 1024, 1536]}
+          sizes="52vw"
+        />
+        <div class="reveal-panel absolute inset-0 z-10"></div>
+      </div>
 
-          <span
-            class="absolute bottom-0 left-0 h-[2px] w-full origin-right bg-ink transition-transform duration-300 ease-in group-hover:scale-x-0"
-            aria-hidden="true"></span>
-          <span
-            class="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-ink transition-transform delay-300 duration-300 ease-out group-hover:scale-x-100"
-            aria-hidden="true"></span>
-        </a>
-      </FormFields>
+      <div
+        class="relative w-full"
+        data-form-page
+        data-animate="fade-up"
+      >
+        <FormFields idPrefix="kontakt" surface="light" steps={false}>
+          <a
+            slot="after-submit"
+            href="/"
+            class="group relative inline-flex pb-[0.15em] font-display text-[22px] font-medium uppercase leading-none text-graphite max-sm:text-[17px]"
+          >
+            <HoverLetters text="Wróć na stronę główną" />
+
+            <span
+              class="absolute bottom-0 left-0 h-[2px] w-full origin-right bg-graphite transition-transform duration-300 ease-in group-hover:scale-x-0"
+              aria-hidden="true"></span>
+            <span
+              class="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-graphite transition-transform delay-300 duration-300 ease-out group-hover:scale-x-100"
+              aria-hidden="true"></span>
+          </a>
+        </FormFields>
+      </div>
     </div>
   </section>
 

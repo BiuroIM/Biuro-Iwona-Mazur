@@ -3,9 +3,9 @@ title: 'KSeF w praktyce: co zmienia się dla małych firm'
 lead: 'Faktura w KSeF to nie tylko nowy format pliku. Zmienia się moment wystawienia, sposób przekazywania dokumentu i to, co uznaje się za dowód sprzedaży.'
 date: 2026-05-14
 category: 'Podatki'
-readingMinutes: 7
-cover: '../../assets/stock/business-woman-laptop-documents.jpg'
-coverAlt: 'Kobieta przy laptopie z otwartym segregatorem dokumentów'
+readingMinutes: 3
+cover: '../../assets/photos/conversation-by-logo-wall.jpg'
+coverAlt: 'Rozmowa dwóch księgowych przy ściance z logo biura'
 softParallax: true
 ---
 

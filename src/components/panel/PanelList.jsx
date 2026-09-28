@@ -13,6 +13,7 @@ import {
   tileMeta,
   tileTitle,
 } from './styles.js';
+import { describeError } from './errors.js';
 
 export default function PanelList({ onEdit, onCreate }) {
   const [posts, setPosts] = useState(null);
@@ -25,7 +26,7 @@ export default function PanelList({ onEdit, onCreate }) {
       .order('published_at', { ascending: false });
 
     if (queryError) {
-      setError(queryError.message);
+      setError(describeError(queryError, 'Nie udało się wczytać listy wpisów.'));
       return;
     }
 
@@ -44,7 +45,7 @@ export default function PanelList({ onEdit, onCreate }) {
       .eq('id', post.id);
 
     if (updateError) {
-      setError(updateError.message);
+      setError(describeError(updateError, 'Nie udało się zmienić widoczności wpisu.'));
       return;
     }
 
@@ -57,7 +58,7 @@ export default function PanelList({ onEdit, onCreate }) {
     const { error: deleteError } = await supabase.from('posts').delete().eq('id', post.id);
 
     if (deleteError) {
-      setError(deleteError.message);
+      setError(describeError(deleteError, 'Nie udało się usunąć wpisu.'));
       return;
     }
 
@@ -94,7 +95,7 @@ export default function PanelList({ onEdit, onCreate }) {
               </div>
 
               <div className={tileMeta}>
-                <span className="h-[0.5em] w-[0.5em] shrink-0 rounded-full bg-ink" aria-hidden="true" />
+                <span className="h-[0.5em] w-[0.5em] shrink-0 rounded-full bg-graphite/90" aria-hidden="true" />
                 <time dateTime={post.published_at.slice(0, 10)}>
                   {formatDateMonthFirst(new Date(post.published_at))}
                 </time>

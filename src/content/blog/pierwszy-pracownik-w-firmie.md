@@ -3,9 +3,9 @@ title: 'Pierwszy pracownik w firmie: obowiązki na start'
 lead: 'Zatrudnienie pierwszej osoby zmienia firmę bardziej niż kolejne dziesięć umów. Zebraliśmy to, co trzeba załatwić przed pierwszym dniem pracy i w pierwszym miesiącu.'
 date: 2026-04-16
 category: 'Kadry i płace'
-readingMinutes: 6
-cover: '../../assets/stock/people-having-meeting-office.jpg'
-coverAlt: 'Rozmowa dwóch osób w biurze przy stole spotkań'
+readingMinutes: 2
+cover: '../../assets/photos/meeting-room.jpg'
+coverAlt: 'Sala spotkań biura przygotowana do rozmowy'
 ---
 
 Pierwsze zatrudnienie to moment, w którym firma przestaje być tylko rozliczeniem podatkowym właściciela. Pojawiają się terminy, których nie da się przesunąć, i dokumenty, które muszą istnieć od pierwszego dnia, nie od pierwszej wypłaty.

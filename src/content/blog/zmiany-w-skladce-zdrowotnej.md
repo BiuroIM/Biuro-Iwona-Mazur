@@ -3,9 +3,9 @@ title: 'Zmiany w składce zdrowotnej od 2026 roku'
 lead: 'Sposób liczenia składki zdrowotnej zmienia się na tyle, że warto przeliczyć swoją formę opodatkowania jeszcze przed pierwszą deklaracją w nowym roku.'
 date: 2026-07-21
 category: 'Podatki'
-readingMinutes: 6
-cover: '../../assets/stock/professional-woman-at-work.jpg'
-coverAlt: 'Księgowa w biurze, w tle stanowiska pracy za szklaną ścianą'
+readingMinutes: 3
+cover: '../../assets/photos/two-accountants-at-desk.jpg'
+coverAlt: 'Dwie księgowe omawiające rozliczenie przy monitorze'
 softParallax: true
 featured: true
 ---

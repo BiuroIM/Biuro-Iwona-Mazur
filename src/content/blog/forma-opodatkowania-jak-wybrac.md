@@ -3,9 +3,9 @@ title: 'Ryczałt, liniowy czy skala: jak wybrać formę opodatkowania'
 lead: 'Wybór formy opodatkowania to jedna decyzja na cały rok. Pokazujemy, jak ją policzyć, zamiast opierać się na tym, co sprawdziło się u kogoś innego.'
 date: 2026-03-05
 category: 'Podatki'
-readingMinutes: 8
-cover: '../../assets/stock/business-woman-writing-notes.jpg'
-coverAlt: 'Kobieta robiąca notatki nad dokumentami przy biurku'
+readingMinutes: 3
+cover: '../../assets/photos/reviewing-documents.jpg'
+coverAlt: 'Dwie księgowe przeglądające dokumenty przy stanowisku pracy'
 ---
 
 Najczęstsze pytanie, jakie dostajemy na początku roku, brzmi: co się bardziej opłaca. Odpowiedź zawsze zaczyna się od tego samego zdania. To zależy od struktury Twoich przychodów i kosztów, a nie od branży ani od tego, co wybrał znajomy z podobną firmą.

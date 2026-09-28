@@ -3,9 +3,9 @@ title: 'Ewidencja VAT: sześć błędów, które kosztują najwięcej'
 lead: 'Większość korekt JPK, które robimy, wynika z tych samych kilku pomyłek. Wszystkie da się wyeliminować bez zmiany programu i bez dodatkowej pracy.'
 date: 2026-02-10
 category: 'Księgowość'
-readingMinutes: 5
-cover: '../../assets/stock/young-woman-at-computer.jpg'
-coverAlt: 'Młoda kobieta pracująca przy komputerze w jasnym biurze'
+readingMinutes: 2
+cover: '../../assets/photos/accountant-at-monitor.jpg'
+coverAlt: 'Księgowa skupiona przy monitorze, w tle zieleń biura'
 ---
 
 Korekta pliku JPK sama w sobie nie jest dramatem. Problem polega na tym, że jedna korekta zwykle ciągnie za sobą kolejne, a przy okazji przesuwa moment odliczenia podatku. Poniżej sześć sytuacji, które w naszej praktyce powtarzają się najczęściej.

@@ -146,6 +146,118 @@ create policy covers_staff_delete
   to authenticated
   using (bucket_id = 'covers');
 
+create table if not exists public.leads (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  phone text not null,
+  email text not null,
+  business_form text,
+  scope text,
+  message text,
+  source text not null default 'kontakt',
+  created_at timestamptz not null default now(),
+  constraint leads_name_length check (char_length(name) between 2 and 120),
+  constraint leads_phone_length check (char_length(phone) between 6 and 40),
+  constraint leads_email_shape check (char_length(email) between 5 and 160 and position('@' in email) > 1),
+  constraint leads_business_form_length check (business_form is null or char_length(business_form) <= 120),
+  constraint leads_scope_length check (scope is null or char_length(scope) <= 300),
+  constraint leads_message_length check (message is null or char_length(message) <= 2000),
+  constraint leads_source_allowed check (source in ('panel', 'kontakt'))
+);
+
+alter table public.leads enable row level security;
+
+revoke all on table public.leads from anon, authenticated;
+grant insert (name, phone, email, business_form, scope, message, source) on table public.leads to anon, authenticated;
+grant select on table public.leads to authenticated;
+
+drop policy if exists leads_public_insert on public.leads;
+create policy leads_public_insert
+  on public.leads for insert
+  to anon, authenticated
+  with check (true);
+
+drop policy if exists leads_staff_read on public.leads;
+create policy leads_staff_read
+  on public.leads for select
+  to authenticated
+  using (true);
+
+create index if not exists leads_created_at_idx on public.leads (created_at desc);
+
+create or replace function private.notify_new_lead()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  webhook text;
+begin
+  select value into webhook from private.app_settings where key = 'teams_webhook_url';
+
+  if webhook is null then
+    return null;
+  end if;
+
+  perform net.http_post(
+    url := webhook,
+    headers := jsonb_build_object('Content-Type', 'application/json'),
+    body := jsonb_build_object(
+      'type', 'message',
+      'attachments', jsonb_build_array(jsonb_build_object(
+        'contentType', 'application/vnd.microsoft.card.adaptive',
+        'contentUrl', null,
+        'content', jsonb_build_object(
+          '$schema', 'http://adaptivecards.io/schemas/adaptive-card.json',
+          'type', 'AdaptiveCard',
+          'version', '1.4',
+          'body', jsonb_build_array(
+            jsonb_build_object(
+              'type', 'TextBlock',
+              'size', 'Medium',
+              'weight', 'Bolder',
+              'text', 'Nowe zgłoszenie ze strony'
+            ),
+            jsonb_build_object(
+              'type', 'TextBlock',
+              'isSubtle', true,
+              'spacing', 'None',
+              'text', to_char(new.created_at at time zone 'Europe/Warsaw', 'DD.MM.YYYY, HH24:MI')
+                || ' | formularz: ' || new.source
+            ),
+            jsonb_build_object(
+              'type', 'FactSet',
+              'facts', jsonb_build_array(
+                jsonb_build_object('title', 'Imię i nazwisko', 'value', new.name),
+                jsonb_build_object('title', 'Telefon', 'value', new.phone),
+                jsonb_build_object('title', 'E-mail', 'value', new.email),
+                jsonb_build_object('title', 'Forma działalności', 'value', coalesce(nullif(new.business_form, ''), '—')),
+                jsonb_build_object('title', 'Czego potrzebuje', 'value', coalesce(nullif(new.scope, ''), '—'))
+              )
+            ),
+            jsonb_build_object(
+              'type', 'TextBlock',
+              'wrap', true,
+              'text', coalesce(nullif(new.message, ''), '_bez wiadomości_')
+            )
+          )
+        )
+      ))
+    )
+  );
+
+  return null;
+end;
+$$;
+
+revoke all on function private.notify_new_lead() from public, anon, authenticated;
+
+drop trigger if exists leads_notify_teams on public.leads;
+create trigger leads_notify_teams
+  after insert on public.leads
+  for each row execute function private.notify_new_lead();
+
 revoke all on all functions in schema net from anon, authenticated, public;
 
 revoke usage on schema net from anon, authenticated;

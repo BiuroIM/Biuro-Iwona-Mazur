@@ -1,6 +1,7 @@
 ---
 import ArrowButton from './ArrowButton.astro';
 import CustomSelect from './CustomSelect.astro';
+import { callback, phone } from '../data/contact.js';
 
 interface Props {
   idPrefix?: string;
@@ -15,14 +16,14 @@ const stepped = steps;
 
 const fields = [
   {
-    name: 'imie',
+    name: 'name',
     label: 'Imię i nazwisko',
     type: 'text',
     autocomplete: 'name',
     placeholder: 'Jan Kowalski',
   },
   {
-    name: 'telefon',
+    name: 'phone',
     label: 'Numer telefonu',
     type: 'tel',
     autocomplete: 'tel',
@@ -67,21 +68,19 @@ const labelClasses = onLight
   ? `block font-sans font-normal text-ink/85 ${labelSize}`
   : `block font-sans font-normal text-canvas/45 ${labelSize}`;
 const mutedClasses = onLight ? 'text-ink/85' : 'text-canvas/45';
+const policyLinkClasses = onLight
+  ? 'underline decoration-ink/40 underline-offset-[0.2em] transition-colors duration-300 hover:decoration-ink'
+  : 'underline decoration-canvas/35 underline-offset-[0.2em] transition-colors duration-300 hover:text-canvas hover:decoration-canvas';
 const barClasses = onLight ? 'bg-ink' : 'bg-canvas';
 
-const sheetBorder = onLight ? 'border-ink/30' : 'border-canvas/30';
-const rowClasses = `grid grid-cols-[minmax(9rem,14vw)_1fr] gap-x-[clamp(1rem,2vw,3rem)] border-b ${sheetBorder} py-[clamp(1rem,1.5vw,2.1rem)] pr-[clamp(0.5rem,1vw,1.5rem)] transition-shadow duration-300 ${
-  onLight
-    ? 'focus-within:[box-shadow:0_1px_0_0_var(--color-ink)]'
-    : 'focus-within:[box-shadow:0_1px_0_0_var(--color-canvas)]'
-} max-lg:grid-cols-1 max-lg:gap-y-[clamp(0.5rem,2.4vw,1rem)] max-lg:py-[clamp(1.1rem,5vw,1.9rem)] max-lg:pl-0 max-lg:pr-0`;
-const secondColumnClasses = `border-l ${sheetBorder} pl-[clamp(1rem,2vw,3rem)] max-lg:border-l-0 max-lg:pl-0`;
+const underlineBase = `relative after:absolute after:bottom-0 after:left-0 after:right-[clamp(1rem,2vw,3rem)] after:h-px after:content-[''] after:transition-colors after:duration-300`;
+const underlineTone = onLight
+  ? 'after:bg-ink/55 focus-within:after:bg-ink'
+  : 'after:bg-canvas/55 focus-within:after:bg-canvas';
+const rowClasses = `${underlineBase} ${underlineTone} grid grid-cols-[minmax(9rem,14vw)_1fr] gap-x-[clamp(1rem,2vw,3rem)] py-[clamp(1rem,1.5vw,2.1rem)] pl-[clamp(1rem,2vw,3rem)] pr-[clamp(0.5rem,1vw,1.5rem)] max-lg:grid-cols-1 max-lg:gap-y-[clamp(0.5rem,2.4vw,1rem)] max-lg:py-[clamp(1.1rem,5vw,1.9rem)] max-lg:pl-0 max-lg:pr-0`;
 const rowLabelClasses = `flex items-baseline gap-[clamp(0.5rem,0.8vw,1rem)] font-sans font-medium max-lg:text-[clamp(0.85rem,3.6vw,1.05rem)] ${
   onLight ? 'text-ink' : 'text-canvas'
 } ${labelSize.replace(/mb-\[[^\]]+\]\s?/, '')}`;
-const counterClasses = `font-display text-[clamp(0.6rem,0.7vw,0.8rem)] font-medium uppercase tracking-[0.2em] max-lg:text-[clamp(0.6rem,2.6vw,0.8rem)] ${
-  onLight ? 'text-ink/55' : 'text-canvas/45'
-}`;
 const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-none max-lg:min-h-[clamp(1.6rem,7vw,2.4rem)] max-lg:text-[clamp(1rem,4.2vw,1.25rem)] ${
   onLight ? 'text-ink placeholder:text-ink/50' : 'text-canvas placeholder:text-canvas/40'
 } ${fieldSize.replace(/pb-\[[^\]]+\]\s?/, '')}`;
@@ -96,14 +95,24 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
         aria-hidden="true"
       />
 
-      <p class={`mb-[28px] font-display text-[14px] font-medium ${mutedClasses}`} aria-hidden="true">
+      <p class={`mb-[28px] font-counter text-[14px] font-medium tabular-nums ${mutedClasses}`} aria-hidden="true">
         <span data-form-number>01</span> / 03
       </p>
     </>
   )
 }
 
-<form class="flex flex-col" data-form-node novalidate>
+<form class="flex flex-col" data-form-node data-form-source={idPrefix} novalidate>
+  <input
+    type="text"
+    name="website"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+    class="absolute -left-[9999px] h-px w-px opacity-0"
+    data-form-trap
+  />
+
   {stepped ? (
   <>
   <div class="flex flex-col gap-[28px]" data-step>
@@ -133,10 +142,10 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
 
   <div class="hidden flex-col gap-[28px]" data-step>
     <div data-form-field>
-      <label class={labelClasses} for={`${idPrefix}-forma`}>Forma działalności</label>
+      <label class={labelClasses} for={`${idPrefix}-businessForm`}>Forma działalności</label>
       <CustomSelect
-        id={`${idPrefix}-forma`}
-        name="forma"
+        id={`${idPrefix}-businessForm`}
+        name="businessForm"
         options={businessForms}
         placeholder="Wybierz z listy"
         surface={surface}
@@ -146,10 +155,10 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
     </div>
 
     <div data-form-field>
-      <label class={labelClasses} for={`${idPrefix}-zakres`}>Czego potrzebujesz</label>
+      <label class={labelClasses} for={`${idPrefix}-scope`}>Czego potrzebujesz</label>
       <input
-        id={`${idPrefix}-zakres`}
-        name="zakres"
+        id={`${idPrefix}-scope`}
+        name="scope"
         type="text"
         placeholder={scopeHint}
         class={fieldClasses}
@@ -164,12 +173,12 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
 
   <div class="hidden flex-col gap-[28px]" data-step>
     <div data-form-field>
-      <label class={labelClasses} for={`${idPrefix}-wiadomosc`}>
+      <label class={labelClasses} for={`${idPrefix}-message`}>
         Wiadomość (opcjonalnie)
       </label>
       <textarea
-        id={`${idPrefix}-wiadomosc`}
-        name="wiadomosc"
+        id={`${idPrefix}-message`}
+        name="message"
         rows="4"
         placeholder={messageHint}
         class={`${fieldClasses} resize-none`}></textarea>
@@ -180,8 +189,7 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
       data-form-field
     >
       Klikając „wyślij”, wyrażasz zgodę na kontakt w sprawie swojego
-      zapytania i przetwarzanie podanych danych zgodnie z polityką
-      prywatności.
+      zapytania i przetwarzanie podanych danych zgodnie z <a href="/polityka-prywatnosci" class={policyLinkClasses}>polityką prywatności</a>.
     </p>
 
     <div class="mt-[12px] flex items-center justify-between gap-[32px]" data-form-field>
@@ -193,16 +201,15 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
   </>
   ) : (
   <div class="flex flex-col" data-step>
-    <div class={`grid grid-cols-2 border-t ${sheetBorder} max-lg:grid-cols-1`}>
+    <div class="grid grid-cols-2 max-lg:grid-cols-1">
       {
-        fields.map(({ name, label, type, autocomplete, placeholder }, i) => (
+        fields.map(({ name, label, type, autocomplete, placeholder }) => (
           <label
-            class={`${rowClasses} items-baseline cursor-text ${i % 2 === 1 ? secondColumnClasses : ''}`}
+            class={`${rowClasses} items-baseline cursor-text`}
             for={`${idPrefix}-${name}`}
             data-form-field
           >
             <span class={rowLabelClasses}>
-              <span class={counterClasses}>{String(i + 1).padStart(2, '0')}</span>
               {label}
             </span>
             <input
@@ -219,16 +226,15 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
       }
 
       <div
-        class={`${rowClasses} items-baseline cursor-pointer ${secondColumnClasses}`}
+        class={`${rowClasses} items-baseline cursor-pointer`}
         data-form-field
       >
         <span class={rowLabelClasses}>
-          <span class={counterClasses}>04</span>
           Forma działalności
         </span>
         <CustomSelect
-          id={`${idPrefix}-forma`}
-          name="forma"
+          id={`${idPrefix}-businessForm`}
+          name="businessForm"
           options={businessForms}
           placeholder="Wybierz z listy"
           surface={surface}
@@ -239,16 +245,15 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
 
       <label
         class={`${rowClasses} col-span-2 items-baseline cursor-text max-lg:col-span-1`}
-        for={`${idPrefix}-zakres`}
+        for={`${idPrefix}-scope`}
         data-form-field
       >
         <span class={rowLabelClasses}>
-          <span class={counterClasses}>05</span>
           Czego potrzebujesz
         </span>
         <input
-          id={`${idPrefix}-zakres`}
-          name="zakres"
+          id={`${idPrefix}-scope`}
+          name="scope"
           type="text"
           placeholder={scopeHint}
           class={rowFieldClasses}
@@ -257,16 +262,15 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
 
       <label
         class={`${rowClasses} col-span-2 items-stretch cursor-text max-lg:col-span-1`}
-        for={`${idPrefix}-wiadomosc`}
+        for={`${idPrefix}-message`}
         data-form-field
       >
         <span class={`${rowLabelClasses} self-baseline`}>
-          <span class={counterClasses}>06</span>
           Wiadomość (opcjonalnie)
         </span>
         <textarea
-          id={`${idPrefix}-wiadomosc`}
-          name="wiadomosc"
+          id={`${idPrefix}-message`}
+          name="message"
           rows="4"
           placeholder={messageHint}
           class={`${rowFieldClasses} resize-none`}></textarea>
@@ -279,8 +283,7 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
     >
       <p class={`max-w-[52ch] font-sans font-normal leading-[1.45] max-lg:text-[clamp(0.85rem,3.4vw,1rem)] ${noteSize} ${mutedClasses}`}>
         Klikając „wyślij”, wyrażasz zgodę na kontakt w sprawie swojego
-        zapytania i przetwarzanie podanych danych zgodnie z polityką
-        prywatności.
+        zapytania i przetwarzanie podanych danych zgodnie z <a href="/polityka-prywatnosci" class={policyLinkClasses}>polityką prywatności</a>.
       </p>
 
       <span class="shrink-0 max-lg:flex max-lg:justify-end">
@@ -291,15 +294,23 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
   )}
 </form>
 
+<p
+  class={`hidden mt-[24px] font-sans font-normal leading-[1.4] text-alert ${noteSize}`}
+  role="alert"
+  data-form-error
+>
+  Nie udało się wysłać zgłoszenia. Spróbuj ponownie za chwilę albo zadzwoń: {phone.label}.
+</p>
+
 <div class="hidden" data-form-thanks>
   <p class={`font-sans text-[28px] font-medium uppercase leading-[1.1] ${onLight ? 'text-ink' : ''}`}>
     Dziękujemy!
   </p>
   <p class={`mt-[16px] font-sans text-[16px] font-normal leading-[1.4] ${onLight ? 'text-ink/70' : 'text-canvas/60'}`}>
-    Zgłoszenie do nas dotarło. Zadzwonimy w ciągu 15 minut w godzinach 8–16.
+    Zgłoszenie do nas dotarło. {callback.sentence}
   </p>
 
   <div class="mt-[28px]">
-    <slot name="po-wyslaniu" />
+    <slot name="after-submit" />
   </div>
 </div>

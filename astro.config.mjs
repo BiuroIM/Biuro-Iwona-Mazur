@@ -6,14 +6,11 @@ import tailwindcss from '@tailwindcss/vite';
 
 import sitemap from '@astrojs/sitemap';
 
-// https://astro.build/config
 export default defineConfig({
-  // TODO: docelowa domena strony — używana przez sitemap i tagi kanoniczne/OG.
   site: 'https://biuro-mazur.pl',
 
   integrations: [react(), sitemap({ filter: (page) => !page.includes('/panel') })],
 
-  // Fonty pobierane z Fontshare i hostowane lokalnie (self-hosted).
   fonts: [
     {
       provider: fontProviders.fontshare(),
@@ -29,6 +26,15 @@ export default defineConfig({
       cssVariable: '--font-clash',
       weights: [400, 500, 600, 700],
       styles: ['normal'],
+      fallbacks: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Poppins',
+      cssVariable: '--font-poppins',
+      weights: [400, 500],
+      styles: ['normal'],
+      subsets: ['latin', 'latin-ext'],
       fallbacks: ['ui-sans-serif', 'system-ui', 'sans-serif'],
     },
   ],
