@@ -46,14 +46,7 @@ export function initDarkBackground() {
   sections.forEach((section) => {
     const time = parseFloat(section.dataset.bgTime ?? '0.5');
 
-    const timeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: section.dataset.start ?? 'top top',
-        end: section.dataset.end ?? 'bottom top',
-        toggleActions: 'play reverse play reverse',
-      },
-    });
+    const timeline = gsap.timeline({ paused: true });
 
     timeline.to(layer, { autoAlpha: 1, duration: time, ease: 'power2.inOut' }, 0);
     timeline.to(
@@ -61,6 +54,15 @@ export function initDarkBackground() {
       { '--dark-veil': 1, duration: time, ease: 'power2.inOut' },
       0
     );
+
+    const trigger = ScrollTrigger.create({
+      trigger: section,
+      start: section.dataset.start ?? 'top top',
+      end: section.dataset.end ?? 'bottom top',
+      onToggle: (self) => (self.isActive ? timeline.play() : timeline.reverse()),
+    });
+
+    if (trigger.isActive) timeline.progress(1);
   });
 }
 
@@ -133,7 +135,7 @@ export function initCards() {
         trigger: section,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: true,
+        scrub: section.dataset.scrub ? parseFloat(section.dataset.scrub) : true,
         invalidateOnRefresh: true,
       },
     });
@@ -206,7 +208,8 @@ export function initHeadlinePin() {
         trigger: section,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: true,
+        scrub: section.dataset.scrub ? parseFloat(section.dataset.scrub) : true,
+        invalidateOnRefresh: true,
       },
     });
 
@@ -244,11 +247,61 @@ export function initHeadlinePin() {
         );
       }
 
+      const photo = block.querySelector('[data-headline-photo]');
+      const photoFrame = photo?.firstElementChild;
+      const photoImage = photo?.querySelector('img');
+      const photoIn = parseFloat(section.dataset.photoIn ?? '1.6');
+      const photoAxis = photo?.dataset.headlinePhoto === 'width' ? 'width' : 'height';
+      if (photo && photoFrame) {
+        tl.fromTo(
+          photo,
+          { [photoAxis]: 0 },
+          {
+            [photoAxis]: () =>
+              photoAxis === 'width' ? photoFrame.offsetWidth : photoFrame.offsetHeight,
+            ease: 'power2.inOut',
+            duration: photoIn,
+          }
+        );
+        if (photoImage) {
+          tl.fromTo(
+            photoImage,
+            { scale: 1.3 },
+            { scale: 1, ease: 'power2.out', duration: photoIn },
+            '<'
+          );
+        }
+      }
+
       tl.to({}, { duration: hold });
+
+      const photoMask = photoImage?.parentElement;
+      if (photo?.hasAttribute('data-photo-exit') && photoMask) {
+        const photoOut = parseFloat(section.dataset.photoOut ?? String(exit));
+        tl.fromTo(
+          photoMask,
+          { clipPath: 'inset(0% 0% 0% 0%)' },
+          { clipPath: 'inset(0% 0% 100% 0%)', ease: 'power3.inOut', duration: photoOut }
+        );
+        tl.to(photoImage, { yPercent: -20, ease: 'power3.inOut', duration: photoOut }, '<');
+        if (!block.hasAttribute('data-stays')) {
+          tl.to(lines, { yPercent: -110, ease: 'power3.inOut', duration: exit }, '<');
+        }
+        tl.to({}, { duration: hold * 0.5 });
+        return;
+      }
 
       if (block.hasAttribute('data-stays')) return;
 
-      tl.to(lines, { yPercent: -110, ease: 'power3.in', duration: exit, stagger });
+      if (photo && photoFrame) {
+        tl.to(lines, { yPercent: -110, ease: 'power3.inOut', duration: exit, stagger });
+        tl.to(photo, { [photoAxis]: 0, ease: 'power3.inOut', duration: exit }, '<');
+        if (photoImage) {
+          tl.to(photoImage, { scale: 1.3, ease: 'power3.in', duration: exit }, '<');
+        }
+      } else {
+        tl.to(lines, { yPercent: -110, ease: 'power3.in', duration: exit, stagger });
+      }
       if (extraParts.length) {
         tl.to(
           extraParts,
@@ -306,6 +359,35 @@ export function initActiveList() {
         onToggle: (self) => {
           item.dataset.active = String(self.isActive);
         },
+      });
+    });
+  });
+}
+
+export function initPhotoSwap() {
+  gsap.utils.toArray('[data-photo-swap]').forEach((section) => {
+    const images = gsap.utils.toArray(section.querySelectorAll('[data-photo-swap-image]'));
+    const steps = gsap.utils.toArray(section.querySelectorAll('[data-photo-swap-step]'));
+    const duration = parseFloat(section.dataset.swapTime ?? '1.2');
+
+    images.forEach((image, i) => {
+      if (i === 0 || !steps[i]) return;
+      const photo = image.querySelector('img');
+
+      gsap.set(image, { clipPath: 'inset(100% 0% 0% 0%)' });
+      if (photo) gsap.set(photo, { autoAlpha: 1 });
+
+      const timeline = gsap.timeline({ paused: true });
+      timeline.to(image, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power3.inOut', duration });
+      if (photo) {
+        timeline.fromTo(photo, { scale: 1.25 }, { scale: 1, ease: 'power3.out', duration: duration * 1.4 }, 0);
+      }
+
+      ScrollTrigger.create({
+        trigger: steps[i],
+        start: section.dataset.swapStart ?? 'top 60%',
+        onEnter: () => timeline.timeScale(1).play(),
+        onLeaveBack: () => timeline.timeScale(1.4).reverse(),
       });
     });
   });

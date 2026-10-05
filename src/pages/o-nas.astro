@@ -2,16 +2,17 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SpecialistsSlider from '../components/SpecialistsSlider.astro';
 import { Image } from 'astro:assets';
-import officeTeam from '../assets/photos/two-accountants-at-desk.jpg';
-import portraitBookkeeping from '../assets/photos/accountant-at-workstation.jpg';
-import portraitTaxAdvisory from '../assets/photos/accountant-portrait.jpg';
-import portraitPayroll from '../assets/photos/reviewing-documents.jpg';
-import portraitLedgers from '../assets/photos/accountant-at-computer.jpg';
-import portraitSocialSecurity from '../assets/photos/client-conversation.jpg';
-import portraitFlatRate from '../assets/photos/two-accountants-documents.jpg';
-import portraitVat from '../assets/photos/open-space-conversation.jpg';
-import portraitAnalysis from '../assets/photos/accountant-at-monitor.jpg';
-import portraitFrontDesk from '../assets/photos/client-conversation.jpg';
+import officeTeam from '../assets/photos/two-women-reviewing-printout.jpg';
+import portraitBookkeeping from '../assets/photos/blonde-grey-blazer-portrait-arms-crossed.jpg';
+import portraitTaxAdvisory from '../assets/photos/floral-suit-portrait-hand-in-pocket.jpg';
+import portraitPayroll from '../assets/photos/grey-blazer-portrait-arms-crossed.jpg';
+import portraitLedgers from '../assets/photos/beige-blazer-portrait-curly-hair.jpg';
+import portraitSocialSecurity from '../assets/photos/olive-blazer-portrait-hands-on-hips.jpg';
+import portraitFlatRate from '../assets/photos/black-suit-portrait-hand-in-pocket.jpg';
+import portraitVat from '../assets/photos/white-blazer-glasses-portrait.jpg';
+import portraitAnalysis from '../assets/photos/black-blazer-portrait-long-hair.jpg';
+import portraitFrontDesk from '../assets/photos/black-blazer-white-trousers-portrait.jpg';
+import portraitAssistant from '../assets/photos/black-shirt-portrait-arms-crossed.jpg';
 
 const MARQUEE_REPEATS = 3;
 const DASH_LENGTH = 'clamp(3.5rem,9vw,11rem)';
@@ -20,91 +21,100 @@ const DASH_THICKNESS = 'clamp(0.3rem,0.8vw,1rem)';
 const specialists = [
   {
     name: 'Imię i nazwisko',
-    department: 'Księgowość',
-    bio: 'Prowadzi księgi handlowe spółek i pilnuje, żeby każdy miesiąc zamykał się na czas. Liczby tłumaczy prostym językiem.',
-    photo: portraitBookkeeping,
-    photoFocus: 'center 30%',
-    photoZoom: 1,
-    photoAlt: 'Księgowa przy stanowisku pracy w biurze',
-  },
-  {
-    name: 'Imię i nazwisko',
-    department: 'Doradztwo podatkowe',
-    bio: 'Układa rozliczenia tak, żeby firma płaciła tyle, ile musi. Reprezentuje klientów w sporach i kontrolach skarbowych.',
+    department: 'Stanowisko',
+    bio: 'Tutaj pojawi się opis tej osoby. Kilka zdań o tym, czym zajmuje się w biurze i w czym może pomóc Twojej firmie na co dzień.',
     photo: portraitTaxAdvisory,
-    photoFocus: 'center top',
-    photoZoom: 1,
-    photoAlt: 'Doradczyni podatkowa w jasnym garniturze',
-  },
-  {
-    name: 'Imię i nazwisko',
-    department: 'Kadry i płace',
-    bio: 'Liczy wynagrodzenia, prowadzi akta osobowe i przypomina o terminach, zanim staną się problemem. Zna każdą formę zatrudnienia.',
-    photo: portraitPayroll,
-    photoFocus: '65% center',
-    photoZoom: 1.8,
-    photoAlt: 'Specjalistka do spraw kadr nad dokumentami',
-  },
-  {
-    name: 'Imię i nazwisko',
-    department: 'Księgowość',
-    bio: 'Codziennie księguje dokumenty firm handlowych i usługowych. Wychwytuje błędy w fakturach, zanim trafią do miesięcznej deklaracji.',
-    photo: portraitLedgers,
-    photoFocus: '60% center',
-    photoZoom: 1,
-    photoAlt: 'Księgowa przy komputerze w biurze',
-  },
-  {
-    name: 'Imię i nazwisko',
-    department: 'Rozliczenia ZUS',
-    bio: 'Zgłasza, rozlicza i koryguje składki. Pilnuje zasiłków, zwolnień i wszystkiego, co przechodzi przez Płatnika w imieniu klienta.',
-    photo: portraitSocialSecurity,
-    photoFocus: 'right 30%',
-    photoZoom: 1.4,
-    photoAlt: 'Specjalistka do spraw ZUS w rozmowie z klientką',
-  },
-  {
-    name: 'Imię i nazwisko',
-    department: 'Księgowość',
-    bio: 'Obsługuje jednoosobowe działalności i spółki na ryczałcie. Doradza, którą formę opodatkowania wybrać przed startem nowego roku.',
-    photo: portraitFlatRate,
-    photoFocus: 'center top',
-    photoZoom: 1.5,
-    photoAlt: 'Księgowa i koleżanka nad wydrukiem dokumentów',
-  },
-  {
-    name: 'Imię i nazwisko',
-    department: 'Podatek VAT',
-    bio: 'Rozlicza VAT krajowy i transakcje zagraniczne. Sprawdza stawki, JPK oraz split payment, zanim deklaracja pójdzie dalej.',
-    photo: portraitVat,
-    photoFocus: '25% 58%',
-    photoZoom: 2,
-    photoAlt: 'Specjalistka do spraw VAT przy stanowisku pracy',
-  },
-  {
-    name: 'Imię i nazwisko',
-    department: 'Analizy finansowe',
-    bio: 'Przekłada dane z ksiąg na raporty, które realnie pomagają podejmować decyzje. Pokazuje, gdzie firma traci, a gdzie zarabia.',
-    photo: portraitAnalysis,
-    photoFocus: '40% center',
-    photoZoom: 1.2,
-    photoAlt: 'Analityczka finansowa przy monitorze',
-  },
-  {
-    name: 'Imię i nazwisko',
-    department: 'Obsługa klienta',
-    bio: 'Odbiera telefony, porządkuje dokumenty i kieruje sprawy do właściwej osoby. Pierwszy kontakt, który odpowiada tego samego dnia.',
-    photo: portraitFrontDesk,
-    photoFocus: '15% 35%',
+    photoFocus: '41.2% 12.1%',
     photoZoom: 1.6,
-    photoAlt: 'Pracownica biura w rozmowie z klientką',
+    photoAlt: 'Portret osoby z zespołu biura',
+  },
+  {
+    name: 'Imię i nazwisko',
+    department: 'Stanowisko',
+    bio: 'Tutaj pojawi się opis tej osoby. Kilka zdań o tym, czym zajmuje się w biurze i w czym może pomóc Twojej firmie na co dzień.',
+    photo: portraitPayroll,
+    photoFocus: '44.7% 17.5%',
+    photoZoom: 1.6,
+    photoAlt: 'Portret osoby z zespołu biura',
+  },
+  {
+    name: 'Imię i nazwisko',
+    department: 'Stanowisko',
+    bio: 'Tutaj pojawi się opis tej osoby. Kilka zdań o tym, czym zajmuje się w biurze i w czym może pomóc Twojej firmie na co dzień.',
+    photo: portraitBookkeeping,
+    photoFocus: '42% 12.1%',
+    photoZoom: 1.6,
+    photoAlt: 'Portret osoby z zespołu biura',
+  },
+  {
+    name: 'Imię i nazwisko',
+    department: 'Stanowisko',
+    bio: 'Tutaj pojawi się opis tej osoby. Kilka zdań o tym, czym zajmuje się w biurze i w czym może pomóc Twojej firmie na co dzień.',
+    photo: portraitLedgers,
+    photoFocus: '44.7% 12.1%',
+    photoZoom: 1.6,
+    photoAlt: 'Portret osoby z zespołu biura',
+  },
+  {
+    name: 'Imię i nazwisko',
+    department: 'Stanowisko',
+    bio: 'Tutaj pojawi się opis tej osoby. Kilka zdań o tym, czym zajmuje się w biurze i w czym może pomóc Twojej firmie na co dzień.',
+    photo: portraitSocialSecurity,
+    photoFocus: '50% 12.1%',
+    photoZoom: 1.6,
+    photoAlt: 'Portret osoby z zespołu biura',
+  },
+  {
+    name: 'Imię i nazwisko',
+    department: 'Stanowisko',
+    bio: 'Tutaj pojawi się opis tej osoby. Kilka zdań o tym, czym zajmuje się w biurze i w czym może pomóc Twojej firmie na co dzień.',
+    photo: portraitFlatRate,
+    photoFocus: '50% 9.5%',
+    photoZoom: 1.6,
+    photoAlt: 'Portret osoby z zespołu biura',
+  },
+  {
+    name: 'Imię i nazwisko',
+    department: 'Stanowisko',
+    bio: 'Tutaj pojawi się opis tej osoby. Kilka zdań o tym, czym zajmuje się w biurze i w czym może pomóc Twojej firmie na co dzień.',
+    photo: portraitVat,
+    photoFocus: '50% 17.5%',
+    photoZoom: 1.6,
+    photoAlt: 'Portret osoby z zespołu biura',
+  },
+  {
+    name: 'Imię i nazwisko',
+    department: 'Stanowisko',
+    bio: 'Tutaj pojawi się opis tej osoby. Kilka zdań o tym, czym zajmuje się w biurze i w czym może pomóc Twojej firmie na co dzień.',
+    photo: portraitAnalysis,
+    photoFocus: '44.7% 12.1%',
+    photoZoom: 1.6,
+    photoAlt: 'Portret osoby z zespołu biura',
+  },
+  {
+    name: 'Imię i nazwisko',
+    department: 'Stanowisko',
+    bio: 'Tutaj pojawi się opis tej osoby. Kilka zdań o tym, czym zajmuje się w biurze i w czym może pomóc Twojej firmie na co dzień.',
+    photo: portraitFrontDesk,
+    photoFocus: '44.7% 13.9%',
+    photoZoom: 1.6,
+    photoAlt: 'Portret osoby z zespołu biura',
+  },
+  {
+    name: 'Imię i nazwisko',
+    department: 'Stanowisko',
+    bio: 'Tutaj pojawi się opis tej osoby. Kilka zdań o tym, czym zajmuje się w biurze i w czym może pomóc Twojej firmie na co dzień.',
+    photo: portraitAssistant,
+    photoFocus: '48.1% 16%',
+    photoZoom: 1.6,
+    photoAlt: 'Portret osoby z zespołu biura',
   },
 ];
 
 ---
 <BaseLayout
   title="O nas"
-  description="Poznaj Biuro Rachunkowe Iwona Mazur. Księgowość, kadry i płace oraz doradztwo podatkowe dla firm każdej wielkości."
+  description="Biuro rachunkowe w Dębicy z ponad 20-letnim doświadczeniem. Jedenaście osób w zespole i ponad 80 firm, którym prowadzimy księgowość, kadry i podatki."
 >
   <section class="flex min-h-screen flex-col px-[2vw] pt-40 max-lg:px-[4vw] max-lg:pt-28">
     <div class="-mx-[2vw] overflow-hidden pt-[0.5vw] pb-[3.6vw] -mt-[0.5vw] -mb-[1.6vw] max-lg:-mx-[4vw] max-lg:pt-[0.6vw] max-lg:pb-[4.2vw] max-lg:-mt-[0.6vw] max-lg:mb-[4.8vw]" aria-hidden="true">
@@ -135,10 +145,10 @@ const specialists = [
     >
       <Image
         src={officeTeam}
-        alt="Dwie księgowe przy wspólnym stanowisku pracy w biurze"
+        alt="Dwie księgowe sprawdzają wydruk przy biurku"
         class="parallax-img"
         data-parallax
-        widths={[768, 1280, 1600]}
+        widths={[768, 1280, 1920, 2560, 3600]}
         sizes="(width < 64rem) 300vw, 95vw"
         loading="eager"
       />
@@ -155,9 +165,9 @@ const specialists = [
       data-start="top 92%"
       data-end="bottom 68%"
     >
-      Księgowość to nie tylko terminy i deklaracje. To spokój, z jakim
-      prowadzisz firmę, kiedy wiesz, że ktoś pilnuje Twoich liczb tak samo
-      uważnie jak Ty.
+      Pilnujemy terminów i deklaracji, ale klientom chodzi przede wszystkim
+      o spokój: o pewność, że ktoś patrzy na ich liczby tak samo uważnie
+      jak oni.
     </p>
 
     <div class="ml-[20vw] mt-[6vw] flex gap-[5vw] max-lg:ml-0 max-lg:mt-[16vw] max-lg:flex-col max-lg:gap-[10vw]">
@@ -169,14 +179,14 @@ const specialists = [
         data-start="top 90%"
         data-end="bottom 68%"
       >
-        Biuro Rachunkowe Iwona Mazur prowadzi księgi firm z Dębicy i okolic
-        od ponad dwudziestu lat. Zaczynaliśmy od kilku lokalnych działalności,
-        którym wystarczała jedna księgowa odbierająca telefon. Dziś
-        obsługujemy ponad osiemdziesiąt firm: jednoosobowe działalności,
-        spółki handlowe i zakłady produkcyjne. Zespół urósł do jedenastu osób,
-        a zasada została ta sama. Każdy klient ma swojego księgowego, który
-        zna jego firmę, jej historię i wie, o co zapytać, zanim pojawi się
-        problem.
+        Biuro Rachunkowe Iwona Mazur od ponad dwudziestu lat prowadzi księgi
+        firm z Dębicy i okolic. Na początku obsługiwaliśmy kilka lokalnych
+        działalności i wystarczała do tego jedna księgowa przy telefonie.
+        Dziś mamy ponad osiemdziesięciu klientów, od jednoosobowych
+        działalności po spółki handlowe i zakłady produkcyjne, a w zespole
+        pracuje jedenaście osób. Jedno się nie zmieniło: każdy klient ma
+        swojego księgowego, który zna jego firmę i jej historię, więc pyta
+        o sprawę, zanim zrobi się z niej problem.
       </p>
 
       <p
@@ -187,13 +197,13 @@ const specialists = [
         data-start="top 90%"
         data-end="bottom 68%"
       >
-        Prowadzimy pełną księgowość, księgi przychodów i rozchodów, kadry
-        i płace oraz doradztwo podatkowe. Rozliczamy VAT krajowy i transakcje
-        zagraniczne, przygotowujemy sprawozdania finansowe, reprezentujemy
-        klientów przed urzędem skarbowym i ZUS. Dokumenty przyjmujemy tak, jak
-        Ci wygodnie: w teczce, mailem albo przez KSeF. Na pytania odpowiadamy
-        tego samego dnia, bo terminy w księgowości rzadko czekają, a dobra
-        decyzja podatkowa prawie zawsze zapada przed transakcją, nie po niej.
+        W biurze prowadzimy pełną księgowość i księgi przychodów i rozchodów,
+        kadry i płace oraz doradztwo podatkowe. Rozliczamy VAT krajowy
+        i transakcje zagraniczne, przygotowujemy sprawozdania finansowe
+        i reprezentujemy klientów przed urzędem skarbowym i ZUS. Dokumenty
+        możesz przynieść w teczce, wysłać mailem albo przekazać przez KSeF.
+        Na pytania odpowiadamy tego samego dnia. W podatkach to ważne, bo
+        najlepszą decyzję zwykle podejmuje się przed transakcją.
       </p>
     </div>
   </section>
@@ -203,8 +213,8 @@ const specialists = [
       class="px-[2vw] font-display text-[clamp(2rem,4.5vw,5.5rem)] font-medium uppercase leading-[1.05] text-graphite"
       data-reveal-lines="once"
     >
-      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Nasi zaufani</span></span>
-      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">specjaliści</span></span>
+      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Poznaj nasz</span></span>
+      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">zespół</span></span>
     </h2>
 
     <div class="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
@@ -251,7 +261,7 @@ const specialists = [
     </div>
   </section>
 
-  <SpecialistsSlider specialists={specialists} />
+  <SpecialistsSlider specialists={specialists} headingLines={['Poznaj nasz', 'zespół']} />
 
   <section class="relative mt-[12vw] h-[320vh] max-lg:mt-[20vw] max-lg:h-[240vh]" data-headline-pin data-stagger="0.15" data-hold="1">
     <div class="sticky top-0 h-screen overflow-hidden">
@@ -260,7 +270,7 @@ const specialists = [
         data-headline-group
       >
         <h2 class="text-center font-display text-[clamp(3rem,8vw,10rem)] font-medium uppercase leading-[1] text-graphite">
-          <span class="block overflow-hidden -mb-[0.15em]"><span class="headline-line block pb-[0.15em]">Przekonany?</span></span>
+          <span class="block overflow-hidden -mb-[0.15em]"><span class="headline-line block pb-[0.15em]">Masz pytania?</span></span>
         </h2>
       </div>
 
@@ -279,8 +289,8 @@ const specialists = [
             class="mt-[2vw] max-w-[42vw] text-center font-sans text-[clamp(0.95rem,1.1vw,1.25rem)] font-medium leading-[1.35] text-graphite max-lg:mt-[3vh] max-lg:max-w-none"
             data-extra-words
           >
-            Trzydzieści minut rozmowy bez zobowiązań. Sprawdzimy, jak wygląda
-            dziś Twoja księgowość i powiemy wprost, co da się w niej uprościć.
+            Rozmowa trwa trzydzieści minut i do niczego nie zobowiązuje.
+            Przejrzymy Twoją obecną księgowość i powiemy, co da się w niej uprościć.
           </p>
 
           <span class="mt-[clamp(1rem,1.4vw,2rem)] flex overflow-hidden max-lg:mt-[3vh]">

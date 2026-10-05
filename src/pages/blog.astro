@@ -11,8 +11,8 @@ const DASH_THICKNESS = 'clamp(0.3rem,0.8vw,1rem)';
 const posts = sortPosts(await getCollection('blog'));
 ---
 <BaseLayout
-  title="Blog"
-  description="Zmiany w przepisach, terminy i praktyczne poradniki księgowe. Piszemy o tym, co realnie wpływa na rozliczenia małych i średnich firm."
+  title="Blog o księgowości i podatkach"
+  description="Poradniki księgowe dla przedsiębiorców: KSeF, VAT, składka zdrowotna, forma opodatkowania i kadry. Piszemy o tym, co zmienia rozliczenia małych firm."
 >
   <section class="px-[2vw] pt-40 max-lg:px-[4vw] max-lg:pt-28">
     <div class="-mx-[2vw] overflow-hidden pt-[0.5vw] pb-[3.6vw] -mt-[0.5vw] -mb-[1.6vw] max-lg:-mx-[4vw] max-lg:pt-[0.6vw] max-lg:pb-[4.2vw] max-lg:-mt-[0.6vw] max-lg:mb-[4.8vw]" aria-hidden="true">
@@ -47,16 +47,17 @@ const posts = sortPosts(await getCollection('blog'));
               data-trigger="section"
               data-delay-desktop={i < 2 ? '0.25' : '0.15'}
             >
-              <Image
-                src={post.data.cover}
-                alt={post.data.coverAlt}
-                class={`parallax-img ${post.data.softParallax ? 'parallax-img--soft' : ''}`}
-                data-parallax
-                data-photo-tone
-                widths={[640, 1024, 1600]}
-                sizes="(width < 40rem) 114vw, 58vw"
-                loading={i < 2 ? 'eager' : 'lazy'}
-              />
+              <div class="absolute inset-0" data-photo-zoom>
+                <Image
+                  src={post.data.cover}
+                  alt={post.data.coverAlt}
+                  class={`parallax-img ${post.data.softParallax ? 'parallax-img--soft' : ''}`}
+                  data-parallax
+                  widths={[640, 1024, 1600]}
+                  sizes="(width < 40rem) 114vw, 58vw"
+                  loading={i < 2 ? 'eager' : 'lazy'}
+                />
+              </div>
               <div class="reveal-panel absolute inset-0 z-10"></div>
             </div>
 
@@ -104,8 +105,8 @@ const posts = sortPosts(await getCollection('blog'));
             class="mt-[2vw] max-w-[42vw] text-center font-sans text-[clamp(0.95rem,1.1vw,1.25rem)] font-medium leading-[1.35] text-graphite max-lg:mt-[3vh] max-lg:max-w-none"
             data-extra-words
           >
-            Artykuł opisuje sytuację typową. Twoja może wyglądać inaczej, więc
-            napisz do nas i policzymy to na Twoich dokumentach.
+            Wpisy opisują typowe sytuacje, a Twoja firma może mieć inne. Napisz
+            do nas, a policzymy to na Twoich dokumentach.
           </p>
 
           <span class="mt-[clamp(1rem,1.4vw,2rem)] flex overflow-hidden max-lg:mt-[3vh]">

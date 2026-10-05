@@ -1,47 +1,47 @@
 ---
-title: 'Jak przygotować firmę do zamknięcia roku'
-lead: 'Zamknięcie roku jest tym łatwiejsze, im mniej rzeczy zostawisz na grudzień. Oto lista, którą przechodzimy z klientami od października.'
+title: 'Zamknięcie roku w firmie: lista zadań od października'
+lead: 'Jak przygotować firmę do zamknięcia roku bez grudniowego pośpiechu. Lista zadań na październik, listopad i grudzień, którą przechodzimy z naszymi klientami.'
 date: 2026-06-09
 category: 'Księgowość'
-readingMinutes: 2
-cover: '../../assets/photos/client-conversation.jpg'
-coverAlt: 'Rozmowa dwóch osób przy biurku, z dokumentami w dłoniach'
+readingMinutes: 3
+cover: '../../assets/photos/two-women-stamping-document-wide.jpg'
+coverAlt: 'Dwie księgowe przy biurku podbijają pieczątką dokument'
 ---
 
-Zamknięcie roku rzadko bywa trudne merytorycznie. Bywa trudne organizacyjnie, bo w jednym momencie zbiegają się dokumenty, których brakowało przez dwanaście miesięcy, inwentaryzacja, rozliczenia z pracownikami i decyzje, które trzeba podjąć przed 31 grudnia.
+Zamknięcie roku w firmie rzadko sprawia trudność merytoryczną. Kłopot jest organizacyjny: w jednym momencie spotykają się dokumenty, których brakowało przez dwanaście miesięcy, inwentaryzacja, rozliczenia z pracownikami i decyzje, które trzeba podjąć przed 31 grudnia. Im mniej z tego zostawisz na grudzień, tym łatwiej.
 
-Ta lista powstała z powtarzających się sytuacji. Nie jest kompletna dla każdej firmy, ale w większości przypadków wystarcza, żeby styczeń wyglądał spokojnie.
+Poniższa lista wzięła się z sytuacji, które powtarzają się u naszych klientów. Nie obejmie wszystkiego w każdej firmie, ale zwykle wystarcza, żeby styczeń przebiegł spokojnie.
 
-## Do końca października
+## Do końca października: dokumenty, rozrachunki, środki trwałe
 
-**Uzupełnij brakujące dokumenty kosztowe.** Faktura sprzed pół roku bywa nie do odzyskania, bo kontrahent zmienił system albo zniknął z rynku. Im wcześniej wyłapiesz lukę, tym większa szansa na duplikat.
+Uzupełnij brakujące dokumenty kosztowe. Faktury sprzed pół roku czasem nie da się już odzyskać, bo kontrahent zmienił system albo zniknął z rynku. Im wcześniej zauważysz lukę, tym większa szansa na duplikat.
 
-**Przejrzyj rozrachunki z kontrahentami.** Chodzi o nierozliczone zaliczki, nadpłaty i faktury zapłacone dwa razy. Po zamknięciu roku każda taka pozycja wymaga korekty, a przed zamknięciem wystarczy zwykły przelew albo nota.
+Przejrzyj rozrachunki z kontrahentami: nierozliczone zaliczki, nadpłaty i faktury zapłacone dwa razy. Przed zamknięciem roku wystarczy zwykły przelew albo nota. Po zamknięciu każda taka pozycja wymaga korekty.
 
-**Sprawdź stan środków trwałych.** Czy wszystko, co jest w ewidencji, faktycznie istnieje i nadal służy firmie. Sprzęt zlikwidowany fizycznie, ale nie w papierach, zawyża majątek i amortyzację.
+Sprawdź środki trwałe, czyli czy wszystko, co figuruje w ewidencji, faktycznie istnieje i nadal służy firmie. Sprzęt zlikwidowany fizycznie, ale nie w dokumentach, zawyża majątek i amortyzację.
 
-## Do końca listopada
+## Do końca listopada: inwentaryzacja, zakupy, limity przychodu
 
-**Zaplanuj inwentaryzację.** Termin, osoby, sposób spisu i moment zamknięcia magazynu na czas liczenia. Spis zrobiony w pośpiechu 30 grudnia zwykle trzeba powtarzać.
+Zaplanuj inwentaryzację: termin, osoby, sposób spisu i to, kiedy zamykasz magazyn na czas liczenia. Spis robiony w pośpiechu 30 grudnia zwykle trzeba powtarzać.
 
-**Policz, czy warto przyspieszyć lub odłożyć zakupy.** Decyzja o zakupie sprzętu w grudniu albo w styczniu zmienia wynik dwóch lat podatkowych. To jest moment, w którym taka rozmowa ma sens, bo w styczniu wybór już nie istnieje.
+Policz, czy opłaca się przyspieszyć albo odłożyć zakupy. Kupno sprzętu w grudniu zamiast w styczniu zmienia wynik dwóch lat podatkowych. Taką rozmowę warto odbyć teraz, bo w styczniu tego wyboru już nie ma.
 
-**Sprawdź limity, które zależą od przychodu.** Prawo do ryczałtu, status małego podatnika, obowiązek prowadzenia pełnych ksiąg. Zbliżanie się do progu warto zauważyć, gdy można jeszcze wpłynąć na terminy sprzedaży.
+Sprawdź limity zależne od przychodu, takie jak prawo do ryczałtu, status małego podatnika czy obowiązek prowadzenia pełnych ksiąg. Jeżeli zbliżasz się do któregoś progu, lepiej zauważyć to wtedy, gdy możesz jeszcze wpłynąć na terminy sprzedaży.
 
-## Do końca grudnia
+## Do końca grudnia: pracownicy, kasa, forma opodatkowania
 
-**Rozlicz się z pracownikami.** Niewykorzystany urlop, ekwiwalenty, premie roczne i wszystko, co ma być wypłacone w tym roku, żeby obciążyć ten rok.
+Rozlicz się z pracownikami. Chodzi o niewykorzystany urlop, ekwiwalenty, premie roczne i wszystko, co ma zostać wypłacone w tym roku, żeby obciążyło ten rok.
 
-**Zamknij kasę i uzgodnij salda bankowe.** Różnica na kilka złotych szukana w styczniu potrafi zająć więcej czasu niż całe zamknięcie.
+Zamknij kasę i uzgodnij salda bankowe. Szukanie w styczniu różnicy kilku złotych potrafi zająć więcej czasu niż całe zamknięcie.
 
-**Podejmij decyzje o formie opodatkowania na kolejny rok.** Nie w terminie ustawowym w nowym roku, ale teraz, gdy masz komplet danych za rok kończący się i możesz je porównać.
+Zdecyduj o formie opodatkowania na kolejny rok. Najlepiej teraz, kiedy masz komplet danych za kończący się rok i możesz je porównać, a nie dopiero w ustawowym terminie w nowym roku.
 
-## Co robimy po Twojej stronie
+## Co robimy za Ciebie, jeśli prowadzimy Twoją księgowość
 
-Jeżeli prowadzimy Twoją księgowość, większość powyższych punktów zgłaszamy sami, w miarę jak wynikają z dokumentów. Twoja rola sprowadza się wtedy do trzech rzeczy: dostarczenia brakujących dokumentów, przeprowadzenia spisu i podjęcia decyzji, których nie możemy podjąć za Ciebie.
+Jeżeli prowadzimy Twoją księgowość, większość tych punktów zgłaszamy sami, na bieżąco, w miarę jak wynikają z dokumentów. Po Twojej stronie zostaje wtedy dostarczenie brakujących dokumentów, przeprowadzenie spisu i decyzje, których nie możemy podjąć za Ciebie.
 
-## Podsumowanie
+## Zamknięcie roku rozłożone na trzy miesiące
 
-Zamknięcie roku jest projektem na trzy miesiące, nie zadaniem na ostatni tydzień grudnia. Rozłożone w czasie prawie nie boli. Skumulowane potrafi zablokować firmę w najgorszym możliwym momencie, czyli w trakcie planowania kolejnego roku.
+Zamknięcie roku to praca na trzy miesiące, a nie na ostatni tydzień grudnia. Rozłożone w czasie jest mało uciążliwe. Odłożone na koniec potrafi zablokować firmę w złym momencie, kiedy planujesz kolejny rok.
 
-Jeżeli chcesz przejść tę listę na swoich danych, napisz do nas przed końcem października. Wtedy zostaje jeszcze czas na reakcję.
+Jeżeli chcesz przejść tę listę na swoich danych, napisz do nas przed końcem października. Zostanie wtedy czas, żeby zareagować.

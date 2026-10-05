@@ -73,6 +73,7 @@ Kolejność jak na stronie, z góry na dół. Numer w nazwie pliku to numer klat
 | `84-two-accountants-documents.jpg` | wiersz trzech zdjęć, kolumna 1 (wyższa) |
 | `61-open-space-conversation.jpg` | wiersz trzech zdjęć, kolumna 2 |
 | `73-client-conversation.jpg` | wiersz trzech zdjęć, kolumna 3 (pod akapitem o usługach) |
+| `office-building-exterior.jpg` | rozsuwa się między „Nasze biuro" a „w liczbach" (widoczne od `lg`) |
 | `66-accountant-at-workstation.jpg` | sekcja FAQ (widoczna od `lg`) |
 
 ### Podstrony
@@ -81,6 +82,11 @@ Kolejność jak na stronie, z góry na dół. Numer w nazwie pliku to numer klat
 | --- | --- |
 | `54-two-accountants-at-desk.jpg` | `o-nas`, kadr powitalny pod karuzelą napisu |
 | `47-1-office-interior.jpg` | `uslugi`, kadr powitalny pod karuzelą napisu |
+| `accountant-with-binder-at-desk.jpg` | `uslugi`, przyklejona ramka przy grupie „Księgowość” |
+| `curly-haired-accountant-smiling-at-desk.jpg` | `uslugi`, ramka przy „Kadry i ZUS” |
+| `floral-suit-advising-client.jpg` | `uslugi`, ramka przy „Podatki i urzędy” |
+| `client-listening-lounge.jpg` | `uslugi`, ramka przy „Nowa firma” |
+| `conversation-by-logo-wall.jpg` | `uslugi`, rozsuwa się obok „Potrzebujesz wyceny?” (od `lg`) |
 | `57-accountant-with-laptop.jpg` | `kontakt`, kadr 3:4 w karcie formularza |
 
 ### Kafelki specjalistów na `o-nas`
@@ -203,30 +209,26 @@ ekranie 2×.
 
 ## Czerń i biel na okładkach wpisów
 
-Okładki wpisów są domyślnie **czarno-białe** i wracają do koloru pod kursorem. Robi to
-atrybut `data-photo-tone` (reguła w `global.css`), nałożony na okładki w trzech miejscach:
-kafle na `/blog`, „Ostatnie artykuły" na stronie głównej i „Czytaj dalej" pod wpisem.
-Przejście trwa 700 ms.
+Okładki wpisów są w pełnym kolorze i domyślnie lekko przybliżone (`scale: 1.03`).
+Pod kursorem zdjęcie oddala się do naturalnego rozmiaru w ciągu 300 ms. Robi to
+atrybut `data-photo-zoom` (reguła w `global.css`), nałożony na okładki w trzech
+miejscach: kafle na `/blog`, „Ostatnie artykuły" na stronie głównej i „Czytaj dalej"
+pod wpisem.
 
-Rozjaśnianie do koloru siedzi w `@media (hover: hover)` i jest podpięte pod `:hover`
-oraz `:focus-visible` **linku**, nie samego zdjęcia — cały kafel jest jednym `<a>`,
-więc kolor wraca niezależnie od tego, czy kursor stoi na zdjęciu, czy na tytule.
+Wcześniej okładki były czarno-białe i wracały do koloru dopiero pod kursorem.
+Zrezygnowaliśmy z tego, bo szarość gasiła zdjęcia i ludzi na nich.
 
-Na dotyku hoveru nie ma, więc rolę wyzwalacza bierze **wjazd w kadr**: `initPhotoTone`
-w `animacje.js` tworzy dla każdej okładki ScrollTrigger i ustawia na niej
-`data-in-view`, a reguła w `@media (hover: none)` koloruje te z wartością `true`.
-Zakres domyślny: `top 85%` do `bottom 15%`, czyli kolor trzyma się, dopóki zdjęcie jest
-wyraźnie w kadrze, a po wyjściu wraca czerń i biel. Nadpisać można z markupu przez
-`data-tone-start` i `data-tone-end`.
+Oddalenie siedzi w `@media (hover: hover)` i jest podpięte pod `:hover` oraz
+`:focus-visible` **linku**, nie samego zdjęcia: cały kafel jest jednym `<a>`, więc
+zdjęcie oddala się niezależnie od tego, czy kursor stoi na nim, czy na tytule. Na dotyku
+efektu nie ma, a zdjęcie zostaje w lekkim przybliżeniu.
 
-Atrybut ustawia się na każdej szerokości ekranu (to tylko zapis w DOM, kilka
-ScrollTriggerów), a o tym, czy cokolwiek widać, decyduje media query. Dzięki temu
-nie trzeba nic reinicjalizować, gdy urządzenie ma i kursor, i dotyk.
-
-⚠️ Nie realizuj tego klasami Tailwinda (`grayscale` + `group-hover:grayscale-0`).
-Obie ustawiają tę samą właściwość, więc o wyniku decyduje kolejność w arkuszu, a nie
-kolejność klas w atrybucie — ta sama pułapka, która jest opisana przy podświetlaniu
-wiersza formularza w `animacje.md`.
+⚠️ Atrybut `data-photo-zoom` siedzi na osobnym `div.absolute.inset-0` owiniętym wokół
+`<img>`, nie na samym zdjęciu. Na `<img>` parallax (`data-parallax`) animuje GSAP, a GSAP
+przy każdym ustawieniu transformu wpisuje w styl inline `scale: none`, więc reguła
+z arkusza na tym samym elemencie nigdy nie wygrywa. Wrapper ma ten sam rozmiar co ramka,
+więc parallax (liczący zakres z `parentElement`) działa jak wcześniej. Ramka ma
+`overflow-hidden`, więc przybliżony kadr nie wychodzi poza zaokrąglone rogi.
 
 Zdjęcia nieklikalne (hero na podstronach, okładka wewnątrz wpisu, zdjęcia w sekcjach
 o firmie) zostały w kolorze — nie mają czego hoverować.

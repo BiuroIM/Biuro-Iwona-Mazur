@@ -1,51 +1,49 @@
 ---
-title: 'Dokumenty do księgowości online: jak to zorganizować raz na dobre'
-lead: 'Nie chodzi o program ani o skaner. Chodzi o jedną drogę przekazywania dokumentów i stały termin. To wystarcza, żeby przestać szukać faktur pod koniec miesiąca.'
+title: 'Dokumenty do księgowości online: jak je przekazywać'
+lead: 'Jak przekazywać dokumenty do księgowości online i nie szukać faktur pod koniec miesiąca? Wystarczy jedna droga, stały termin i krótki opis nietypowych dokumentów.'
 date: 2026-01-20
 category: 'Poradnik'
-readingMinutes: 2
+readingMinutes: 3
 cover: '../../assets/photos/accountant-at-computer.jpg'
 coverAlt: 'Księgowa pracująca przy komputerze przy oknie biura'
 ---
 
-Pytanie o formę przekazywania dokumentów pojawia się zwykle przy rozpoczęciu współpracy, a potem wraca po kilku miesiącach, gdy okazuje się, że część faktur krąży mailem, część leży w teczce, a część istnieje tylko w telefonie.
+Pytanie, jak przekazywać dokumenty do księgowości, pojawia się zwykle na początku współpracy. Po kilku miesiącach wraca, bo okazuje się, że część faktur krąży mailem, część leży w teczce, a część jest tylko w telefonie.
 
-Ten wpis jest o tym, jak ustawić to raz i przestać do tego wracać.
+Da się to ustawić raz i potem już do tego nie wracać.
 
-## Zasada pierwsza: jedna droga
+## Jedna droga przekazywania dokumentów
 
-Najważniejsza reguła jest banalna i najczęściej łamana. Dokument idzie do księgowości jedną drogą. Jeżeli wysyłasz skan, papier zostaje u Ciebie. Jeżeli wozisz papier, nie dosyłasz zdjęć.
+Ta reguła jest najprostsza i najczęściej łamana: dokument idzie do księgowości jedną drogą. Jeżeli wysyłasz skan, papier zostaje u Ciebie. Jeżeli wozisz papier, nie dosyłasz zdjęć.
 
-Dwie drogi oznaczają duplikaty, a duplikaty oznaczają albo podwójne ujęcie kosztu, albo podwójną płatność. Oba warianty kosztują więcej niż jakikolwiek program do obiegu dokumentów.
+Przy dwóch drogach pojawiają się duplikaty, a duplikat oznacza koszt ujęty dwa razy albo fakturę zapłaconą dwa razy. Każda z tych pomyłek kosztuje więcej niż jakikolwiek program do obiegu dokumentów.
 
-## Zasada druga: stały termin
+## Stały termin przekazania dokumentów za miesiąc
 
-Dokumenty za miesiąc przekazywane w jednym, umówionym terminie. Nie na bieżąco po każdej fakturze i nie wtedy, gdy przypadkiem porządkujesz biurko.
+Dokumenty za miesiąc przekazujesz w jednym, umówionym terminie. Nie wysyłasz ich po każdej fakturze ani przy okazji porządkowania biurka.
 
-Stały termin daje dwie rzeczy: wiemy, kiedy komplet jest kompletem, i widzimy brak, zanim zrobi się z niego problem.
+Dzięki stałemu terminowi wiemy, kiedy komplet jest naprawdę kompletny, i zauważamy brak, zanim zrobi się z niego problem.
 
-## Zasada trzecia: opis tam, gdzie dokument nie mówi sam za siebie
+## Krótki opis przy nietypowych dokumentach
 
-Faktura za paliwo nie mówi, którego samochodu dotyczy. Faktura za sprzęt nie mówi, czy to zakup na firmę, czy na odsprzedaż. Faktura za usługę obcą nie mówi, do którego zlecenia się odnosi.
+Z faktury za paliwo nie wynika, którego samochodu dotyczy. Z faktury za sprzęt nie wynika, czy to zakup na potrzeby firmy, czy towar na odsprzedaż, a z faktury za usługę obcą nie wiadomo, do którego zlecenia się odnosi.
 
-Jedno zdanie opisu przy takich dokumentach oszczędza wymianę kilku maili. Wystarczy dopisek w nazwie pliku albo krótka notatka w wiadomości.
+Jedno zdanie opisu przy takim dokumencie oszczędza wymiany kilku maili. Wystarczy dopisek w nazwie pliku albo krótka notatka w wiadomości.
 
-## Co się sprawdza w praktyce
+## Co sprawdza się w praktyce
 
-**Zdjęcie telefonem jest wystarczające**, jeżeli widać cały dokument, wszystkie kwoty i numer. Nie potrzebujesz skanera.
+Zdjęcie zrobione telefonem wystarczy, jeżeli widać na nim cały dokument, wszystkie kwoty i numer. Skaner nie jest potrzebny.
 
-**Jeden folder na miesiąc** po Twojej stronie, nazwany rokiem i miesiącem. Prosty sposób na sprawdzenie, czy coś zostało pominięte.
+Po swojej stronie warto mieć jeden folder na każdy miesiąc, nazwany rokiem i miesiącem. Łatwo wtedy sprawdzić, czy czegoś nie pominięto. Nazwa pliku z kontrahentem i kwotą przyspiesza dopasowanie dokumentu do płatności bardziej niż jakikolwiek system.
 
-**Nazwa pliku z kontrahentem i kwotą** przyspiesza dopasowanie do płatności bardziej niż jakikolwiek system.
-
-**Osobna ścieżka dla dokumentów pilnych.** Wezwanie z urzędu albo pismo z terminem nie powinno czekać na miesięczny termin przekazania dokumentów.
+Dokumenty pilne mają osobną ścieżkę. Wezwanie z urzędu albo pismo z terminem nie powinno czekać na miesięczny termin przekazania dokumentów.
 
 ## Czego nie warto robić
 
-Nie warto budować własnego systemu obiegu dokumentów przy kilku fakturach miesięcznie. Nie warto też kupować programu, dopóki nie działają trzy zasady opisane wyżej, bo program ich nie zastąpi. Powielenie nieporządku w narzędziu daje nieporządek szybszy, nie mniejszy.
+Przy kilku fakturach miesięcznie nie ma sensu budować własnego systemu obiegu dokumentów. Z zakupem programu też lepiej poczekać, aż zaczną działać trzy opisane wyżej zasady, bo program ich nie zastąpi. Nieporządek przeniesiony do narzędzia zostaje nieporządkiem, tylko szybszym.
 
-## Podsumowanie
+## Przekazywanie dokumentów do księgowości online w skrócie
 
-Dobra organizacja dokumentów to jedna droga, jeden termin i krótki opis tam, gdzie trzeba. Trzy ustalenia, zero kosztów, a różnica w komforcie pracy jest widoczna po pierwszym miesiącu.
+Dobrze zorganizowane przekazywanie dokumentów to jedna droga, jeden termin i krótki opis tam, gdzie jest potrzebny. Te trzy ustalenia nic nie kosztują, a różnicę w wygodzie pracy widać już po pierwszym miesiącu.
 
-Jeżeli chcesz to ustawić razem z nami, napisz do nas. Ustalimy termin i formę dopasowaną do tego, jak faktycznie pracujesz, a nie do tego, jak wygodniej byłoby nam.
+Jeżeli chcesz ustawić to razem z nami, napisz do nas. Termin i formę dopasujemy do tego, jak faktycznie pracujesz, nawet jeśli nam byłoby wygodniej inaczej.

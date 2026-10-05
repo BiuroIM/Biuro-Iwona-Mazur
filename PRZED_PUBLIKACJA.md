@@ -32,7 +32,8 @@ publikuje przez GitHub Actions (patrz `PANEL.md`), więc dotyczy to też panelu.
 kółkiem `bg-placeholder` zamiast zdjęcia. Opisy stanowisk są gotowe.
 
 - [ ] Dziewięć imion i nazwisk
-- [ ] Dziewięć zdjęć portretowych (kwadrat, kadr na twarz)
+- [x] Dziewięć zdjęć portretowych: portrety z sesji, kadr na twarz przez `photoFocus` i `photoZoom` w `o-nas.astro`
+- [ ] Sprawdzić, czy przypisanie osób do stanowisk się zgadza (ułożone bez wiedzy, kto jest kim)
 - [ ] Ustalić liczbę osób: strona główna mówi „11 specjalistów", tekst na `/o-nas`
       mówi „zespół urósł do jedenastu osób", a kart jest dziewięć
 
@@ -119,10 +120,12 @@ jest zobowiązaniem umownym złożonym publicznie.
 
 ### 9. Logotypy klientów
 
-Sekcja „Oni nam zaufali" pokazuje znaki pięciu realnych firm: Apis Natural
-Cosmetics, Greenvito, EPX, Consus, ERGOsolid.
+Slider pod hero i sekcja „Oni nam zaufali" pokazują nazwy trzynastu klientów
+z pełną księgowością (KH): Apis, Greenvito, EPX, Consus,
+ERGOsolid, Hotel Gold, Newman Polska, MSK Investment, TJN Metal, R-AL Glass,
+Fiber Novelty, TLBrokers, Airs. Lista w `clientLogos` w `index.astro`.
 
-- [ ] Zgoda każdej z pięciu firm na użycie znaku
+- [ ] Zgoda każdej z trzynastu firm na pokazanie nazwy
 
 ---
 
@@ -179,15 +182,26 @@ Dodatkowo `zmiany-w-skladce-zdrowotnej.md` ma datę `2026-07-21`, a lead mówi
 „przeliczyć formę opodatkowania jeszcze przed pierwszą deklaracją w nowym roku"
 — tekst napisany jak przed styczniem, opublikowany w lipcu.
 
-- [ ] Albo wstawić liczby, albo zmienić tytuły na takie, które ich nie obiecują
-- [ ] Poprawić lead i datę wpisu o składce zdrowotnej
+- [x] Obietnice liczb usunięte przy przepisaniu treści 2026-09-28
+- [x] Lead wpisu o składce zdrowotnej pasuje do daty lipcowej
+- [ ] Merytoryczna weryfikacja wpisów przez księgową przed publikacją:
+      - `ksef-w-praktyce.md`: moment wystawienia faktury (wysłanie do KSeF a nadanie numeru),
+        „własna numeracja przestaje działać” (numer sprzedawcy nadal jest na fakturze),
+        data otrzymania a termin odliczenia VAT, tekst brzmi jak przed startem obowiązku
+      - `zmiany-w-skladce-zdrowotnej.md`: czy opisana nowelizacja składki od 2026 weszła w życie;
+        przy ryczałcie składkę odlicza się od przychodu, nie od dochodu
+      - `zamkniecie-roku-w-firmie.md`: niewykorzystany urlop przechodzi na kolejny rok,
+        ekwiwalent należy się dopiero przy końcu zatrudnienia
+      - `pierwszy-pracownik-w-firmie.md`: informacja o warunkach zatrudnienia ma termin
+        po rozpoczęciu pracy; zasady urlopu w pierwszym roku pracy
 
 ### 14. Cała strona zwraca się w formach męskich
 
 „Dobrze trafiłeś", „Gotowy na współpracę?", „żebyś mógł spokojnie",
 „Przekonany?", „Znalazłeś coś dla siebie?".
 
-- [ ] Decyzja: zostaje czy przechodzimy na formy bezosobowe
+- [x] Nagłówki z formami męskimi zamienione przy przepisaniu treści 2026-09-28
+- [ ] Zostały pojedyncze formy w zdaniach (np. „żebyś mógł” w sekcji O nas na stronie głównej)
 
 ---
 
@@ -213,7 +227,7 @@ Jedna rzecz do świadomej decyzji: `src/assets/photos/accountant-portrait.jpg`
 nie jest nigdzie używany. Zostawiłem go, bo wygląda na przygotowany pod
 portret w sekcji zespołu (punkt 2).
 
-- [ ] Wykorzystać `accountant-portrait.jpg` albo usunąć
+- [ ] Po sesji zdjęciowej `src/assets/photos/` ma 60 plików, używanych jest 26. Reszta to rezerwa; przed startem można ją zostawić, bo nieużywane pliki nie trafiają do `dist/`
 
 ### 17. Domena do potwierdzenia
 

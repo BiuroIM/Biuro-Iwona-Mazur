@@ -9,7 +9,6 @@ import {
   initAnimations,
   initImageReveal,
   initLineReveal,
-  initPhotoTone,
   initWordScrub,
 } from './animations/reveal.js';
 import { initCounters, initProgressBar } from './animations/counters.js';
@@ -22,6 +21,7 @@ import {
   initImageGrow,
   initLogoWall,
   initParallax,
+  initPhotoSwap,
 } from './animations/scenes.js';
 import { initRope } from './animations/rope.js';
 import { destroyScrollBar, initScrollBar } from './animations/scrollBar.js';
@@ -62,12 +62,12 @@ const INITS = [
   ['rise-swipe', initRiseSwipe],
   ['rope', initRope],
   ['active-list', initActiveList],
+  ['photo-swap', initPhotoSwap],
   ['faq', initFaq],
   ['headline-pin', initHeadlinePin],
   ['footer-transition', initFooterTransition],
   ['form-panel', initContactForm],
   ['page-form', initPageForm],
-  ['photo-tone', initPhotoTone],
   ['hover-cursor', initHoverCursor],
   ['custom-select', initCustomSelect],
   ['navbar', initNavbar],

@@ -14,9 +14,9 @@ Treść zawsze zostaje w HTML (SEO) — animujemy jedynie jej pojawienie.
 |---|---|
 | `animations.js` | wejście: `INITS`, `setup()`, `cleanup()`, zdarzenia `astro:*` |
 | `animations/runtime.js` | rejestracja GSAP, Lenis, bramka kurtyny, `colorToken`, `isDesktopWidth` |
-| `animations/reveal.js` | `data-animate`, `data-reveal-lines`, `data-words-scrub`, `data-image-reveal`, `data-photo-tone` |
+| `animations/reveal.js` | `data-animate`, `data-reveal-lines`, `data-words-scrub`, `data-image-reveal` |
 | `animations/counters.js` | `data-counter`, `data-progress-bar` |
-| `animations/scenes.js` | `data-image-grow`, `data-dark-bg`, `data-logo-wall`, `data-cards`, `data-headline-pin`, `data-footer-transition`, `data-active-list`, `data-parallax` |
+| `animations/scenes.js` | `data-image-grow`, `data-dark-bg`, `data-logo-wall`, `data-cards`, `data-headline-pin`, `data-footer-transition`, `data-active-list`, `data-photo-swap`, `data-parallax` |
 | `animations/rope.js` | `data-rope` |
 | `animations/horizontal.js` | `data-horizontal`, `data-rise`, `data-rise-swipe` |
 | `animations/scrollBar.js` | `data-scroll-bar` |
@@ -277,6 +277,87 @@ i dopiero wtedy się odkrywa. Proporcje faz = ile scrolla zajmuje każda.
 Opcje: `data-stagger` (0.08), `data-in` (czas wjazdu/rewela, 2), `data-hold` (0.8),
 `data-out` (czas wyjazdu, 1.2).
 
+**Zdjęcie między liniami (`data-headline-photo`).** Opcjonalny element między liniami
+napisu. Po wjeździe linii rozsuwa się od `height: 0` do wysokości swojego pierwszego
+dziecka, więc odpycha linie od siebie, a zdjęcie w środku jednocześnie oddala się ze
+`scale 1.3` do `1`. Jeżeli sekcja nie ma `data-stays`, przy wyjściu linie wyjeżdżają
+górą, a zdjęcie w tym samym czasie zwija się do zera, wszystko na `power3.inOut` i przez
+`data-out`.
+Czas otwierania: `data-photo-in` na sekcji (1.6).
+
+Struktura: zewnętrzny `span.block.h-0.overflow-hidden` z atrybutem (stan początkowy
+w klasie), w nim `span` z pionowym paddingiem (odstęp od linii), a w nim ramka o stałej
+wysokości ze zdjęciem. Docelowa wysokość jest mierzona z tego dziecka funkcją, więc oś
+czasu ma `invalidateOnRefresh`. Zdjęcie ma `alt=""`, bo siedzi wewnątrz `<h2>`
+i inaczej wpadłoby do nazwy nagłówka.
+
+**Oś poziomą** włącza `data-headline-photo="width"`: zdjęcie rozsuwa się wtedy na
+szerokość (`width 0 → offsetWidth` dziecka), a nie na wysokość. Napis i zdjęcie stoją
+obok siebie w wyśrodkowanym `flex`, więc gdy zdjęcie rośnie, cała grupa zostaje na
+środku, a napis sam odjeżdża w lewo. Dziecko ma `w-max` i ramkę o stałej szerokości,
+żeby jego rozmiar nie zależał od zwężanego rodzica. Zdjęcie jest wtedy poza `<h2>`,
+więc ma normalny `alt`.
+
+**Zniknięcie zdjęcia (`data-photo-exit`)** na elemencie `data-headline-photo`: po holdzie
+dolna krawędź zdjęcia podjeżdża do góry (`clip-path: inset(0 0 0 0) → inset(0 0 100% 0)`
+na ramce, czyli rodzicu `<img>`), a sam kadr przesuwa się o `yPercent -20`, jak tekst
+wyjeżdżający z maski. Czas zdjęcia: `data-photo-out` (domyślnie tyle co `data-out`),
+krzywa `power3.inOut`. Po nim jeszcze pół
+holdu przerwy, żeby sticky nie odkleił się w tej samej klatce. Bez `data-stays` linie
+napisu wyjeżdżają górą w tym samym momencie co znikające zdjęcie, wszystkie naraz
+(bez staggeru) i w czasie `data-out`
+(zdjęcie nie zwija się wtedy na szerokość, więc napis nie wraca na środek). Z `data-stays`
+znika samo zdjęcie, a napis zostaje.
+
+**`data-scrub`** na sekcji: liczba sekund, o którą oś czasu goni scroll (zamiast
+sztywnego `scrub: true`). Wygładza ruch, zwłaszcza przy animowaniu szerokości.
+
+Używa tego „Nasze biuro w liczbach" na stronie głównej ze zdjęciem budynku biura, w osi
+poziomej: ramka `aspect-[1600/1143] w-[min(46vw,78vh)]` (proporcje pliku, nic nie jest
+ucinane), odstęp od napisu `pl-[4vw]`. Sekcja: `h-[420vh]`, `data-photo-in="2.6"`,
+`data-out="1.6"`, `data-photo-out="2.6"`, `data-scrub="1.2"`, bez
+`data-stays`: obie linie napisu i zdjęcie ruszają do góry w tej samej chwili, linie
+kończą w 1.6, a zdjęcie znika wolniej, w 2.6. Na mobile ta sekcja jest ukryta,
+więc efekt działa tylko od `lg`.
+
+### `data-active-list` + `data-active-item`  (znacznik wiersza na środku ekranu)
+Każdy `data-active-item` dostaje `data-active="true"`, dopóki przecina środek okna
+(`top center` → `bottom center`), a poza tym `"false"`. Sam skrypt nic nie zmienia
+w wyglądzie, styl trzeba dopisać osobno. Próba przygaszania nieaktywnych wierszy usług
+na `/uslugi` (`opacity: 0.3`) została wycofana na prośbę: teksty z boku mają być
+w pełni czytelne przez cały czas.
+
+### `data-photo-swap`  (przyklejone zdjęcie podmieniane maską)
+Lista usług na `/uslugi`: po lewej przez całą sekcję stoi przyklejona ramka
+(`sticky top-[10vh] h-[80vh] self-start`), a po prawej przewijają się grupy usług.
+W ramce leżą wszystkie zdjęcia naraz (`data-photo-swap-image`, `absolute inset-0`,
+`z-index` rosnący z kolejnością), a każda grupa w prawej kolumnie to
+`data-photo-swap-step`. Zdjęcie o numerze `i` należy do kroku o numerze `i`.
+
+Gdy górna krawędź kroku minie `top 60%` (`data-swap-start`), jego zdjęcie wjeżdża na
+poprzednie od dołu: `clip-path: inset(100% 0 0 0) → inset(0)` na `power3.inOut`, a sam
+kadr w środku jednocześnie oddala się z `scale 1.25` do `1`. Czas: `data-swap-time` (1.2).
+Przy przewijaniu w górę ta sama oś czasu cofa się 1,4 raza szybciej. To nie jest scrub,
+tylko oś odpalana i cofana na progu, żeby maska zawsze domykała się do końca i nie
+zostawała w połowie, gdy ktoś zatrzyma scroll.
+
+Pierwsze zdjęcie odsłania zwykła kurtyna `data-image-reveal` ramki. Pozostałe mają
+stan początkowy w klasie (`[clip-path:inset(100%_0%_0%_0%)]`), a skrypt odkrywa im
+`visibility`, bo `[data-image-reveal] img` chowa wszystkie obrazki w ramce, a kurtyna
+odkrywa tylko pierwszy.
+
+Na mobile ramka jest ukryta, a każda grupa ma nad sobą własne zdjęcie z kurtyną
+i parallaxem (`hidden max-lg:block`).
+
+Prawa kolumna ma `pb-[90vh]` (tylko od `lg`). Ramka jest przyklejona 10vh od góry
+i ma 80vh wysokości, więc odkleja się, gdy dół sekcji dojdzie do 90vh okna. Zapas
+90vh pod ostatnią grupą sprawia, że w tej chwili cała prawa kolumna jest już nad górną
+krawędzią ekranu: najpierw tekst odjeżdża do końca, a dopiero potem zdjęcie zjeżdża
+razem ze stroną. Po zmianie `top` albo wysokości ramki przelicz ten zapas na nowo. Na mobile
+kolumna ma `pb-[45vh]`: ciemna sekcja pod spodem włącza się przy `top 50%`, więc razem
+z marginesem sekcji (`30vw`) zapas musi przekroczyć pół ekranu, inaczej końcówka listy
+usług jest jeszcze widoczna, gdy tło robi się czarne.
+
 ### `data-pasek-postepu`
 Wskaźnik pokazujący, **ile sekcji już przewinięto**, w kształcie buttona (na `o-nas`:
 500 × 100 px). Atrybut idzie na WYPEŁNIENIE (`absolute inset-0` w środku toru);
@@ -374,8 +455,17 @@ Podział ról po poprawce: `html` trzyma tło jako podkład dla paska `scrollbar
 (ciemne przy `lenis-stopped`), `.page-canvas` maluje właściwe tło strony wraz z siatką
 i przewija się razem z dokumentem, a warstwa ciemna leży między nimi.
 
-Gaszenie działa w obie strony (`play reverse play reverse`), więc tło wraca do jasnego
-zarówno przy zjeżdżaniu poniżej sekcji, jak i przy powrocie nad nią.
+Gaszenie działa w obie strony, więc tło wraca do jasnego zarówno przy zjeżdżaniu
+poniżej sekcji, jak i przy powrocie nad nią. Oś czasu jest `paused`, a steruje nią
+`onToggle` osobnego `ScrollTrigger.create` (`isActive` → `play()`, inaczej `reverse()`).
+Jeśli strona wczyta się już w środku sekcji, oś od razu staje na końcu (`progress(1)`).
+
+⚠️ Nie wracaj do `toggleActions: 'play reverse play reverse'` na osi podpiętej pod
+`scrollTrigger`. Gdy strona wczyta się **za** sekcją (przeglądarka przywraca pozycję
+scrolla po odświeżeniu), ScrollTrigger przeskakuje oś do końca i już jej nie cofa:
+cała reszta strony zostaje czarna, choć ciemna sekcja jest dawno nad ekranem. Tak
+było na `/uslugi` przy „Potrzebujesz wyceny?”. Wersja z `onToggle` patrzy tylko na
+to, czy sekcja jest aktywna teraz, więc ten przypadek nie ma jak wystąpić.
 
 Navbar chowa się na ten czas automatycznie (ma ciemny tekst) — patrz [`data-navbar`].
 Treść w takiej sekcji pisz jasnym kolorem (`--color-canvas`).

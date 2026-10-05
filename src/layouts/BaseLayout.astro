@@ -30,14 +30,14 @@ interface Props {
 
 const {
   title = 'Biuro Rachunkowe Iwona Mazur',
-  description = 'Profesjonalna obsługa księgowa, kadrowo-płacowa i doradztwo podatkowe. Biuro Rachunkowe Iwona Mazur.',
+  description = 'Biuro rachunkowe w Dębicy: księgowość, kadry i płace oraz doradztwo podatkowe dla firm. Biuro Rachunkowe Iwona Mazur.',
   image = '/og-default.jpg',
   loadingScreen = false,
 } = Astro.props;
 
 const fullTitle = title === 'Biuro Rachunkowe Iwona Mazur'
   ? title
-  : `${title} — Biuro Rachunkowe Iwona Mazur`;
+  : `${title} | Biuro Rachunkowe Iwona Mazur`;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image, Astro.site);
@@ -138,7 +138,7 @@ const businessSchema = {
       aria-hidden="true"
     >
       <span
-        class="font-display text-[clamp(0.7rem,0.85vw,1rem)] font-medium uppercase tracking-[0.15em] text-canvas"
+        class="font-display text-[clamp(0.7rem,0.85vw,1rem)] font-medium uppercase tracking-[0.03em] text-canvas"
         data-cursor-text></span>
     </div>
 

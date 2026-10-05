@@ -35,13 +35,13 @@ const related = relatedPosts(posts, post);
     <section class="px-[2vw] pt-40 max-lg:px-[4vw] max-lg:pt-28">
       <a
         href="/blog"
-        class="group inline-flex border-b-2 border-graphite/40 pb-[1px] font-display text-[clamp(0.7rem,0.85vw,1rem)] font-medium uppercase tracking-[0.15em] text-graphite/75 transition-colors duration-500 hover:border-ink hover:text-ink"
+        class="group inline-flex border-b-2 border-graphite/40 pb-[1px] font-display text-[clamp(0.7rem,0.85vw,1rem)] font-medium uppercase tracking-[0.03em] text-graphite/75 transition-colors duration-500 hover:border-ink hover:text-ink"
       >
         <HoverLetters text="Wróć do bloga" />
       </a>
 
       <div
-        class="mt-[clamp(1.5rem,2.5vw,3.5rem)] flex items-center justify-center gap-[clamp(0.5rem,0.7vw,0.9rem)] font-display text-[clamp(0.6rem,0.75vw,0.9rem)] font-medium uppercase tracking-[0.25em] text-graphite/75 max-lg:mt-[6vw] max-lg:text-[clamp(0.65rem,3vw,0.95rem)]"
+        class="mt-[clamp(1.5rem,2.5vw,3.5rem)] flex items-center justify-center gap-[clamp(0.5rem,0.7vw,0.9rem)] font-display text-[clamp(0.6rem,0.75vw,0.9rem)] font-medium uppercase tracking-[0.03em] text-graphite/75 max-lg:mt-[6vw] max-lg:text-[clamp(0.65rem,3vw,0.95rem)]"
       >
         <span>{post.data.category}</span>
         <span class="h-[0.3em] w-[0.3em] shrink-0 rounded-full bg-graphite/40"></span>
@@ -79,7 +79,7 @@ const related = relatedPosts(posts, post);
         sections.length > 0 && (
           <aside class="absolute inset-y-0 left-[2vw] w-[14vw] max-lg:hidden" aria-label="Spis treści">
             <div class="sticky top-[18vh]">
-              <p class="font-display text-[clamp(0.6rem,0.7vw,0.85rem)] font-medium uppercase tracking-[0.25em] text-graphite/50">
+              <p class="font-display text-[clamp(0.6rem,0.7vw,0.85rem)] font-medium uppercase tracking-[0.03em] text-graphite/50">
                 W tym wpisie
               </p>
 
@@ -138,15 +138,16 @@ const related = relatedPosts(posts, post);
                   data-image-reveal
                   data-delay-desktop="0.2"
                 >
-                  <Image
-                    src={item.data.cover}
-                    alt={item.data.coverAlt}
-                    class={`parallax-img ${item.data.softParallax ? 'parallax-img--soft' : ''}`}
-                    data-parallax
-                    data-photo-tone
-                    widths={[480, 800, 1200]}
-                    sizes="(width < 40rem) 114vw, (width < 64rem) 60vw, 38vw"
-                  />
+                  <div class="absolute inset-0" data-photo-zoom>
+                    <Image
+                      src={item.data.cover}
+                      alt={item.data.coverAlt}
+                      class={`parallax-img ${item.data.softParallax ? 'parallax-img--soft' : ''}`}
+                      data-parallax
+                      widths={[480, 800, 1200]}
+                      sizes="(width < 40rem) 114vw, (width < 64rem) 60vw, 38vw"
+                    />
+                  </div>
                   <div class="reveal-panel absolute inset-0 z-10" />
                 </div>
 

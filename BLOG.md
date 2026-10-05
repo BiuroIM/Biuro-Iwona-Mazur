@@ -103,7 +103,7 @@ tam kolumny są trzy, a nie dwie, bo to sekcje uzupełniające, nie właściwa l
 Zmieniając wygląd kafla, zmień go we wszystkich trzech plikach.
 
 Każdy kafel niesie `data-cursor-label="Zobacz"` (ciemnozielone kółko zamiast kursora,
-opis w `animacje.md`) i `data-photo-tone` na okładce (czerń i biel, opis w `ZDJECIA.md`).
+opis w `animacje.md`) i `data-photo-zoom` na okładce (przybliżenie pod kursorem, opis w `ZDJECIA.md`).
 
 **Data w kaflach ma inny format niż w artykule.** Kafle używają `formatDateMonthFirst`
 (`Sierpień 8 2026`), a nagłówek wpisu `formatDate` (`8 sierpnia 2026`). Dwa formatery,

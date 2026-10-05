@@ -1,6 +1,11 @@
 ---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
 interface Logo {
   name: string;
+  image?: ImageMetadata;
+  scale?: number;
 }
 
 interface Props {
@@ -10,6 +15,10 @@ interface Props {
 }
 
 const { logos, repeat = 2, delay = 0.5 } = Astro.props;
+
+const REFERENCE_RATIO = 2.5;
+const logoScale = (image: ImageMetadata, scale = 1) =>
+  (Math.min(1.3, Math.max(0.6, Math.sqrt(REFERENCE_RATIO / (image.width / image.height)))) * scale).toFixed(3);
 
 const group = Array.from({ length: logos.length * repeat }, (_, i) => logos[i % logos.length]);
 const set = [...group, ...group];
@@ -22,18 +31,39 @@ const set = [...group, ...group];
   data-trigger="[data-hero]"
   data-start="top bottom"
 >
-  <div class="marquee-track flex w-max items-center bg-canvas">
+  <div class="marquee-track marquee-track--clients flex w-max items-center">
     {
-      set.map((logo, i) => (
-        <div
-          class="reveal-line mr-[clamp(2rem,4.2vw,5rem)] flex h-[clamp(3rem,4.8vw,6rem)] shrink-0 items-center max-lg:mr-[5.5vw] max-lg:h-[clamp(1.75rem,9vw,3rem)]"
-          aria-hidden={i >= logos.length ? 'true' : undefined}
-        >
-          <span class="whitespace-nowrap font-display text-[clamp(1.1rem,2.2vw,2.5rem)] font-medium uppercase leading-none tracking-[0.02em] text-graphite max-lg:text-[clamp(0.95rem,4.2vw,1.6rem)]">
-            {logo.name}
-          </span>
-        </div>
-      ))
+      set.map((logo, i) =>
+        logo.image ? (
+          <div
+            class="reveal-line mr-[clamp(2.5rem,5vw,6rem)] flex h-[clamp(3.5rem,5.4vw,6.75rem)] shrink-0 items-center max-lg:mr-[9vw] max-lg:h-[clamp(2.75rem,13vw,4.5rem)]"
+            aria-hidden={i >= logos.length ? 'true' : undefined}
+          >
+            <Image
+              src={logo.image}
+              alt={i >= logos.length ? '' : logo.name}
+              height={Math.min(logo.image.height, 240)}
+              class="h-[calc(clamp(2.4rem,3.7vw,4.6rem)*var(--logo-scale))] w-auto max-lg:h-[calc(clamp(2rem,9vw,3.1rem)*var(--logo-scale))]"
+              style={`--logo-scale: ${logoScale(logo.image, logo.scale)}`}
+              loading="eager"
+            />
+          </div>
+        ) : (
+          <div
+            class="reveal-line mr-[clamp(2rem,4.2vw,5rem)] flex h-[clamp(3rem,4.8vw,6rem)] shrink-0 items-center gap-[clamp(2rem,4.2vw,5rem)] max-lg:mr-[7vw] max-lg:h-[clamp(2.5rem,12vw,4rem)] max-lg:gap-[7vw]"
+            aria-hidden={i >= logos.length ? 'true' : undefined}
+          >
+            <span class="whitespace-nowrap font-display text-[clamp(1.1rem,2.2vw,2.5rem)] font-medium uppercase leading-none tracking-[0.02em] text-graphite max-lg:text-[clamp(1.25rem,6.2vw,2.25rem)]">
+              {logo.name}
+            </span>
+            <div
+              class="h-[clamp(1.1rem,2.2vw,2.5rem)] w-[clamp(3px,0.25vw,5px)] shrink-0 rounded-full bg-graphite max-lg:h-[clamp(1.25rem,6.2vw,2.25rem)]"
+              aria-hidden="true"
+            >
+            </div>
+          </div>
+        )
+      )
     }
   </div>
 </section>

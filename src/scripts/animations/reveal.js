@@ -149,20 +149,3 @@ export function initImageReveal() {
     );
   });
 }
-
-export function initPhotoTone() {
-  gsap.utils.toArray('[data-photo-tone]').forEach((photo) => {
-    const frame = photo.closest('[data-image-reveal]') ?? photo;
-
-    photo.dataset.inView = 'false';
-
-    ScrollTrigger.create({
-      trigger: frame,
-      start: photo.dataset.toneStart ?? 'top 85%',
-      end: photo.dataset.toneEnd ?? 'bottom 15%',
-      onToggle: (self) => {
-        photo.dataset.inView = String(self.isActive);
-      },
-    });
-  });
-}

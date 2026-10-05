@@ -1,55 +1,55 @@
 ---
-title: 'Zmiany w składce zdrowotnej od 2026 roku'
-lead: 'Sposób liczenia składki zdrowotnej zmienia się na tyle, że warto przeliczyć swoją formę opodatkowania jeszcze przed pierwszą deklaracją w nowym roku.'
+title: 'Zmiany w składce zdrowotnej w 2026 roku: co sprawdzić'
+lead: 'Nowe zasady liczenia składki zdrowotnej widać już w przelewach do ZUS. Warto teraz sprawdzić, jak działają przy Twojej formie opodatkowania, i zaplanować kolejny rok.'
 date: 2026-07-21
 category: 'Podatki'
-readingMinutes: 3
-cover: '../../assets/photos/two-accountants-at-desk.jpg'
-coverAlt: 'Dwie księgowe omawiające rozliczenie przy monitorze'
+readingMinutes: 4
+cover: '../../assets/photos/accountant-seated-with-papers-wide.jpg'
+coverAlt: 'Księgowa w fotelu przy biurku z wydrukami w dłoniach'
 softParallax: true
 featured: true
 ---
 
-Składka zdrowotna od kilku lat jest tym elementem rozliczenia, który najmocniej różnicuje realny koszt prowadzenia firmy przy poszczególnych formach opodatkowania. Zmiana zasad jej liczenia zwykle nie wymaga od przedsiębiorcy żadnego wniosku ani decyzji. Skutek widać dopiero w wysokości przelewu do ZUS oraz w rocznym rozliczeniu, a wtedy na reakcję jest już za późno.
+Od kilku lat to właśnie składka zdrowotna najbardziej różnicuje realny koszt prowadzenia firmy przy poszczególnych formach opodatkowania. Zmiany w składce zdrowotnej w 2026 roku nie wymagały od przedsiębiorców żadnego wniosku ani decyzji. Ich skutek widać w wysokości przelewu do ZUS, a pełny obraz przyjdzie dopiero z rocznym rozliczeniem. Jeżeli poczekasz do tego momentu, na reakcję będzie już za późno.
 
-Poniżej zebraliśmy to, co w praktyce trzeba sprawdzić, żeby nowe zasady nie zaskoczyły Cię w trakcie roku.
+Mamy za sobą pierwszą połowę roku, więc to dobry czas, żeby sprawdzić kilka rzeczy. Zebraliśmy te, które w praktyce decydują o tym, czy nowe zasady zaskoczą Cię jeszcze w tym roku albo przy planowaniu następnego.
 
-## Co dokładnie się zmienia
+## Co się zmienia w składce zdrowotnej
 
-Nowelizacja dotyczy trzech obszarów naraz i właśnie dlatego łatwo o pomyłkę:
+Nowelizacja obejmuje trzy obszary jednocześnie, dlatego łatwo się pomylić:
 
-- podstawy wymiaru składki, czyli tego, od jakiej kwoty składka jest liczona,
-- sposobu rozliczenia różnicy między składkami zapłaconymi w trakcie roku a składką należną za cały rok,
-- zakresu, w jakim zapłaconą składkę można ująć w kosztach albo odliczyć od dochodu.
+- podstawę wymiaru składki, czyli kwotę, od której składkę się liczy,
+- sposób rozliczenia różnicy między składkami zapłaconymi w trakcie roku a składką należną za cały rok,
+- zakres, w jakim zapłaconą składkę można zaliczyć do kosztów albo odliczyć od dochodu.
 
-Każdy z tych punktów działa inaczej przy skali podatkowej, inaczej przy podatku liniowym i jeszcze inaczej przy ryczałcie od przychodów ewidencjonowanych. Porównanie form opodatkowania zrobione rok temu może dziś prowadzić do zupełnie innego wniosku.
+Każdy z tych punktów działa inaczej przy skali podatkowej, inaczej przy podatku liniowym i jeszcze inaczej przy ryczałcie od przychodów ewidencjonowanych. Porównanie form opodatkowania zrobione rok temu może dziś dać zupełnie inny wynik.
 
-## Kogo to dotyczy najbardziej
+## Kogo zmiany dotyczą najbardziej
 
-Z naszych rozmów z klientami wynika, że zmiana jest najbardziej odczuwalna w trzech sytuacjach.
+Z rozmów z naszymi klientami wynika, że zmianę najmocniej odczuwają trzy grupy.
 
-**Firmy o nierównym dochodzie w ciągu roku.** Jeżeli Twoje przychody mocno się wahają, roczne rozliczenie składki może wygenerować niedopłatę w miesiącu, w którym wcale się jej nie spodziewasz.
+Pierwsza to firmy, których dochód w ciągu roku jest nierówny. Jeżeli Twoje przychody mocno się wahają, roczne rozliczenie składki może przynieść niedopłatę w miesiącu, w którym zupełnie się jej nie spodziewasz.
 
-**Jednoosobowe działalności blisko granicy opłacalności ryczałtu.** Przy ryczałcie składka zależy od progu przychodu. Wystarczy jedna duża faktura pod koniec roku, żeby przeskoczyć próg i zapłacić więcej za wszystkie miesiące.
+Druga to jednoosobowe działalności bliskie granicy opłacalności ryczałtu. Na ryczałcie wysokość składki zależy od progu przychodu. Jedna duża faktura pod koniec roku wystarczy, żeby przekroczyć próg i zapłacić więcej za wszystkie miesiące.
 
-**Wspólnicy spółek rozliczający się z kilku źródeł.** Tutaj kolejność ujmowania składki ma realny wpływ na podatek, a błąd bywa widoczny dopiero przy zeznaniu rocznym.
+Trzecia to wspólnicy spółek, którzy rozliczają się z kilku źródeł. U nich kolejność ujmowania składki realnie wpływa na podatek, a błąd często wychodzi dopiero przy zeznaniu rocznym.
 
-## Trzy rzeczy do zrobienia teraz
+## Składka zdrowotna: co zrobić teraz
 
-1. **Przelicz aktualną formę opodatkowania na nowych zasadach.** Nie na prognozie z początku roku, ale na tym, co faktycznie wynika z Twoich dokumentów za pierwsze miesiące.
-2. **Zaplanuj środki na roczne rozliczenie składki.** Traktuj je jak każde inne zobowiązanie o znanym terminie, nie jak niespodziankę.
-3. **Sprawdź, czy Twoja ewidencja pozwala rozdzielić źródła przychodu.** Jeżeli nie, to poprawienie tego w trakcie roku jest znacznie tańsze niż odtwarzanie danych po jego zakończeniu.
+1. Przelicz swoją obecną formę opodatkowania według nowych zasad. Weź pod uwagę to, co faktycznie wynika z Twoich dokumentów za pierwsze miesiące roku, a nie prognozę ze stycznia.
+2. Odłóż pieniądze na roczne rozliczenie składki. To zobowiązanie o znanym terminie, więc zaplanuj je jak każde inne.
+3. Sprawdź, czy Twoja ewidencja pozwala rozdzielić źródła przychodu. Jeżeli nie, poprawienie tego w trakcie roku kosztuje dużo mniej niż odtwarzanie danych po jego zakończeniu.
 
 ## Kiedy warto zmienić formę opodatkowania
 
-Formę opodatkowania wybiera się w terminie ustawowym i przez cały rok nie da się jej dowolnie zmieniać. To znaczy, że decyzja podjęta bez policzenia wariantów zostaje z Tobą na dwanaście miesięcy.
+Formę opodatkowania wybierasz w terminie ustawowym i w trakcie roku nie możesz jej dowolnie zmienić. Decyzja podjęta bez policzenia wariantów zostaje więc z Tobą na dwanaście miesięcy.
 
-Sam rachunek jest prosty w założeniu i pracochłonny w wykonaniu: dla każdego wariantu trzeba policzyć podatek, składkę zdrowotną i składki społeczne razem, a potem porównać sumy. Osobno policzony podatek albo osobno policzona składka prowadzą do złych wniosków, bo te elementy wzajemnie na siebie wpływają.
+Sam rachunek jest prosty w założeniu, ale pracochłonny. Dla każdego wariantu trzeba policzyć razem podatek, składkę zdrowotną i składki społeczne, a potem porównać sumy. Jeżeli policzysz osobno sam podatek albo samą składkę, wyjdzie zły wniosek, bo te elementy wpływają na siebie nawzajem.
 
-## Podsumowanie
+## Godzina liczenia przed decyzją na kolejny rok
 
-Zmiana zasad liczenia składki zdrowotnej nie wymaga od Ciebie żadnego formularza, ale wymaga jednej godziny liczenia. Najlepiej w momencie, w którym masz jeszcze wpływ na wybór formy opodatkowania i na to, jak zaplanujesz przychody w drugiej połowie roku.
+Nowe zasady liczenia składki zdrowotnej nie wymagają od Ciebie żadnego formularza, ale warto poświęcić im godzinę liczenia. Najlepiej teraz, póki masz wpływ na to, jak rozłożysz przychody w drugiej połowie roku, i zanim wybierzesz formę opodatkowania na następny rok.
 
-Jeżeli chcesz mieć to policzone na swoich liczbach, a nie na przykładach z artykułu, napisz do nas. Do porównania wariantów potrzebujemy zwykle danych z kilku ostatnich miesięcy i informacji o planach na kolejne.
+Jeżeli chcesz to mieć policzone na własnych liczbach, a nie na przykładach z artykułu, napisz do nas. Do porównania wariantów zwykle wystarczą nam dane z kilku ostatnich miesięcy i informacja o Twoich planach na kolejne.
 
-Konkretne stawki, progi i terminy sprawdzamy zawsze na aktualnym stanie przepisów w dniu rozliczenia, bo w tym obszarze zmieniają się one częściej niż raz w roku.
+Nie podajemy tu stawek, progów ani terminów, bo w tym obszarze zmieniają się one częściej niż raz w roku. Przy każdym rozliczeniu sprawdzamy je według przepisów aktualnych w danym dniu.

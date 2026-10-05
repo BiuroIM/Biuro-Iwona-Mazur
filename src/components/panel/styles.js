@@ -4,7 +4,7 @@ export const sectionTitle =
   'font-display text-[clamp(1.5rem,2.8vw,3.5rem)] font-medium uppercase leading-[1.05] text-graphite max-lg:text-[clamp(1.3rem,6.5vw,2.5rem)]';
 
 export const label =
-  'block font-display text-[clamp(0.6rem,0.75vw,0.9rem)] font-medium uppercase tracking-[0.25em] text-graphite/60';
+  'block font-display text-[clamp(0.6rem,0.75vw,0.9rem)] font-medium uppercase tracking-[0.03em] text-graphite/60';
 
 export const hint =
   'font-sans text-[clamp(0.8rem,0.9vw,1.05rem)] font-normal leading-[1.5] text-graphite/70 max-lg:text-[clamp(0.8rem,3.2vw,0.95rem)]';
@@ -21,7 +21,7 @@ export const pillGhost =
   'inline-flex h-[3.25rem] shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-ink/25 bg-white px-[clamp(1.3rem,1.8vw,2.4rem)] font-display text-[clamp(0.95rem,1.05vw,1.15rem)] font-medium uppercase leading-none text-graphite outline-none transition-colors duration-300 focus-visible:border-ink disabled:opacity-50 max-lg:h-[2.875rem] max-lg:text-[clamp(0.8rem,3.4vw,1rem)]';
 
 export const smallButton =
-  'inline-flex cursor-pointer items-center justify-center rounded-full border border-ink/25 bg-white px-[clamp(0.8rem,1vw,1.3rem)] py-[clamp(0.4rem,0.5vw,0.65rem)] font-display text-[clamp(0.65rem,0.78vw,0.9rem)] font-medium uppercase tracking-[0.1em] leading-none text-graphite outline-none transition-colors duration-300 focus-visible:border-ink disabled:opacity-50';
+  'inline-flex cursor-pointer items-center justify-center rounded-full border border-ink/25 bg-white px-[clamp(0.8rem,1vw,1.3rem)] py-[clamp(0.4rem,0.5vw,0.65rem)] font-display text-[clamp(0.65rem,0.78vw,0.9rem)] font-medium uppercase tracking-[0.03em] leading-none text-graphite outline-none transition-colors duration-300 focus-visible:border-ink disabled:opacity-50';
 
 export const smallButtonActive = smallButton
   .replace('border-ink/25 bg-white', 'border-ink bg-ink')

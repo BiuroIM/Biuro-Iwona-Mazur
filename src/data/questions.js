@@ -1,29 +1,29 @@
 
 export const questions = [
   {
-    question: 'Ile kosztuje prowadzenie księgowości w Waszym biurze?',
+    question: 'Ile kosztuje księgowość w Waszym biurze?',
     answer:
-      'Cena zależy od formy działalności, liczby dokumentów w miesiącu i tego, czy prowadzimy również kadry. Po krótkiej rozmowie podajemy konkretną, stałą stawkę miesięczną.',
+      'Cena zależy od formy działalności, liczby dokumentów w miesiącu i tego, czy prowadzimy też kadry. Po krótkiej rozmowie podajemy stałą miesięczną stawkę.',
   },
   {
     question: 'Czy muszę dostarczać dokumenty osobiście?',
     answer:
-      'Nie, większość klientów przesyła skany lub zdjęcia dokumentów online. Papierowe faktury możesz dostarczyć raz w miesiącu, jeśli tak wygodniej.',
+      'Nie. Większość klientów przesyła skany albo zdjęcia dokumentów online. Papierowe faktury możesz przynosić raz w miesiącu, jeśli tak Ci wygodniej.',
   },
   {
-    question: 'Jak wygląda przejście z innego biura rachunkowego?',
+    question: 'Jak przenieść księgowość z innego biura rachunkowego?',
     answer:
-      'Przejmujemy dokumentację, weryfikujemy stan rozliczeń i zgłaszamy zmianę pełnomocnictwa w urzędach. Zmiana biura jest możliwa w dowolnym momencie roku.',
+      'Przejmujemy dokumentację, sprawdzamy stan rozliczeń i zgłaszamy w urzędach zmianę pełnomocnictwa. Biuro możesz zmienić w dowolnym momencie roku.',
   },
   {
-    question: 'Czy pomagacie przy zakładaniu działalności?',
+    question: 'Czy pomagacie założyć działalność gospodarczą?',
     answer:
-      'Tak, prowadzimy przez rejestrację, wybór formy opodatkowania i zgłoszenia do ZUS. Doradzamy też, co ma sens na starcie, a co można odłożyć.',
+      'Tak. Pomagamy przy rejestracji, wyborze formy opodatkowania i zgłoszeniu do ZUS. Doradzamy też, co warto zrobić na starcie, a co może poczekać.',
   },
   {
     question: 'Kto odpowiada za błędy w rozliczeniach?',
     answer:
-      'Odpowiadamy za rozliczenia, które prowadzimy, i mamy ubezpieczenie odpowiedzialności cywilnej. Jeśli pojawi się korekta, przygotowujemy ją na swój koszt.',
+      'Za rozliczenia, które prowadzimy, odpowiadamy my. Mamy ubezpieczenie odpowiedzialności cywilnej, a jeśli trzeba złożyć korektę, przygotowujemy ją na własny koszt.',
   },
 ];
 

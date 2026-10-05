@@ -2,23 +2,52 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LogoSlider from '../components/LogoSlider.astro';
 import { questions } from '../data/questions.js';
-import { callback } from '../data/contact.js';
+import { address, callback } from '../data/contact.js';
 import { Image } from 'astro:assets';
 import teamGroup from '../assets/photos/team-group.jpg';
 import reviewingDocuments from '../assets/photos/two-accountants-documents.jpg';
-import openSpaceConversation from '../assets/photos/open-space-conversation.jpg';
+import colleaguesReviewingDocuments from '../assets/photos/three-accountants-discussing-documents.jpg';
+import loungeConversation from '../assets/photos/lounge-conversation-two-women.jpg';
 import clientConversation from '../assets/photos/client-conversation.jpg';
 import accountantAtWorkstation from '../assets/photos/accountant-at-workstation.jpg';
+import officeBuilding from '../assets/photos/office-building-exterior.jpg';
+import consusLogo from '../assets/client-logos/consus.png';
+import fsDrewnoLogo from '../assets/client-logos/fs-drewno.png';
+import ergosolidLogo from '../assets/client-logos/ergosolid.png';
+import fiberNoveltyLogo from '../assets/client-logos/fiber-novelty.png';
+import ralGlassLogo from '../assets/client-logos/r-al-glass.png';
+import greenvitoLogo from '../assets/client-logos/greenvito.png';
+import hotelGoldLogo from '../assets/client-logos/hotel-gold.png';
+import aestheticRevolutionsLogo from '../assets/client-logos/estetyczne-rewolucje.png';
 import HoverLetters from '../components/HoverLetters.astro';
 import { getCollection } from 'astro:content';
 import { formatDateMonthFirst, isoDate, sortPosts } from '../data/blog.js';
 
+const sliderLogos = [
+  { name: 'Consus', image: consusLogo },
+  { name: 'ERGOsolid', image: ergosolidLogo, scale: 1.18 },
+  { name: 'Estetyczne Rewolucje', image: aestheticRevolutionsLogo, scale: 1.15 },
+  { name: 'Fiber Novelty', image: fiberNoveltyLogo },
+  { name: 'FS Drewno', image: fsDrewnoLogo },
+  { name: 'Greenvito', image: greenvitoLogo },
+  { name: 'Hotel Gold', image: hotelGoldLogo },
+  { name: 'R-AL Glass Decor', image: ralGlassLogo },
+];
+
 const clientLogos = [
-  { name: 'Apis Natural Cosmetics' },
+  { name: 'Apis' },
   { name: 'Greenvito' },
   { name: 'EPX' },
   { name: 'Consus' },
   { name: 'ERGOsolid' },
+  { name: 'Hotel Gold' },
+  { name: 'Newman Polska' },
+  { name: 'MSK Investment' },
+  { name: 'TJN Metal' },
+  { name: 'R-AL Glass' },
+  { name: 'Fiber Novelty' },
+  { name: 'TLBrokers' },
+  { name: 'Airs' },
 ];
 
 const logoColumns = [
@@ -68,23 +97,23 @@ const logoAssignment = assignLogos(logoColumns);
 const services = [
   {
     name: 'Księgowość',
-    description: 'Prowadzimy księgi przychodów i rozchodów oraz księgi handlowe, wystawiamy i księgujemy faktury, pilnujemy deklaracji i terminów za Ciebie.',
+    description: 'Prowadzimy KPiR i księgi handlowe, wystawiamy i księgujemy faktury, a o terminach deklaracji pamiętamy za Ciebie, co miesiąc.',
   },
   {
     name: 'Kadry i płace',
-    description: 'Umowy, listy płac, rozliczenia ZUS i pełna dokumentacja pracownicza prowadzone na bieżąco, także wtedy gdy zespół szybko rośnie.',
+    description: 'Przygotowujemy umowy i listy płac, rozliczamy składki ZUS i na bieżąco prowadzimy akta pracowników, także gdy zatrudniasz kolejne osoby.',
   },
   {
     name: 'Doradztwo podatkowe',
-    description: 'Pomagamy wybrać formę opodatkowania i konsultujemy bieżące decyzje finansowe, żeby zmiany przepisów nie zaskakiwały Cię w trakcie roku.',
+    description: 'Pomagamy wybrać formę opodatkowania i doradzamy przy bieżących decyzjach, żeby zmiana przepisów w trakcie roku nie była dla Ciebie zaskoczeniem.',
   },
   {
     name: 'Rozliczenia z ZUS i US',
-    description: 'Składamy deklaracje w terminie i prowadzimy korespondencję z urzędami, przejmując sprawy, które da się załatwić bez Twojego udziału.',
+    description: 'Składamy deklaracje w terminie i odpowiadamy na pisma z urzędów. Sprawy, które da się załatwić bez Twojego udziału, bierzemy na siebie.',
   },
   {
     name: 'Zakładanie i przekształcenia firm',
-    description: 'Rejestrujemy działalność, przeprowadzamy zmianę formy prawnej i dopinamy formalności, od wniosków po zgłoszenia do ZUS i urzędu skarbowego.',
+    description: 'Rejestrujemy działalność i przeprowadzamy zmianę formy prawnej. Wypełniamy wnioski i zgłaszamy firmę do ZUS oraz urzędu skarbowego.',
   },
 ];
 
@@ -99,13 +128,17 @@ const articles = sortPosts(await getCollection('blog')).slice(0, 3);
 
 const numbers = [
   { label: 'Specjalistów w zespole', value: '11' },
-  { label: 'Lata doświadczenia', value: '20+' },
+  { label: 'Lat doświadczenia', value: '20+' },
   { label: 'Dokumentów miesięcznie', value: '12 000' },
-  { label: 'Obsługiwane firmy', value: '80+' },
+  { label: 'Obsługiwanych firm', value: '80+' },
   { label: 'Obsługiwanych branż', value: '15' },
 ];
 ---
-<BaseLayout loadingScreen>
+<BaseLayout
+  loadingScreen
+  title="Biuro rachunkowe w Dębicy"
+  description="Biuro rachunkowe w Dębicy: księgowość, kadry i płace, rozliczenia z ZUS i US oraz doradztwo podatkowe. Umów bezpłatną 30-minutową konsultację."
+>
   <section class="px-[2vw] pt-40 max-lg:px-[4vw] max-lg:pt-28" data-hero>
     <div class="font-display font-medium uppercase leading-[0.85] text-ink max-lg:flex max-lg:flex-col max-lg:gap-0">
       <div class="flex items-end justify-start gap-10 max-lg:contents">
@@ -124,8 +157,8 @@ const numbers = [
           data-delay="0.28"
         >
           <h1 class="text-[clamp(1.25rem,1.6vw,1.75rem)] leading-[1.05] text-graphite">
-            <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Biuro rachunkowe, z</span></span>
-            <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">którym rozwiniesz skrzydła.</span></span>
+            <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Biuro rachunkowe</span></span>
+            <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">w Dębicy dla Twojej firmy.</span></span>
           </h1>
 
           <span class="mt-[clamp(1rem,1.4vw,2rem)] flex w-fit overflow-hidden max-lg:mt-[2vh]">
@@ -135,7 +168,7 @@ const numbers = [
               aria-haspopup="dialog"
               data-open-form
             >
-              <span class="relative z-10 font-display text-[clamp(1rem,1.15vw,1.375rem)] font-normal uppercase transition-all duration-[400ms] group-hover:translate-x-[1.2vw] group-hover:text-ink max-lg:text-[clamp(0.65rem,3.4vw,1.05rem)]">Zapisz się na 30-minutową konsultację</span>
+              <span class="relative z-10 font-display text-[clamp(1rem,1.15vw,1.375rem)] font-normal uppercase transition-all duration-[400ms] group-hover:translate-x-[1.2vw] group-hover:text-ink max-lg:text-[clamp(0.65rem,3.4vw,1.05rem)]">Umów bezpłatną konsultację</span>
               <span class="relative z-0 flex h-[clamp(1.75rem,2vw,2.75rem)] w-[clamp(1.75rem,2vw,2.75rem)] shrink-0 rounded-full bg-canvas transition-transform duration-700 ease-out group-hover:duration-[1600ms] group-hover:scale-[55]"></span>
             </a>
           </span>
@@ -177,19 +210,19 @@ const numbers = [
     </div>
   </section>
 
-  <LogoSlider logos={clientLogos} />
+  <LogoSlider logos={sliderLogos} repeat={2} />
 
   <section
     id="o-nas"
-    class="mt-[10vw] px-[2vw] max-lg:mt-[20vw] max-lg:flex max-lg:flex-col max-lg:gap-[5vw] max-lg:px-[4vw]"
+    class="mt-[10vw] px-[2vw] max-lg:mt-[28vw] max-lg:flex max-lg:flex-col max-lg:gap-[5vw] max-lg:px-[4vw]"
   >
     <h2
       class="font-display text-[clamp(2rem,3.8vw,4.5rem)] font-medium uppercase leading-[1.05] text-graphite max-lg:order-1 max-lg:text-[clamp(1.35rem,6vw,2.25rem)]"
       data-reveal-lines
     >
-      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Prowadzimy nowoczesną</span></span>
-      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">księgowość dla firm</span></span>
-      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">każdej wielkości.</span></span>
+      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Prowadzimy księgi</span></span>
+      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">firm z Dębicy</span></span>
+      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">i okolic.</span></span>
     </h2>
 
     <div class="mt-[2vw] max-lg:order-3 max-lg:mt-0">
@@ -216,8 +249,8 @@ const numbers = [
 
       <div class="relative w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] h-[clamp(15rem,25vw,32rem)] max-lg:order-6 max-lg:h-[52vw]" data-image-reveal>
         <Image
-          src={openSpaceConversation}
-          alt="Rozmowa dwóch księgowych w otwartej przestrzeni biura"
+          src={loungeConversation}
+          alt="Dwie osoby rozmawiają w fotelach w strefie spotkań biura"
           class="parallax-img parallax-img--soft"
           data-parallax
           widths={[640, 1024, 1400]}
@@ -233,11 +266,10 @@ const numbers = [
           data-from="0.3"
           data-to="1"
         >
-          Zajmujemy się pełną obsługą księgową firm, prowadzeniem ksiąg
-          przychodów i rozchodów oraz ksiąg handlowych, rozliczeniami z urzędem
-          skarbowym i ZUS, a także kadrami i płacami. Doradzamy w codziennych
-          decyzjach finansowych, żebyś mógł spokojnie skupić się na rozwijaniu
-          własnego biznesu.
+          Prowadzimy pełną księgowość i księgi przychodów i rozchodów, rozliczamy
+          firmy z urzędem skarbowym i ZUS, zajmujemy się też kadrami i płacami.
+          Pomagamy też przy bieżących decyzjach finansowych, żebyś mógł
+          spokojnie zająć się prowadzeniem firmy.
         </p>
         <div class="relative w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] h-[clamp(15rem,25vw,32rem)] max-lg:order-4 max-lg:h-[52vw]" data-image-reveal>
           <Image
@@ -264,8 +296,8 @@ const numbers = [
         data-end="top top-=30%"
         data-stagger="0"
       >
-        <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Oni nam zaufali</span></span>
-        <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Ty też możesz</span></span>
+        <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Firmy, które</span></span>
+        <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">nam zaufały</span></span>
       </h2>
 
       <div class="absolute inset-x-0 top-0 z-10 flex items-start gap-[1.2vw] px-[2vw]">
@@ -295,14 +327,14 @@ const numbers = [
     </div>
   </section>
 
-  <section class="mt-[20vw] hidden max-lg:block">
+  <section class="mt-[34vw] hidden max-lg:block">
     <h2
       class="px-[4vw] text-right font-display text-[clamp(1.35rem,6vw,2.25rem)] font-medium uppercase leading-[1.05] text-graphite"
       data-reveal-lines
       data-stagger="0"
     >
-      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Oni nam zaufali</span></span>
-      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Ty też możesz</span></span>
+      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Firmy, które</span></span>
+      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">nam zaufały</span></span>
     </h2>
 
     <div
@@ -334,25 +366,43 @@ const numbers = [
     </div>
   </section>
 
-  <section class="relative h-[220vh] max-lg:hidden" data-headline-pin data-stagger="0.5">
+  <section class="relative h-[420vh] max-lg:hidden" data-headline-pin data-stagger="0.5" data-photo-in="2.6" data-out="1.6" data-photo-out="2.6" data-scrub="1.2">
     <div class="sticky top-0 flex h-screen items-center justify-center overflow-hidden px-[2vw] max-lg:px-[4vw]">
-      <h2 class="text-center font-display text-[clamp(2rem,4.5vw,5.5rem)] font-medium uppercase leading-[1.05] text-graphite">
-        <span class="block overflow-hidden -mb-[0.15em]"><span class="headline-line block pb-[0.15em]">Liczby mówią same</span></span>
-        <span class="block overflow-hidden -mb-[0.15em]"><span class="headline-line block pb-[0.15em]">za siebie</span></span>
-      </h2>
+      <div class="flex items-center">
+        <h2 class="shrink-0 text-center font-display text-[clamp(2rem,4.5vw,5.5rem)] font-medium uppercase leading-[1.05] text-graphite">
+          <span class="block overflow-hidden -mb-[0.15em]"><span class="headline-line block pb-[0.15em]">Nasze biuro</span></span>
+          <span class="block overflow-hidden -mb-[0.15em]"><span class="headline-line block pb-[0.15em]">w liczbach</span></span>
+        </h2>
+        <div class="w-0 shrink-0 overflow-hidden" data-headline-photo="width" data-photo-exit>
+          <div class="w-max pl-[4vw]">
+            <div class="relative aspect-[1600/1143] w-[min(46vw,78vh)] overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)]">
+              <Image
+                src={officeBuilding}
+                alt="Budynek biura od strony ulicy"
+                class="h-full w-full object-cover"
+                widths={[640, 1024, 1600]}
+                sizes="46vw"
+              />
+              <address class="absolute bottom-[clamp(0.75rem,1.2vw,1.5rem)] left-[clamp(0.75rem,1.2vw,1.5rem)] rounded-full bg-canvas px-[clamp(0.9rem,1.2vw,1.5rem)] py-[clamp(0.5rem,0.7vw,0.9rem)] font-sans text-[clamp(0.7rem,0.85vw,1.05rem)] font-medium not-italic uppercase leading-[1.1] tracking-[0.08em] text-graphite">
+                {address.label}
+              </address>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <section
-    class="mt-[8vw] py-[10vh] max-lg:mt-[20vw] max-lg:pb-[6vh] max-lg:pt-0"
+    class="mt-[8vw] py-[10vh] max-lg:mt-section-mobile max-lg:pb-[6vh] max-lg:pt-0"
     data-numbers
   >
     <h2
       class="hidden font-display text-[clamp(1.5rem,7vw,2.75rem)] font-medium uppercase leading-[1.05] text-graphite max-lg:mb-[5vw] max-lg:block max-lg:px-[4vw]"
       data-reveal-lines
     >
-      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Liczby mówią same</span></span>
-      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">za siebie</span></span>
+      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Nasze biuro</span></span>
+      <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">w liczbach</span></span>
     </h2>
 
     <div class="border-b border-graphite/30">
@@ -386,8 +436,8 @@ const numbers = [
           data-end="bottom top+=45%"
         >
           <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Szukasz biura</span></span>
-          <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">rachunkowego?</span></span>
-          <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Dobrze trafiłeś.</span></span>
+          <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">rachunkowego</span></span>
+          <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">w Dębicy?</span></span>
         </h2>
 
         <p
@@ -396,9 +446,9 @@ const numbers = [
           data-from="0.3"
           data-to="1"
         >
-          Od jednoosobowej działalności po rozwijającą się firmę, zapewniamy
-          rzetelną obsługę księgową, terminowe rozliczenia i wsparcie, na którym
-          możesz polegać.
+          Obsługujemy jednoosobowe działalności, spółki handlowe i zakłady
+          produkcyjne. Pilnujemy terminów rozliczeń i odpowiadamy na pytania,
+          zanim zamienią się w problem.
         </p>
 
         <div class="mt-[2vw] max-lg:mt-[2vh]">
@@ -476,7 +526,7 @@ const numbers = [
         data-headline-group
       >
         <div class="mb-[clamp(0.75rem,1.4vw,1.75rem)] overflow-hidden">
-          <span class="headline-line block pb-[0.15em] font-display text-[clamp(0.8rem,1vw,1.15rem)] font-medium uppercase tracking-[0.25em] text-canvas/50">Krok 01 / 04</span>
+          <span class="headline-line block pb-[0.15em] font-display text-[clamp(0.8rem,1vw,1.15rem)] font-medium uppercase tracking-[0.03em] text-canvas/50">Krok 01 / 04</span>
         </div>
 
         <h3 class="text-center font-display text-[clamp(1.75rem,4vw,5rem)] font-medium uppercase leading-[1.05] text-canvas max-lg:text-[clamp(1.4rem,7vw,2.75rem)]">
@@ -489,8 +539,8 @@ const numbers = [
             class="mt-[2vw] max-w-[42vw] text-center font-sans text-[clamp(0.95rem,1.1vw,1.25rem)] font-normal leading-[1.4] text-canvas/70 max-lg:mt-[5vw] max-lg:max-w-none"
             data-extra-words
           >
-            Krótka rozmowa wstępna: piszesz albo dzwonisz, my pytamy o kilka
-            podstawowych rzeczy i umawiamy termin spotkania online.
+            Piszesz albo dzwonisz. Zadajemy kilka podstawowych pytań
+            o Twoją firmę i umawiamy termin spotkania online.
           </p>
         </div>
       </div>
@@ -500,7 +550,7 @@ const numbers = [
         data-headline-group
       >
         <div class="mb-[clamp(0.75rem,1.4vw,1.75rem)] overflow-hidden">
-          <span class="headline-line block pb-[0.15em] font-display text-[clamp(0.8rem,1vw,1.15rem)] font-medium uppercase tracking-[0.25em] text-canvas/50">Krok 02 / 04</span>
+          <span class="headline-line block pb-[0.15em] font-display text-[clamp(0.8rem,1vw,1.15rem)] font-medium uppercase tracking-[0.03em] text-canvas/50">Krok 02 / 04</span>
         </div>
 
         <h3 class="text-center font-display text-[clamp(1.75rem,4vw,5rem)] font-medium uppercase leading-[1.05] text-canvas max-lg:text-[clamp(1.4rem,7vw,2.75rem)]">
@@ -513,8 +563,8 @@ const numbers = [
             class="mt-[2vw] max-w-[42vw] text-center font-sans text-[clamp(0.95rem,1.1vw,1.25rem)] font-normal leading-[1.4] text-canvas/70 max-lg:mt-[5vw] max-lg:max-w-none"
             data-extra-words
           >
-            Rozmawiamy o formie działalności, skali obrotów, zatrudnieniu
-            i o tym, co dziś sprawia najwięcej kłopotu. Bez zobowiązań.
+            Rozmawiamy o formie działalności, obrotach, zatrudnieniu i o tym,
+            co dziś sprawia najwięcej kłopotu. Rozmowa do niczego nie zobowiązuje.
           </p>
         </div>
       </div>
@@ -524,7 +574,7 @@ const numbers = [
         data-headline-group
       >
         <div class="mb-[clamp(0.75rem,1.4vw,1.75rem)] overflow-hidden">
-          <span class="headline-line block pb-[0.15em] font-display text-[clamp(0.8rem,1vw,1.15rem)] font-medium uppercase tracking-[0.25em] text-canvas/50">Krok 03 / 04</span>
+          <span class="headline-line block pb-[0.15em] font-display text-[clamp(0.8rem,1vw,1.15rem)] font-medium uppercase tracking-[0.03em] text-canvas/50">Krok 03 / 04</span>
         </div>
 
         <h3 class="text-center font-display text-[clamp(1.75rem,4vw,5rem)] font-medium uppercase leading-[1.05] text-canvas max-lg:text-[clamp(1.4rem,7vw,2.75rem)]">
@@ -537,8 +587,8 @@ const numbers = [
             class="mt-[2vw] max-w-[42vw] text-center font-sans text-[clamp(0.95rem,1.1vw,1.25rem)] font-normal leading-[1.4] text-canvas/70 max-lg:mt-[5vw] max-lg:max-w-none"
             data-extra-words
           >
-            Pokazujemy opcje współpracy razem z ceną i tym, co obejmują.
-            Wybierasz tę, która przy Twojej skali wychodzi najkorzystniej.
+            Przedstawiamy warianty współpracy z ceną i zakresem każdego z nich.
+            Wybierasz ten, który przy Twojej skali wychodzi najkorzystniej.
           </p>
         </div>
       </div>
@@ -548,7 +598,7 @@ const numbers = [
         data-headline-group
       >
         <div class="mb-[clamp(0.75rem,1.4vw,1.75rem)] overflow-hidden">
-          <span class="headline-line block pb-[0.15em] font-display text-[clamp(0.8rem,1vw,1.15rem)] font-medium uppercase tracking-[0.25em] text-canvas/50">Krok 04 / 04</span>
+          <span class="headline-line block pb-[0.15em] font-display text-[clamp(0.8rem,1vw,1.15rem)] font-medium uppercase tracking-[0.03em] text-canvas/50">Krok 04 / 04</span>
         </div>
 
         <h3 class="text-center font-display text-[clamp(1.75rem,4vw,5rem)] font-medium uppercase leading-[1.05] text-canvas max-lg:text-[clamp(1.4rem,7vw,2.75rem)]">
@@ -561,8 +611,8 @@ const numbers = [
             class="mt-[2vw] max-w-[42vw] text-center font-sans text-[clamp(0.95rem,1.1vw,1.25rem)] font-normal leading-[1.4] text-canvas/70 max-lg:mt-[5vw] max-lg:max-w-none"
             data-extra-words
           >
-            Terminy, deklaracje i kontakt z urzędami są po naszej stronie.
-            Odzywamy się wcześniej, nie w dniu upływu terminu.
+            Terminy, deklaracje i kontakt z urzędami bierzemy na siebie.
+            O sprawach, które wymagają Twojej decyzji, mówimy z wyprzedzeniem.
           </p>
         </div>
       </div>
@@ -572,7 +622,7 @@ const numbers = [
         data-headline-group
       >
         <h3 class="text-center font-display text-[clamp(2rem,4.5vw,5.5rem)] font-medium uppercase leading-[1.05] text-canvas max-lg:text-[clamp(1.4rem,6.4vw,3.25rem)]">
-          <span class="block overflow-hidden -mb-[0.15em]"><span class="headline-line block pb-[0.15em]">Gotowy na współpracę?</span></span>
+          <span class="block overflow-hidden -mb-[0.15em]"><span class="headline-line block pb-[0.15em]">Porozmawiajmy o Twojej firmie</span></span>
         </h3>
 
         <div class="pointer-events-auto flex flex-col items-center" data-headline-extra>
@@ -581,7 +631,7 @@ const numbers = [
             data-extra-words
           >
             Wypełnij krótki formularz, a {callback.clause}.
-            Bez zobowiązań i bez zbędnych formalności.
+            Pierwsza rozmowa jest bezpłatna i do niczego nie zobowiązuje.
           </p>
 
           <span class="mt-[clamp(1rem,1.4vw,2rem)] flex overflow-hidden">
@@ -661,7 +711,7 @@ const numbers = [
     </div>
   </section>
 
-  <section class="mt-[12vw] grid grid-cols-[35fr_65fr] items-start gap-[2vw] px-[2vw] max-lg:mt-[20vw] max-lg:grid-cols-1 max-lg:px-[4vw]">
+  <section class="mt-[12vw] grid grid-cols-[35fr_65fr] items-start gap-[2vw] px-[2vw] max-lg:mt-section-mobile max-lg:grid-cols-1 max-lg:px-[4vw]">
     <div
       class="relative aspect-[3/4] w-[65%] overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] max-lg:hidden"
       data-image-reveal
@@ -682,9 +732,24 @@ const numbers = [
         class="font-display text-[clamp(1.5rem,2.8vw,3.5rem)] font-medium uppercase leading-[1.05] text-graphite"
         data-reveal-lines
       >
-        <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Odpowiedzi na pytania,</span></span>
-        <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">które często zadajecie</span></span>
+        <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Pytania o obsługę</span></span>
+        <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">księgową firmy</span></span>
       </h2>
+
+      <div
+        class="relative mt-[5vw] hidden aspect-[16/9] w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)] max-lg:block"
+        data-image-reveal
+      >
+        <Image
+          src={colleaguesReviewingDocuments}
+          alt="Trzy księgowe omawiają dokumenty przy biurku"
+          class="parallax-img parallax-img--soft"
+          data-parallax
+          widths={[640, 1024, 1440]}
+          sizes="92vw"
+        />
+        <div class="reveal-panel absolute inset-0 z-10"></div>
+      </div>
 
       <div class="mt-[1.5vw] border-b border-graphite/25 max-lg:mt-[4vw]">
         {
@@ -744,13 +809,13 @@ const numbers = [
     </div>
   </section>
 
-  <section class="mt-[12vw] px-[2vw] max-lg:mt-[20vw] max-lg:px-[4vw]">
+  <section class="mt-[12vw] px-[2vw] max-lg:mt-section-mobile max-lg:px-[4vw]">
     <div class="flex items-end justify-between gap-[2vw] max-sm:flex-col max-sm:items-start max-sm:gap-[2vh]">
       <h2
         class="font-display text-[clamp(1.5rem,2.8vw,3.5rem)] font-medium uppercase leading-[1.05] text-graphite"
         data-reveal-lines
       >
-        <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Ostatnie artykuły</span></span>
+        <span class="block overflow-hidden -mb-[0.15em]"><span class="reveal-line block pb-[0.15em]">Najnowsze wpisy</span></span>
       </h2>
 
       <a
@@ -769,15 +834,16 @@ const numbers = [
               class="relative aspect-[3/2] w-full overflow-hidden rounded-[clamp(1rem,1.5vw,2rem)]"
               data-image-reveal
             >
-              <Image
-                src={post.data.cover}
-                alt={post.data.coverAlt}
-                class={`parallax-img ${post.data.softParallax ? 'parallax-img--soft' : ''}`}
-                data-parallax
-                data-photo-tone
-                widths={[480, 800, 1200]}
-                sizes="(width < 40rem) 114vw, (width < 64rem) 60vw, 38vw"
-              />
+              <div class="absolute inset-0" data-photo-zoom>
+                <Image
+                  src={post.data.cover}
+                  alt={post.data.coverAlt}
+                  class={`parallax-img ${post.data.softParallax ? 'parallax-img--soft' : ''}`}
+                  data-parallax
+                  widths={[480, 800, 1200]}
+                  sizes="(width < 40rem) 114vw, (width < 64rem) 60vw, 38vw"
+                />
+              </div>
               <div class="reveal-panel absolute inset-0 z-10" />
             </div>
 

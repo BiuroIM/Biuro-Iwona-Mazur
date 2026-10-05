@@ -66,6 +66,15 @@ function restoreStatesAfterRefresh() {
     animation.invalidate();
     animation.progress(1, true).progress(item, true);
   });
+
+  const hasContainerTriggers = ScrollTrigger.getAll().some((st) => st.vars.containerAnimation);
+  if (!hasContainerTriggers) return;
+
+  const y = window.scrollY;
+  window.scrollTo(0, y + 1);
+  ScrollTrigger.update();
+  window.scrollTo(0, y);
+  ScrollTrigger.update();
 }
 
 function clearTiltsBeforeMeasure() {

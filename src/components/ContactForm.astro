@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import FormFields from './FormFields.astro';
 import ArrowButton from './ArrowButton.astro';
 import { address, callback, phone } from '../data/contact.js';
-import meetingRoom from '../assets/photos/meeting-room.jpg';
+import officeInteriorIvy from '../assets/photos/office-interior-ivy-foreground.jpg';
 ---
 <div class="pointer-events-none fixed inset-0 z-[60]" data-form inert>
   <div
@@ -50,8 +50,8 @@ import meetingRoom from '../assets/photos/meeting-room.jpg';
         data-form-field
       >
         <Image
-          src={meetingRoom}
-          alt="Sala spotkań w biurze"
+          src={officeInteriorIvy}
+          alt="Wnętrze biura z bluszczem na pierwszym planie"
           class="h-full w-full object-cover"
           widths={[240, 480, 720, 1024]}
           sizes="(max-width: 640px) 100vw, 240px"
@@ -65,8 +65,8 @@ import meetingRoom from '../assets/photos/meeting-room.jpg';
           data-form-field
         >
           Zostaw kontakt, a {callback.clause} i umówimy bezpłatną rozmowę
-          o Twojej firmie. Bez zobowiązań. Sprawdzimy tylko, jak wygląda dziś
-          Twoja księgowość.
+          o Twojej firmie. Sprawdzimy, jak dziś wygląda Twoja księgowość
+          i co można w niej uprościć.
         </p>
 
         <div
