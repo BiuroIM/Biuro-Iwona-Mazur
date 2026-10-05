@@ -3,6 +3,11 @@
 > Jak pracownik biura dodaje wpis na bloga bez dostępu do kodu i bez znajomości Markdowna.
 > Opis samego bloga i pól wpisu: `BLOG.md`.
 
+> **Stan na 30.09.2026:** `.github/workflows/deploy.yml` został usunięty, bo wdrożenie
+> na home.pl było tymczasowe. Opis publikacji niżej dotyczy tamtego wariantu i zostanie
+> przepisany razem z nowym sposobem wdrożenia. Do tego czasu wpisy z panelu trafiają
+> tylko do Supabase.
+
 ## Skąd ten kształt rozwiązania
 
 Strona jest statyczna. Nie ma serwera, który mógłby pokazać wpis zapisany w bazie,

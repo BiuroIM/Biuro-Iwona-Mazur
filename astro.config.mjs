@@ -8,6 +8,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://biuro-mazur.pl',
+  base: process.env.BASE_PATH || '/',
 
   integrations: [react(), sitemap({ filter: (page) => !page.includes('/panel') })],
 

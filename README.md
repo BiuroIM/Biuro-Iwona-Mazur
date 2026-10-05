@@ -42,13 +42,18 @@ i nie trafia do repozytorium.
 | `npm run build` | buduje gotową stronę do katalogu `dist/` |
 | `npm run preview` | podgląd zbudowanej strony z `dist/` |
 | `npm run sync:blog` | pobiera wpisy opublikowane w panelu z Supabase i zapisuje je jako pliki `.md` |
-| `npm run publish` | wysyłka przez FTP z własnego komputera, zapasowa droga bez GitHuba |
+| `npm run publish` | wysyłka przez FTP z tymczasowego wariantu wdrożenia; nieużywana, do decyzji przy nowym wdrożeniu |
 
 ## Wdrożenie
 
-Każdy push na gałąź `main` uruchamia GitHub Actions (`.github/workflows/deploy.yml`):
-pobranie wpisów z panelu, build i wysyłka przez FTP na home.pl. Ten sam workflow startuje
-po zapisie wpisu w panelu. Szczegóły i sekrety: `PANEL.md`.
+Docelowy sposób wdrożenia na serwer jest **do ustalenia**. Automatyczny deploy na home.pl
+był tymczasowy i został usunięty 30.09.2026. Wpisy dodane w panelu zapisują się w Supabase,
+ale nie pojawiają się na stronie.
+
+Chwilowy podgląd: każdy push na `main` buduje stronę i publikuje ją na GitHub Pages
+(`.github/workflows/preview.yml`) pod adresem https://biuroim.github.io/Biuro-Iwona-Mazur/.
+Strona działa tam w podkatalogu, więc build dostaje `BASE_PATH`, a workflow dopisuje
+prefiks do linków zaczynających się od `/`. Podgląd nie pobiera wpisów z panelu.
 
 ## Struktura projektu
 
