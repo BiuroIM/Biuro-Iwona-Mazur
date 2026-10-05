@@ -33,6 +33,8 @@ const TOOLBAR = [
   { name: 'Link', wrap: ['[', '](https://)'], help: 'Zaznacz tekst i kliknij, potem wpisz adres' },
 ];
 
+const LIMITS = { title: 160, lead: 300, cover_alt: 200, body: 60000 };
+
 const MAX_COVER_BYTES = 8 * 1024 * 1024;
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
@@ -67,11 +69,13 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
     if (!file) return;
 
     if (!ALLOWED_TYPES.includes(file.type)) {
+      event.target.value = '';
       setError('Zdjęcie musi być w formacie JPG, PNG, WEBP albo AVIF.');
       return;
     }
 
     if (file.size > MAX_COVER_BYTES) {
+      event.target.value = '';
       setError('Zdjęcie jest za duże. Maksimum to 8 MB.');
       return;
     }
@@ -148,12 +152,26 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
   };
 
   const validate = () => {
-    if (!draft.title.trim()) return 'Wpis musi mieć tytuł.';
+    const title = draft.title.trim();
+    const lead = draft.lead.trim();
+    const body = draft.body.trim();
+    const coverAlt = draft.cover_alt.trim();
+
+    if (!title) return 'Wpis musi mieć tytuł.';
+    if (title.length < 10) return 'Tytuł jest za krótki. Napisz co najmniej 10 znaków.';
+    if (title.length > LIMITS.title) return `Tytuł jest za długi. Maksimum to ${LIMITS.title} znaków.`;
     if (!slug) return 'Z tytułu nie da się zrobić adresu. Użyj w nim liter albo cyfr.';
-    if (!draft.lead.trim()) return 'Wypełnij wprowadzenie. Pokazuje się na liście wpisów i w Google.';
-    if (!draft.body.trim()) return 'Wpis nie ma treści.';
+    if (!lead) return 'Wypełnij wprowadzenie. Pokazuje się na liście wpisów i w Google.';
+    if (lead.length > LIMITS.lead) return `Wprowadzenie jest za długie. Maksimum to ${LIMITS.lead} znaków.`;
+    if (!CATEGORIES.includes(draft.category)) return 'Wybierz kategorię z listy.';
+    if (!body) return 'Wpis nie ma treści.';
+    if (body.length > LIMITS.body) return `Treść jest za długa. Maksimum to ${LIMITS.body} znaków.`;
+    if (/^# /m.test(body)) return 'Treść nie może mieć nagłówka z jednym znakiem #. Tytuł wpisu dodaje się sam, użyj przycisku Nagłówek sekcji.';
+    if (/\]\(https?:\/\/\)/.test(body)) return 'Jeden z linków nie ma adresu. Wpisz go po https:// w nawiasie.';
+    if (/\]\((?!https?:\/\/|\/|mailto:|tel:|#)[^)]*\)/.test(body)) return 'Adres linku musi zaczynać się od https://.';
     if (!coverFile && !draft.cover_url) return 'Dodaj zdjęcie okładki.';
-    if (!draft.cover_alt.trim()) return 'Opisz zdjęcie. Ten opis czytają czytniki ekranu i Google.';
+    if (!coverAlt) return 'Opisz zdjęcie. Ten opis czytają czytniki ekranu i Google.';
+    if (coverAlt.length > LIMITS.cover_alt) return `Opis zdjęcia jest za długi. Maksimum to ${LIMITS.cover_alt} znaków.`;
     return '';
   };
 
@@ -198,7 +216,7 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
   };
 
   return (
-    <form onSubmit={submit}>
+    <form onSubmit={submit} noValidate>
       <div className="flex items-center justify-between gap-[2vw] max-sm:flex-col max-sm:items-start max-sm:gap-[4vw]">
         <h2 className={sectionTitle}>{isNew ? 'Nowy wpis' : 'Edycja wpisu'}</h2>
 
@@ -217,7 +235,14 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
           <label className={label} htmlFor="post-title">
             Tytuł wpisu
           </label>
-          <input id="post-title" className={field} type="text" value={draft.title} onChange={update('title')} />
+          <input
+            id="post-title"
+            className={field}
+            type="text"
+            maxLength={LIMITS.title}
+            value={draft.title}
+            onChange={update('title')}
+          />
           {!isNew && (
             <p className={`${hint} mt-[clamp(0.5rem,0.7vw,0.9rem)]`}>
               Adres wpisu zostaje bez zmian: /blog/{post.slug}. Zmiana adresu zepsułaby linki, które ktoś już
@@ -233,11 +258,12 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
           <textarea
             id="post-lead"
             className={`${textareaField} min-h-[clamp(4rem,6vw,7rem)]`}
+            maxLength={LIMITS.lead}
             value={draft.lead}
             onChange={update('lead')}
           />
           <p className={`${hint} mt-[clamp(0.5rem,0.7vw,0.9rem)]`}>
-            Jedno albo dwa zdania. Widać je na liście wpisów i w wynikach wyszukiwania.
+            Jedno albo dwa zdania. Widać je na liście wpisów i w wynikach wyszukiwania. {draft.lead.length} / {LIMITS.lead}
           </p>
         </div>
 
@@ -281,6 +307,7 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
             id="post-cover-alt"
             className={field}
             type="text"
+            maxLength={LIMITS.cover_alt}
             value={draft.cover_alt}
             onChange={update('cover_alt')}
           />
@@ -329,6 +356,7 @@ export default function PanelForm({ post, session, onSaved, onCancel }) {
               id="post-body"
               ref={bodyRef}
               className={`${textareaField} min-h-[clamp(18rem,28vw,36rem)]`}
+              maxLength={LIMITS.body}
               placeholder="Zacznij pisać wpis. Nagłówki i pogrubienia dodasz przyciskami wyżej."
               value={draft.body}
               onChange={update('body')}

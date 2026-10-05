@@ -4,10 +4,50 @@ import { getLenis } from './runtime.js';
 let formController = null;
 let pageFormController = null;
 
+const NAME_PATTERN = /^\p{L}[\p{L}\s.'-]*$/u;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[^\s@.]{2,}$/;
+const PHONE_PATTERN = /^\+?[\d\s()-]+$/;
+
+const isPhoneLength = (raw) => {
+  const digits = raw.replace(/\D/g, '');
+  if (raw.startsWith('+')) return digits.length >= 8 && digits.length <= 15;
+  if (digits.startsWith('00')) return digits.length >= 10 && digits.length <= 17;
+  if (digits.startsWith('48') && digits.length === 11) return true;
+  return digits.length === 9;
+};
+
+const tooLong = (value, limit) => (value.length > limit ? `Za długi tekst. Maksimum to ${limit} znaków.` : '');
+
+const LEAD_RULES = {
+  name: (value) => {
+    if (!value) return 'Wpisz imię i nazwisko.';
+    if (value.length < 2) return 'Imię i nazwisko jest za krótkie.';
+    if (!NAME_PATTERN.test(value)) return 'Imię i nazwisko może zawierać tylko litery i spacje.';
+    return tooLong(value, 120);
+  },
+  phone: (value) => {
+    if (!value) return 'Wpisz numer telefonu.';
+    if (!PHONE_PATTERN.test(value)) return 'Numer telefonu może zawierać tylko cyfry, spacje i znak +.';
+    if (!isPhoneLength(value)) return 'Sprawdź numer. Powinien mieć 9 cyfr, np. 600 100 200.';
+    return tooLong(value, 40);
+  },
+  email: (value) => {
+    if (!value) return 'Wpisz adres e-mail.';
+    if (!EMAIL_PATTERN.test(value)) return 'Sprawdź adres e-mail, np. jan.kowalski@firma.pl.';
+    return tooLong(value, 160);
+  },
+  businessForm: (value) => (value ? '' : 'Wybierz formę działalności z listy.'),
+  scope: (value) => tooLong(value, 300),
+  message: (value) => tooLong(value, 2000),
+};
+
 async function sendLead(form) {
   const data = new FormData(form);
   const value = (key) => String(data.get(key) ?? '').trim();
   const optional = (key) => value(key) || null;
+
+  const invalid = Object.entries(LEAD_RULES).some(([key, rule]) => rule(value(key)));
+  if (invalid) return false;
 
   const { supabase } = await import('../../lib/supabaseClient.js');
   if (!supabase) return false;
@@ -15,7 +55,7 @@ async function sendLead(form) {
   const { error } = await supabase.from('leads').insert({
     name: value('name'),
     phone: value('phone'),
-    email: value('email'),
+    email: value('email').toLowerCase(),
     business_form: optional('businessForm'),
     scope: optional('scope'),
     message: optional('message'),
@@ -86,15 +126,80 @@ function bindFormSteps(root, signal) {
     setProgress(index);
   };
 
-  const isStepValid = (step) => {
-    for (const control of step.querySelectorAll('input, textarea, select')) {
-      if (!control.checkValidity()) {
-        control.reportValidity();
-        return false;
-      }
+  const touched = new Set();
+
+  const controlTarget = (control) =>
+    control.closest('[data-select]')?.querySelector('[data-select-trigger]') ?? control;
+
+  const ruledControls = (scope) =>
+    [...scope.querySelectorAll('input, textarea, select')].filter((control) => LEAD_RULES[control.name]);
+
+  const checkControl = (control) => {
+    const message = LEAD_RULES[control.name](control.value.trim());
+    const target = controlTarget(control);
+    const note = root.querySelector(`[data-field-error="${control.name}"]`);
+
+    if (message) {
+      target.setAttribute('aria-invalid', 'true');
+      control.setAttribute('aria-invalid', 'true');
+    } else {
+      target.removeAttribute('aria-invalid');
+      control.removeAttribute('aria-invalid');
     }
-    return true;
+
+    if (note) {
+      if (!note.id) note.id = `${control.id || control.name}-error`;
+      note.textContent = message;
+      note.hidden = !message;
+      if (message) target.setAttribute('aria-describedby', note.id);
+      else target.removeAttribute('aria-describedby');
+    }
+
+    return !message;
   };
+
+  const isStepValid = (step) => {
+    const failed = ruledControls(step).filter((control) => {
+      touched.add(control.name);
+      return !checkControl(control);
+    });
+
+    if (failed.length) controlTarget(failed[0]).focus();
+    return failed.length === 0;
+  };
+
+  const clearErrors = () => {
+    touched.clear();
+    ruledControls(root).forEach((control) => {
+      controlTarget(control).removeAttribute('aria-invalid');
+      controlTarget(control).removeAttribute('aria-describedby');
+      control.removeAttribute('aria-invalid');
+    });
+    root.querySelectorAll('[data-field-error]').forEach((note) => {
+      note.textContent = '';
+      note.hidden = true;
+    });
+  };
+
+  const recheck = (event) => {
+    const control = event.target;
+    if (!LEAD_RULES[control?.name]) return;
+    if (event.type === 'change') touched.add(control.name);
+    if (touched.has(control.name)) checkControl(control);
+  };
+
+  form?.addEventListener('input', recheck, { signal });
+  form?.addEventListener('change', recheck, { signal });
+  form?.addEventListener(
+    'focusout',
+    (event) => {
+      const control = event.target;
+      if (!LEAD_RULES[control?.name] || !control.value.trim()) return;
+      touched.add(control.name);
+      checkControl(control);
+    },
+    { signal }
+  );
 
   root.querySelectorAll('[data-next]').forEach((el) => {
     el.addEventListener(
@@ -167,6 +272,7 @@ function bindFormSteps(root, signal) {
 
   const resetForm = () => {
     form?.reset();
+    clearErrors();
     form?.classList.remove('hidden');
     gsap.set(form, { autoAlpha: 1, y: 0 });
     thanks?.classList.add('hidden');

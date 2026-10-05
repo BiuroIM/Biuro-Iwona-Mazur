@@ -206,3 +206,28 @@ Czego **nie ma**: limitu liczby zgłoszeń na godzinę i captchy. Przy statyczne
 jedno i drugie wymaga czegoś, co odbierze żądanie przed bazą (Edge Function albo Turnstile).
 Do przemyślenia, jeśli zaczną przychodzić śmieci. Sam koszt spamu jest niski: rekord w bazie
 i karta na Teams, bez wysyłki e-maili.
+
+## Walidacja
+
+Formularz ma `novalidate`, więc dymki przeglądarki się nie pokazują. Reguły są w `LEAD_RULES`
+w `src/scripts/animations/forms.js`, a komunikat pojawia się pod polem (`data-field-error`)
+na czerwono, razem z czerwoną linią pola (`aria-invalid`).
+
+| Pole | Reguła |
+| --- | --- |
+| Imię i nazwisko | wymagane, 2 do 120 znaków, tylko litery, spacje, kropka, apostrof i łącznik |
+| Telefon | wymagany, cyfry, spacje, nawiasy i `+`; 9 cyfr, `48` + 9 cyfr albo numer zagraniczny z `+` (8 do 15 cyfr) |
+| E-mail | wymagany, kształt `nazwa@domena.pl`, do 160 znaków, zapisywany małymi literami |
+| Forma działalności | wymagana |
+| Czego potrzebujesz | opcjonalne, do 300 znaków |
+| Wiadomość | opcjonalna, do 2000 znaków |
+
+Pole sprawdza się po wyjściu z niego, jeśli coś wpisano, a po pierwszym błędzie na bieżąco
+przy pisaniu. Przycisk „Dalej” i „Wyślij” sprawdza cały krok i ustawia kursor w pierwszym
+błędnym polu. Te same limity długości pilnuje baza (`leads_*` w `supabase/schema.sql`).
+
+Panel wpisów (`PanelForm.jsx`) sprawdza: tytuł 10 do 160 znaków, wprowadzenie do 300,
+opis zdjęcia do 200, treść do 60 000, kategorię z listy, brak nagłówka `# `, linki bez adresu
+i linki bez `https://`. Odpowiednie constrainty `posts_*` są w `supabase/schema.sql`
+z opcją `not valid`, więc nie ruszają istniejących wpisów. Trzeba je raz uruchomić
+w Supabase (SQL Editor), bo plik nie wykonuje się sam.

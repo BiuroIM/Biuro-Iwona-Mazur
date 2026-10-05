@@ -3,6 +3,8 @@ import { supabase } from '../../lib/supabaseClient.js';
 import { card, field, hint, label, noticeError, pill } from './styles.js';
 import { describeError } from './errors.js';
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[^\s@.]{2,}$/;
+
 export default function PanelLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,10 +13,21 @@ export default function PanelLogin() {
 
   const submit = async (event) => {
     event.preventDefault();
+
+    const address = email.trim().toLowerCase();
+    if (!EMAIL_PATTERN.test(address)) {
+      setError('Wpisz poprawny adres e-mail, np. imie@biuro-mazur.pl.');
+      return;
+    }
+    if (!password) {
+      setError('Wpisz hasło.');
+      return;
+    }
+
     setError('');
     setBusy(true);
 
-    const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
+    const { error: authError } = await supabase.auth.signInWithPassword({ email: address, password });
 
     if (authError) {
       setError(describeError(authError, 'Nie udało się zalogować.'));
@@ -23,7 +36,7 @@ export default function PanelLogin() {
   };
 
   return (
-    <form onSubmit={submit} className={`${card} mx-auto w-[min(28rem,92vw)]`}>
+    <form onSubmit={submit} noValidate className={`${card} mx-auto w-[min(28rem,92vw)]`}>
       <p className={`${hint} text-center`}>
         Zaloguj się danymi, które dostałaś lub dostałeś od administratora strony.
       </p>
@@ -38,6 +51,7 @@ export default function PanelLogin() {
           type="email"
           autoComplete="username"
           placeholder="imie@biuro-mazur.pl"
+          maxLength={160}
           required
           value={email}
           onChange={(event) => setEmail(event.target.value)}

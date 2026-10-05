@@ -21,6 +21,7 @@ const fields = [
     type: 'text',
     autocomplete: 'name',
     placeholder: 'Jan Kowalski',
+    maxlength: 120,
   },
   {
     name: 'phone',
@@ -28,6 +29,7 @@ const fields = [
     type: 'tel',
     autocomplete: 'tel',
     placeholder: '600 100 200',
+    maxlength: 40,
   },
   {
     name: 'email',
@@ -35,6 +37,7 @@ const fields = [
     type: 'email',
     autocomplete: 'email',
     placeholder: 'jan.kowalski@firma.pl',
+    maxlength: 160,
   },
 ];
 
@@ -60,8 +63,8 @@ const labelSize = stepped
 const noteSize = stepped ? 'text-[13px]' : 'text-[clamp(0.8rem,0.9vw,1.05rem)]';
 
 const fieldBase = onLight
-  ? `w-full border-b border-ink/70 font-sans font-normal text-ink outline-none transition-colors duration-300 placeholder:text-ink/55 focus:border-ink ${fieldSize}`
-  : `w-full border-b border-canvas/35 font-sans font-normal text-canvas outline-none transition-colors duration-300 placeholder:text-canvas/40 focus:border-canvas ${fieldSize}`;
+  ? `w-full border-b border-ink/70 font-sans font-normal text-ink outline-none transition-colors duration-300 placeholder:text-ink/55 focus:border-ink aria-invalid:border-alert aria-invalid:focus:border-alert ${fieldSize}`
+  : `w-full border-b border-canvas/35 font-sans font-normal text-canvas outline-none transition-colors duration-300 placeholder:text-canvas/40 focus:border-canvas aria-invalid:border-alert aria-invalid:focus:border-alert ${fieldSize}`;
 const fieldClasses = `${fieldBase} bg-transparent`;
 const selectClasses = `${fieldBase} pt-0`;
 const labelClasses = onLight
@@ -71,12 +74,15 @@ const mutedClasses = onLight ? 'text-ink/85' : 'text-canvas/45';
 const policyLinkClasses = onLight
   ? 'underline decoration-ink/40 underline-offset-[0.2em] transition-colors duration-300 hover:decoration-ink'
   : 'underline decoration-canvas/35 underline-offset-[0.2em] transition-colors duration-300 hover:text-canvas hover:decoration-canvas';
+const errorClasses = `block font-sans font-normal leading-[1.4] text-alert ${noteSize}`;
+const stepErrorClasses = `${errorClasses} mt-[8px]`;
+const rowErrorClasses = `${errorClasses} col-start-2 max-lg:col-start-1`;
 const barClasses = onLight ? 'bg-ink' : 'bg-canvas';
 
 const underlineBase = `relative after:absolute after:bottom-0 after:left-0 after:right-[clamp(1rem,2vw,3rem)] after:h-px after:content-[''] after:transition-colors after:duration-300`;
 const underlineTone = onLight
-  ? 'after:bg-ink/55 focus-within:after:bg-ink'
-  : 'after:bg-canvas/55 focus-within:after:bg-canvas';
+  ? 'after:bg-ink/55 focus-within:after:bg-ink has-aria-invalid:after:bg-alert has-aria-invalid:focus-within:after:bg-alert'
+  : 'after:bg-canvas/55 focus-within:after:bg-canvas has-aria-invalid:after:bg-alert has-aria-invalid:focus-within:after:bg-alert';
 const rowClasses = `${underlineBase} ${underlineTone} grid grid-cols-[minmax(9rem,14vw)_1fr] gap-x-[clamp(1rem,2vw,3rem)] py-[clamp(1rem,1.5vw,2.1rem)] pl-[clamp(1rem,2vw,3rem)] pr-[clamp(0.5rem,1vw,1.5rem)] max-lg:grid-cols-1 max-lg:gap-y-[clamp(0.5rem,2.4vw,1rem)] max-lg:py-[clamp(1.1rem,5vw,1.9rem)] max-lg:pl-0 max-lg:pr-0`;
 const rowLabelClasses = `flex items-baseline gap-[clamp(0.5rem,0.8vw,1rem)] font-sans font-medium max-lg:text-[clamp(0.85rem,3.6vw,1.05rem)] ${
   onLight ? 'text-ink' : 'text-canvas'
@@ -117,7 +123,7 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
   <>
   <div class="flex flex-col gap-[28px]" data-step>
     {
-      fields.map(({ name, label, type, autocomplete, placeholder }) => (
+      fields.map(({ name, label, type, autocomplete, placeholder, maxlength }) => (
         <div data-form-field>
           <label class={labelClasses} for={`${idPrefix}-${name}`}>
             {label}
@@ -128,9 +134,11 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
             type={type}
             autocomplete={autocomplete}
             placeholder={placeholder}
+            maxlength={maxlength}
             required
             class={fieldClasses}
           />
+          <span class={stepErrorClasses} data-field-error={name} hidden />
         </div>
       ))
     }
@@ -152,6 +160,7 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
         triggerClasses={selectClasses}
         required
       />
+      <span class={stepErrorClasses} data-field-error="businessForm" hidden />
     </div>
 
     <div data-form-field>
@@ -161,8 +170,10 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
         name="scope"
         type="text"
         placeholder={scopeHint}
+        maxlength="300"
         class={fieldClasses}
       />
+      <span class={stepErrorClasses} data-field-error="scope" hidden />
     </div>
 
     <div class="mt-[12px] flex items-center justify-between" data-form-field>
@@ -181,7 +192,9 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
         name="message"
         rows="4"
         placeholder={messageHint}
+        maxlength="2000"
         class={`${fieldClasses} resize-none`}></textarea>
+      <span class={stepErrorClasses} data-field-error="message" hidden />
     </div>
 
     <p
@@ -203,7 +216,7 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
   <div class="flex flex-col" data-step>
     <div class="grid grid-cols-2 max-lg:grid-cols-1">
       {
-        fields.map(({ name, label, type, autocomplete, placeholder }) => (
+        fields.map(({ name, label, type, autocomplete, placeholder, maxlength }) => (
           <label
             class={`${rowClasses} items-baseline cursor-text`}
             for={`${idPrefix}-${name}`}
@@ -218,9 +231,11 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
               type={type}
               autocomplete={autocomplete}
               placeholder={placeholder}
+              maxlength={maxlength}
               required
               class={rowFieldClasses}
             />
+            <span class={rowErrorClasses} data-field-error={name} hidden />
           </label>
         ))
       }
@@ -241,6 +256,7 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
           triggerClasses={rowFieldClasses}
           required
         />
+        <span class={rowErrorClasses} data-field-error="businessForm" hidden />
       </div>
 
       <label
@@ -256,8 +272,10 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
           name="scope"
           type="text"
           placeholder={scopeHint}
+          maxlength="300"
           class={rowFieldClasses}
         />
+        <span class={rowErrorClasses} data-field-error="scope" hidden />
       </label>
 
       <label
@@ -273,7 +291,9 @@ const rowFieldClasses = `w-full bg-transparent font-sans font-normal outline-non
           name="message"
           rows="4"
           placeholder={messageHint}
+          maxlength="2000"
           class={`${rowFieldClasses} resize-none`}></textarea>
+        <span class={rowErrorClasses} data-field-error="message" hidden />
       </label>
     </div>
 

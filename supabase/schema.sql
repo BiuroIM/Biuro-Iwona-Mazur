@@ -19,6 +19,19 @@ create table if not exists public.posts (
   updated_at timestamptz not null default now()
 );
 
+alter table public.posts drop constraint if exists posts_title_length;
+alter table public.posts add constraint posts_title_length check (char_length(title) between 10 and 160) not valid;
+alter table public.posts drop constraint if exists posts_lead_length;
+alter table public.posts add constraint posts_lead_length check (char_length(lead) between 1 and 300) not valid;
+alter table public.posts drop constraint if exists posts_body_length;
+alter table public.posts add constraint posts_body_length check (char_length(body) between 1 and 60000) not valid;
+alter table public.posts drop constraint if exists posts_cover_alt_length;
+alter table public.posts add constraint posts_cover_alt_length check (char_length(cover_alt) between 1 and 200) not valid;
+alter table public.posts drop constraint if exists posts_category_allowed;
+alter table public.posts add constraint posts_category_allowed check (category in ('Aktualności', 'Podatki', 'Księgowość', 'Kadry i płace', 'Poradnik')) not valid;
+alter table public.posts drop constraint if exists posts_slug_shape;
+alter table public.posts add constraint posts_slug_shape check (slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$' and char_length(slug) <= 90) not valid;
+
 alter table public.posts enable row level security;
 
 drop policy if exists posts_public_read on public.posts;

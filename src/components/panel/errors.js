@@ -18,6 +18,7 @@ const CODE_MAP = {
   23505: TITLE_TAKEN,
   23502: 'Brakuje wymaganego pola. Uzupełnij wpis i zapisz jeszcze raz.',
   22001: 'Któreś pole jest za długie. Skróć je i zapisz jeszcze raz.',
+  23514: 'Któreś pole ma niedozwoloną długość albo wartość. Sprawdź tytuł, wprowadzenie i opis zdjęcia.',
   42501: NO_PERMISSION,
   PGRST301: SESSION_GONE,
   PGRST116: 'Nie znaleziono wpisu. Odśwież listę wpisów.',
